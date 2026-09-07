@@ -5,202 +5,56 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Eagle PIN 2.0</title>
   <meta http-equiv="refresh" content="60">
-
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       margin: 0;
       background: #0b0d10;
       color: #f5f7fa;
     }
-
     .wrap {
-      max-width: 1100px;
+      max-width: 900px;
       margin: 0 auto;
       padding: 24px;
     }
-
     h1 {
       margin-bottom: 4px;
     }
-
-    h2 {
-      margin-top: 0;
-    }
-
     .updated {
       color: #9aa4b2;
       margin-bottom: 24px;
     }
-
-    .table-wrap {
-      overflow-x: auto;
-      border-radius: 12px;
-    }
-
     table {
       width: 100%;
       border-collapse: collapse;
       background: #13171c;
-      min-width: 760px;
+      border-radius: 12px;
+      overflow: hidden;
     }
-
     th, td {
       padding: 14px 16px;
       text-align: left;
       border-bottom: 1px solid #242a31;
-      white-space: nowrap;
     }
-
     th {
       color: #aab4c0;
       font-weight: 600;
     }
-
     tr:last-child td {
       border-bottom: none;
     }
-
-    .trend-card {
-      margin-top: 28px;
-      background: #13171c;
-      border: 1px solid #242a31;
-      border-radius: 16px;
-      padding: 20px;
-    }
-
-    .controls {
-      display: grid;
-      grid-template-columns: 1fr 150px auto;
-      gap: 12px;
-      margin: 18px 0 22px;
-    }
-
-    select, button {
-      background: #0b0d10;
-      color: #f5f7fa;
-      border: 1px solid #303741;
-      border-radius: 9px;
-      padding: 11px 12px;
-      font-size: 14px;
-    }
-
-    .periods {
-      display: flex;
-      gap: 6px;
-    }
-
-    .period-btn {
-      cursor: pointer;
-    }
-
-    .period-btn.active {
-      background: #f5f7fa;
-      color: #0b0d10;
-    }
-
-    .trend-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      align-items: flex-end;
-      margin-bottom: 12px;
-    }
-
-    .trend-model {
-      color: #aab4c0;
-      font-size: 14px;
-    }
-
-    .trend-price {
-      font-size: 34px;
-      font-weight: 700;
-      margin-top: 3px;
-    }
-
-    .trend-change {
-      font-size: 18px;
-      font-weight: 650;
-    }
-
-    .up {
-      color: #35d07f;
-    }
-
-    .down {
-      color: #ff5f68;
-    }
-
-    .flat {
-      color: #9aa4b2;
-    }
-
-    .chart-wrap {
-      height: 280px;
-      position: relative;
-      margin-top: 18px;
-    }
-
-    canvas {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-
-    .empty {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #77818d;
-      text-align: center;
-    }
-
     .footer {
       margin-top: 18px;
       color: #6f7a87;
       font-size: 13px;
     }
-
-    @media (max-width: 720px) {
-      .wrap {
-        padding: 16px;
-      }
-
-      .controls {
-        grid-template-columns: 1fr;
-      }
-
-      .periods {
-        width: 100%;
-      }
-
-      .period-btn {
-        flex: 1;
-      }
-
-      .trend-top {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .chart-wrap {
-        height: 220px;
-      }
-    }
   </style>
 </head>
-
 <body>
-<div class="wrap">
-  <h1>🦅 Eagle PIN 2.0</h1>
-  <div class="updated">Laatste update: 2026-09-07 22:51</div>
+  <div class="wrap">
+    <h1>🦅 Eagle PIN 2.0</h1>
+    <div class="updated">Laatste update: 2026-09-07 23:06</div>
 
-  <div class="table-wrap">
     <table>
       <thead>
         <tr>
@@ -208,9 +62,6 @@
           <th>Opslag</th>
           <th>Verkoop laag</th>
           <th>Verkoop hoog</th>
-          <th>Mediaan</th>
-          <th>Listings</th>
-          <th>Zekerheid</th>
         </tr>
       </thead>
       <tbody>
@@ -220,9 +71,6 @@
           <td>128GB</td>
           <td>€310</td>
           <td>€330</td>
-          <td>€325</td>
-          <td>8</td>
-          <td>MEDIUM</td>
         </tr>
         
 
@@ -231,9 +79,6 @@
           <td>256GB</td>
           <td>€325</td>
           <td>€345</td>
-          <td>€340</td>
-          <td>7</td>
-          <td>LOW</td>
         </tr>
         
 
@@ -242,9 +87,6 @@
           <td>128GB</td>
           <td>€310</td>
           <td>€330</td>
-          <td>€325</td>
-          <td>9</td>
-          <td>MEDIUM</td>
         </tr>
         
 
@@ -253,9 +95,6 @@
           <td>256GB</td>
           <td>€305</td>
           <td>€325</td>
-          <td>€320</td>
-          <td>5</td>
-          <td>LOW</td>
         </tr>
         
 
@@ -264,9 +103,6 @@
           <td>128GB</td>
           <td>€335</td>
           <td>€355</td>
-          <td>€350</td>
-          <td>16</td>
-          <td>HIGH</td>
         </tr>
         
 
@@ -275,9 +111,6 @@
           <td>256GB</td>
           <td>€375</td>
           <td>€395</td>
-          <td>€390</td>
-          <td>4</td>
-          <td>LOW</td>
         </tr>
         
 
@@ -286,9 +119,6 @@
           <td>128GB</td>
           <td>€410</td>
           <td>€430</td>
-          <td>€428</td>
-          <td>16</td>
-          <td>HIGH</td>
         </tr>
         
 
@@ -297,9 +127,6 @@
           <td>128GB</td>
           <td>€460</td>
           <td>€480</td>
-          <td>€478</td>
-          <td>17</td>
-          <td>HIGH</td>
         </tr>
         
 
@@ -308,9 +135,6 @@
           <td>256GB</td>
           <td>€485</td>
           <td>€505</td>
-          <td>€499</td>
-          <td>6</td>
-          <td>LOW</td>
         </tr>
         
 
@@ -319,324 +143,14 @@
           <td>256GB</td>
           <td>€485</td>
           <td>€505</td>
-          <td>€500</td>
-          <td>5</td>
-          <td>LOW</td>
         </tr>
         
       </tbody>
     </table>
+
+    <div class="footer">
+      Automatisch gegenereerd vanuit Eagle PIN 2.0.
+    </div>
   </div>
-
-  <section class="trend-card">
-    <h2>Trend Analyzer</h2>
-
-    <div class="controls">
-      <select id="modelSelect"></select>
-      <select id="storageSelect"></select>
-
-      <div class="periods">
-        <button class="period-btn active" data-hours="24">24H</button>
-        <button class="period-btn" data-hours="168">7D</button>
-        <button class="period-btn" data-hours="720">30D</button>
-      </div>
-    </div>
-
-    <div class="trend-top">
-      <div>
-        <div class="trend-model" id="trendLabel">—</div>
-        <div class="trend-price" id="currentPrice">—</div>
-      </div>
-
-      <div class="trend-change flat" id="trendChange">
-        Nog onvoldoende data
-      </div>
-    </div>
-
-    <div class="chart-wrap">
-      <canvas id="trendChart"></canvas>
-      <div class="empty" id="emptyState">
-        Historie wordt opgebouwd…
-      </div>
-    </div>
-  </section>
-
-  <div class="footer">
-    Automatisch gegenereerd vanuit Eagle PIN 2.0.
-  </div>
-</div>
-
-<script>
-const trendData = {"pin_13pro_market": {"128": [{"captured_at": "2026-09-07T22:22:08", "median": 32500, "low": 31000, "high": 33000, "listings": 8, "confidence": "MEDIUM"}, {"captured_at": "2026-09-07T22:51:41", "median": 32500, "low": 31000, "high": 33000, "listings": 8, "confidence": "MEDIUM"}], "256": [{"captured_at": "2026-09-07T22:22:08", "median": 34000, "low": 32500, "high": 34500, "listings": 7, "confidence": "LOW"}, {"captured_at": "2026-09-07T22:51:41", "median": 34000, "low": 32500, "high": 34500, "listings": 7, "confidence": "LOW"}]}, "pin_13promax_market": {"128": [{"captured_at": "2026-09-07T22:22:08", "median": 32500, "low": 31000, "high": 33000, "listings": 9, "confidence": "MEDIUM"}, {"captured_at": "2026-09-07T22:51:41", "median": 32500, "low": 31000, "high": 33000, "listings": 9, "confidence": "MEDIUM"}], "256": [{"captured_at": "2026-09-07T22:22:08", "median": 32000, "low": 30500, "high": 32500, "listings": 5, "confidence": "LOW"}, {"captured_at": "2026-09-07T22:51:41", "median": 32000, "low": 30500, "high": 32500, "listings": 5, "confidence": "LOW"}]}, "pin_14pro_market": {"128": [{"captured_at": "2026-09-07T22:22:08", "median": 35000, "low": 33500, "high": 35500, "listings": 16, "confidence": "HIGH"}, {"captured_at": "2026-09-07T22:51:41", "median": 35000, "low": 33500, "high": 35500, "listings": 16, "confidence": "HIGH"}], "256": [{"captured_at": "2026-09-07T22:22:08", "median": 39000, "low": 37500, "high": 39500, "listings": 4, "confidence": "LOW"}, {"captured_at": "2026-09-07T22:51:41", "median": 39000, "low": 37500, "high": 39500, "listings": 4, "confidence": "LOW"}]}, "pin_14promax_market": {"128": [{"captured_at": "2026-09-07T22:22:08", "median": 42750, "low": 41000, "high": 43000, "listings": 16, "confidence": "HIGH"}, {"captured_at": "2026-09-07T22:51:41", "median": 42750, "low": 41000, "high": 43000, "listings": 16, "confidence": "HIGH"}]}, "pin_15pro_market": {"128": [{"captured_at": "2026-09-07T22:22:08", "median": 47750, "low": 46000, "high": 48000, "listings": 17, "confidence": "HIGH"}, {"captured_at": "2026-09-07T22:51:41", "median": 47750, "low": 46000, "high": 48000, "listings": 17, "confidence": "HIGH"}], "256": [{"captured_at": "2026-09-07T22:22:08", "median": 49900, "low": 48500, "high": 50500, "listings": 6, "confidence": "LOW"}, {"captured_at": "2026-09-07T22:51:41", "median": 49900, "low": 48500, "high": 50500, "listings": 6, "confidence": "LOW"}]}, "pin_15promax_market": {"256": [{"captured_at": "2026-09-07T22:22:08", "median": 50000, "low": 48500, "high": 50500, "listings": 5, "confidence": "LOW"}, {"captured_at": "2026-09-07T22:51:41", "median": 50000, "low": 48500, "high": 50500, "listings": 5, "confidence": "LOW"}]}};
-const available = [{"search_id": "pin_13pro_market", "model": "iPhone 13 Pro", "storage": 128, "storage_label": "128GB"}, {"search_id": "pin_13pro_market", "model": "iPhone 13 Pro", "storage": 256, "storage_label": "256GB"}, {"search_id": "pin_13promax_market", "model": "iPhone 13 Pro Max", "storage": 128, "storage_label": "128GB"}, {"search_id": "pin_13promax_market", "model": "iPhone 13 Pro Max", "storage": 256, "storage_label": "256GB"}, {"search_id": "pin_14pro_market", "model": "iPhone 14 Pro", "storage": 128, "storage_label": "128GB"}, {"search_id": "pin_14pro_market", "model": "iPhone 14 Pro", "storage": 256, "storage_label": "256GB"}, {"search_id": "pin_14promax_market", "model": "iPhone 14 Pro Max", "storage": 128, "storage_label": "128GB"}, {"search_id": "pin_15pro_market", "model": "iPhone 15 Pro", "storage": 128, "storage_label": "128GB"}, {"search_id": "pin_15pro_market", "model": "iPhone 15 Pro", "storage": 256, "storage_label": "256GB"}, {"search_id": "pin_15promax_market", "model": "iPhone 15 Pro Max", "storage": 256, "storage_label": "256GB"}];
-
-let selectedHours = 24;
-
-const modelSelect = document.getElementById("modelSelect");
-const storageSelect = document.getElementById("storageSelect");
-const trendLabel = document.getElementById("trendLabel");
-const currentPrice = document.getElementById("currentPrice");
-const trendChange = document.getElementById("trendChange");
-const canvas = document.getElementById("trendChart");
-const emptyState = document.getElementById("emptyState");
-
-const models = [...new Set(available.map(x => x.model))];
-
-models.forEach(model => {
-  const option = document.createElement("option");
-  option.value = model;
-  option.textContent = model;
-  modelSelect.appendChild(option);
-});
-
-function combosForModel(model) {
-  return available.filter(x => x.model === model);
-}
-
-function populateStorages() {
-  storageSelect.innerHTML = "";
-
-  const combos = combosForModel(modelSelect.value);
-
-  combos.forEach(item => {
-    const option = document.createElement("option");
-    option.value = item.storage;
-    option.textContent = item.storage_label;
-    storageSelect.appendChild(option);
-  });
-
-  renderTrend();
-}
-
-function getSelectedCombo() {
-  return available.find(
-    x =>
-      x.model === modelSelect.value &&
-      String(x.storage) === String(storageSelect.value)
-  );
-}
-
-function historyForPeriod(combo) {
-  const all =
-    trendData[combo.search_id]?.[String(combo.storage)] || [];
-
-  if (!all.length) return [];
-
-  const newest = new Date(all[all.length - 1].captured_at);
-  const cutoff = new Date(
-    newest.getTime() - selectedHours * 60 * 60 * 1000
-  );
-
-  return all.filter(
-    point => new Date(point.captured_at) >= cutoff
-  );
-}
-
-function money(value) {
-  return "€" + (value / 100).toFixed(
-    value % 100 === 0 ? 0 : 2
-  );
-}
-
-function renderTrend() {
-  const combo = getSelectedCombo();
-
-  if (!combo) return;
-
-  const history = historyForPeriod(combo);
-
-  trendLabel.textContent =
-    `${combo.model} · ${combo.storage_label}`;
-
-  if (!history.length) {
-    currentPrice.textContent = "—";
-    trendChange.textContent = "Nog onvoldoende data";
-    trendChange.className = "trend-change flat";
-    showEmpty();
-    return;
-  }
-
-  const latest = history[history.length - 1];
-  currentPrice.textContent = money(latest.median);
-
-  if (history.length < 2) {
-    trendChange.textContent = "Nog onvoldoende data";
-    trendChange.className = "trend-change flat";
-    showEmpty();
-    return;
-  }
-
-  const first = history[0];
-  const diff = latest.median - first.median;
-  const pct = first.median
-    ? (diff / first.median) * 100
-    : 0;
-
-  if (diff > 0) {
-    trendChange.textContent =
-      `↑ +${money(diff)} (+${pct.toFixed(1)}%)`;
-    trendChange.className = "trend-change up";
-  } else if (diff < 0) {
-    trendChange.textContent =
-      `↓ -${money(Math.abs(diff))} (${pct.toFixed(1)}%)`;
-    trendChange.className = "trend-change down";
-  } else {
-    trendChange.textContent = "→ €0 (0.0%)";
-    trendChange.className = "trend-change flat";
-  }
-
-  drawChart(history, diff);
-}
-
-function showEmpty() {
-  emptyState.style.display = "flex";
-  canvas.style.display = "none";
-}
-
-function drawChart(history, diff) {
-  emptyState.style.display = "none";
-  canvas.style.display = "block";
-
-  const rect = canvas.getBoundingClientRect();
-  const dpr = window.devicePixelRatio || 1;
-
-  canvas.width = rect.width * dpr;
-  canvas.height = rect.height * dpr;
-
-  const ctx = canvas.getContext("2d");
-  ctx.scale(dpr, dpr);
-
-  const width = rect.width;
-  const height = rect.height;
-
-  const padding = {
-    left: 48,
-    right: 14,
-    top: 16,
-    bottom: 28
-  };
-
-  const values = history.map(x => x.median / 100);
-
-  let min = Math.min(...values);
-  let max = Math.max(...values);
-
-  if (min === max) {
-    min -= 5;
-    max += 5;
-  }
-
-  const range = max - min;
-  min -= range * 0.12;
-  max += range * 0.12;
-
-  ctx.clearRect(0, 0, width, height);
-
-  ctx.strokeStyle = "#242a31";
-  ctx.lineWidth = 1;
-
-  for (let i = 0; i <= 4; i++) {
-    const y =
-      padding.top +
-      ((height - padding.top - padding.bottom) / 4) * i;
-
-    ctx.beginPath();
-    ctx.moveTo(padding.left, y);
-    ctx.lineTo(width - padding.right, y);
-    ctx.stroke();
-  }
-
-  ctx.fillStyle = "#77818d";
-  ctx.font = "11px -apple-system, sans-serif";
-
-  for (let i = 0; i <= 4; i++) {
-    const value =
-      max - ((max - min) / 4) * i;
-
-    const y =
-      padding.top +
-      ((height - padding.top - padding.bottom) / 4) * i;
-
-    ctx.fillText(
-      "€" + value.toFixed(0),
-      4,
-      y + 4
-    );
-  }
-
-  const points = history.map((point, index) => {
-    const x =
-      padding.left +
-      (
-        (width - padding.left - padding.right) *
-        index /
-        Math.max(history.length - 1, 1)
-      );
-
-    const value = point.median / 100;
-
-    const y =
-      padding.top +
-      (
-        (max - value) /
-        (max - min)
-      ) *
-      (height - padding.top - padding.bottom);
-
-    return {x, y};
-  });
-
-  const lineColor =
-    diff > 0
-      ? "#35d07f"
-      : diff < 0
-      ? "#ff5f68"
-      : "#9aa4b2";
-
-  ctx.strokeStyle = lineColor;
-  ctx.lineWidth = 2.5;
-  ctx.lineJoin = "round";
-  ctx.lineCap = "round";
-
-  ctx.beginPath();
-
-  points.forEach((p, i) => {
-    if (i === 0) ctx.moveTo(p.x, p.y);
-    else ctx.lineTo(p.x, p.y);
-  });
-
-  ctx.stroke();
-
-  const last = points[points.length - 1];
-
-  ctx.fillStyle = lineColor;
-  ctx.beginPath();
-  ctx.arc(last.x, last.y, 4, 0, Math.PI * 2);
-  ctx.fill();
-}
-
-modelSelect.addEventListener("change", populateStorages);
-storageSelect.addEventListener("change", renderTrend);
-
-document.querySelectorAll(".period-btn").forEach(button => {
-  button.addEventListener("click", () => {
-    document.querySelectorAll(".period-btn")
-      .forEach(x => x.classList.remove("active"));
-
-    button.classList.add("active");
-
-    selectedHours = Number(button.dataset.hours);
-
-    renderTrend();
-  });
-});
-
-window.addEventListener("resize", renderTrend);
-
-if (models.length) {
-  modelSelect.value = models[0];
-  populateStorages();
-}
-</script>
 </body>
 </html>
