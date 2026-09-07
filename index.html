@@ -1,60 +1,376 @@
 <!doctype html>
 <html lang="nl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Eagle PIN 2.0</title>
-  <meta http-equiv="refresh" content="60">
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      margin: 0;
-      background: #0b0d10;
-      color: #f5f7fa;
-    }
-    .wrap {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 24px;
-    }
-    h1 {
-      margin-bottom: 4px;
-    }
-    .updated {
-      color: #9aa4b2;
-      margin-bottom: 24px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: #13171c;
-      border-radius: 12px;
-      overflow: hidden;
-    }
-    th, td {
-      padding: 14px 16px;
-      text-align: left;
-      border-bottom: 1px solid #242a31;
-    }
-    th {
-      color: #aab4c0;
-      font-weight: 600;
-    }
-    tr:last-child td {
-      border-bottom: none;
-    }
-    .footer {
-      margin-top: 18px;
-      color: #6f7a87;
-      font-size: 13px;
-    }
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <h1>🦅 Eagle PIN 2.0</h1>
-    <div class="updated">Laatste update: 2026-09-07 23:36</div>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eagle PIN</title>
 
+<style>
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #080b0f;
+  --panel: #11161c;
+  --panel-2: #151b22;
+  --line: #242c35;
+  --text: #f4f7fa;
+  --muted: #87919d;
+  --accent: #7fb3ff;
+  --green: #35d07f;
+  --red: #ff5f68;
+  --amber: #e7b75d;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(127,179,255,0.06), transparent 28%),
+    var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px 22px 40px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+  margin-bottom: 30px;
+}
+
+.brand {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.logo {
+  font-size: 34px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 30px;
+  letter-spacing: -0.8px;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin-top: 4px;
+  font-size: 14px;
+}
+
+.status {
+  text-align: right;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.live {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--green);
+  font-weight: 700;
+  letter-spacing: .4px;
+  margin-bottom: 5px;
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--green);
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(53,208,127,.7);
+}
+
+.section-label {
+  margin: 0 0 10px;
+  color: #9ba7b4;
+  font-size: 12px;
+  letter-spacing: 1.6px;
+  font-weight: 800;
+}
+
+.table-wrap {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  min-width: 790px;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  white-space: nowrap;
+}
+
+th {
+  color: #9da8b5;
+  font-weight: 650;
+  font-size: 13px;
+}
+
+td {
+  font-size: 14px;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+.badge {
+  display: inline-block;
+  padding: 5px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .4px;
+}
+
+.badge.high {
+  color: var(--green);
+  background: rgba(53,208,127,.10);
+  border: 1px solid rgba(53,208,127,.22);
+}
+
+.badge.medium {
+  color: var(--amber);
+  background: rgba(231,183,93,.10);
+  border: 1px solid rgba(231,183,93,.22);
+}
+
+.badge.low {
+  color: var(--red);
+  background: rgba(255,95,104,.09);
+  border: 1px solid rgba(255,95,104,.20);
+}
+
+.trend-card {
+  margin-top: 30px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.trend-head {
+  padding: 20px 20px 0;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) 180px auto;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+select {
+  width: 100%;
+  min-height: 50px;
+  background: #0b1015;
+  color: var(--text);
+  border: 1px solid #303945;
+  border-radius: 11px;
+  padding: 0 14px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.periods {
+  display: flex;
+  border: 1px solid #303945;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.period-btn {
+  border: 0;
+  border-right: 1px solid #303945;
+  background: #0b1015;
+  color: #a5afba;
+  min-width: 58px;
+  min-height: 50px;
+  padding: 0 16px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.period-btn:last-child {
+  border-right: 0;
+}
+
+.period-btn.active {
+  background: #eef3f8;
+  color: #0a0d11;
+  font-weight: 700;
+}
+
+.market-summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 20px 10px;
+  align-items: flex-end;
+}
+
+.market-name {
+  color: #9da8b5;
+  font-size: 14px;
+}
+
+.big-price {
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -1.2px;
+  margin-top: 2px;
+}
+
+.change {
+  font-size: 20px;
+  font-weight: 750;
+  text-align: right;
+}
+
+.change.up {
+  color: var(--green);
+}
+
+.change.down {
+  color: var(--red);
+}
+
+.change.flat {
+  color: var(--muted);
+}
+
+.period-note {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.meta-row {
+  padding: 0 20px 18px;
+  color: #8d98a4;
+  font-size: 13px;
+}
+
+.chart-wrap {
+  position: relative;
+  height: 310px;
+  border-top: 1px solid var(--line);
+  padding: 14px 14px 6px;
+  background: linear-gradient(180deg, rgba(255,255,255,.01), rgba(255,255,255,0));
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: pan-y;
+  cursor: crosshair;
+}
+
+.empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7b8692;
+  text-align: center;
+  padding: 24px;
+}
+
+.footer {
+  margin-top: 18px;
+  color: #646f7b;
+  font-size: 12px;
+}
+
+@media (max-width: 760px) {
+  .wrap {
+    padding: 18px 14px 32px;
+  }
+
+  .topbar {
+    flex-direction: column;
+  }
+
+  .status {
+    text-align: left;
+  }
+
+  .controls {
+    grid-template-columns: 1fr;
+  }
+
+  .periods {
+    height: 42px;
+  }
+
+  .period-btn {
+    flex: 1;
+  }
+
+  .market-summary {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .change {
+    text-align: left;
+  }
+
+  .chart-wrap {
+    height: 250px;
+  }
+
+  .big-price {
+    font-size: 34px;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="brand">
+      <div class="logo">🦅</div>
+      <div>
+        <h1>EAGLE PIN</h1>
+        <div class="subtitle">iPhone Resale Market Intelligence</div>
+      </div>
+    </div>
+
+    <div class="status">
+      <div class="live"><span class="live-dot"></span> LIVE</div>
+      <div>Updated 2026-09-07 23:48</div>
+    </div>
+  </div>
+
+  <div class="section-label">MARKET SNAPSHOT</div>
+
+  <div class="table-wrap">
     <table>
       <thead>
         <tr>
@@ -62,6 +378,9 @@
           <th>Opslag</th>
           <th>Verkoop laag</th>
           <th>Verkoop hoog</th>
+          <th>Mediaan</th>
+          <th>Listings</th>
+          <th>Zekerheid</th>
         </tr>
       </thead>
       <tbody>
@@ -71,6 +390,9 @@
           <td>128GB</td>
           <td>€310</td>
           <td>€330</td>
+          <td>€325</td>
+          <td>8</td>
+          <td><span class="badge medium">MEDIUM</span></td>
         </tr>
         
 
@@ -79,6 +401,9 @@
           <td>256GB</td>
           <td>€325</td>
           <td>€345</td>
+          <td>€340</td>
+          <td>7</td>
+          <td><span class="badge low">LOW</span></td>
         </tr>
         
 
@@ -87,6 +412,9 @@
           <td>128GB</td>
           <td>€310</td>
           <td>€330</td>
+          <td>€325</td>
+          <td>9</td>
+          <td><span class="badge medium">MEDIUM</span></td>
         </tr>
         
 
@@ -95,6 +423,9 @@
           <td>256GB</td>
           <td>€305</td>
           <td>€325</td>
+          <td>€320</td>
+          <td>5</td>
+          <td><span class="badge low">LOW</span></td>
         </tr>
         
 
@@ -103,6 +434,9 @@
           <td>128GB</td>
           <td>€335</td>
           <td>€355</td>
+          <td>€350</td>
+          <td>16</td>
+          <td><span class="badge high">HIGH</span></td>
         </tr>
         
 
@@ -111,6 +445,9 @@
           <td>256GB</td>
           <td>€375</td>
           <td>€395</td>
+          <td>€390</td>
+          <td>4</td>
+          <td><span class="badge low">LOW</span></td>
         </tr>
         
 
@@ -119,6 +456,9 @@
           <td>128GB</td>
           <td>€410</td>
           <td>€430</td>
+          <td>€428</td>
+          <td>16</td>
+          <td><span class="badge high">HIGH</span></td>
         </tr>
         
 
@@ -127,6 +467,9 @@
           <td>128GB</td>
           <td>€460</td>
           <td>€480</td>
+          <td>€475</td>
+          <td>18</td>
+          <td><span class="badge high">HIGH</span></td>
         </tr>
         
 
@@ -135,6 +478,9 @@
           <td>256GB</td>
           <td>€485</td>
           <td>€505</td>
+          <td>€499</td>
+          <td>6</td>
+          <td><span class="badge low">LOW</span></td>
         </tr>
         
 
@@ -143,14 +489,640 @@
           <td>256GB</td>
           <td>€485</td>
           <td>€505</td>
+          <td>€500</td>
+          <td>5</td>
+          <td><span class="badge low">LOW</span></td>
         </tr>
         
       </tbody>
     </table>
-
-    <div class="footer">
-      Automatisch gegenereerd vanuit Eagle PIN 2.0.
-    </div>
   </div>
+
+  <section class="trend-card">
+    <div class="trend-head">
+      <div class="section-label">TREND ANALYZER</div>
+
+      <div class="controls">
+        <select id="modelSelect"></select>
+        <select id="storageSelect"></select>
+
+        <div class="periods">
+          <button class="period-btn active" data-hours="24">24H</button>
+          <button class="period-btn" data-hours="168">7D</button>
+          <button class="period-btn" data-hours="720">30D</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="market-summary">
+      <div>
+        <div class="market-name" id="trendLabel">—</div>
+        <div class="big-price" id="currentPrice">—</div>
+      </div>
+
+      <div>
+        <div class="change flat" id="trendChange">Collecting data</div>
+        <div class="period-note" id="periodNote">—</div>
+      </div>
+    </div>
+
+    <div class="meta-row" id="metaRow">—</div>
+
+    <div class="chart-wrap">
+      <canvas id="trendChart"></canvas>
+      <div class="empty" id="emptyState">Historie wordt opgebouwd…</div>
+    </div>
+  </section>
+
+  <div class="footer">
+    Eagle PIN · v2.1
+  </div>
+</div>
+
+<script>
+const trendData = {"pin_13pro_market": {"128": [{"captured_at": "2026-09-07T22:22:08", "median": 32500, "low": 31000, "high": 33000, "listings": 8, "confidence": "MEDIUM"}, {"captured_at": "2026-09-07T22:51:41", "median": 32500, "low": 31000, "high": 33000, "listings": 8, "confidence": "MEDIUM"}], "256": [{"captured_at": "2026-09-07T22:22:08", "median": 34000, "low": 32500, "high": 34500, "listings": 7, "confidence": "LOW"}, {"captured_at": "2026-09-07T22:51:41", "median": 34000, "low": 32500, "high": 34500, "listings": 7, "confidence": "LOW"}]}, "pin_13promax_market": {"128": [{"captured_at": "2026-09-07T22:22:08", "median": 32500, "low": 31000, "high": 33000, "listings": 9, "confidence": "MEDIUM"}, {"captured_at": "2026-09-07T22:51:41", "median": 32500, "low": 31000, "high": 33000, "listings": 9, "confidence": "MEDIUM"}], "256": [{"captured_at": "2026-09-07T22:22:08", "median": 32000, "low": 30500, "high": 32500, "listings": 5, "confidence": "LOW"}, {"captured_at": "2026-09-07T22:51:41", "median": 32000, "low": 30500, "high": 32500, "listings": 5, "confidence": "LOW"}]}, "pin_14pro_market": {"128": [{"captured_at": "2026-09-07T22:22:08", "median": 35000, "low": 33500, "high": 35500, "listings": 16, "confidence": "HIGH"}, {"captured_at": "2026-09-07T22:51:41", "median": 35000, "low": 33500, "high": 35500, "listings": 16, "confidence": "HIGH"}], "256": [{"captured_at": "2026-09-07T22:22:08", "median": 39000, "low": 37500, "high": 39500, "listings": 4, "confidence": "LOW"}, {"captured_at": "2026-09-07T22:51:41", "median": 39000, "low": 37500, "high": 39500, "listings": 4, "confidence": "LOW"}]}, "pin_14promax_market": {"128": [{"captured_at": "2026-09-07T22:22:08", "median": 42750, "low": 41000, "high": 43000, "listings": 16, "confidence": "HIGH"}, {"captured_at": "2026-09-07T22:51:41", "median": 42750, "low": 41000, "high": 43000, "listings": 16, "confidence": "HIGH"}]}, "pin_15pro_market": {"128": [{"captured_at": "2026-09-07T22:22:08", "median": 47750, "low": 46000, "high": 48000, "listings": 17, "confidence": "HIGH"}, {"captured_at": "2026-09-07T22:51:41", "median": 47750, "low": 46000, "high": 48000, "listings": 17, "confidence": "HIGH"}], "256": [{"captured_at": "2026-09-07T22:22:08", "median": 49900, "low": 48500, "high": 50500, "listings": 6, "confidence": "LOW"}, {"captured_at": "2026-09-07T22:51:41", "median": 49900, "low": 48500, "high": 50500, "listings": 6, "confidence": "LOW"}]}, "pin_15promax_market": {"256": [{"captured_at": "2026-09-07T22:22:08", "median": 50000, "low": 48500, "high": 50500, "listings": 5, "confidence": "LOW"}, {"captured_at": "2026-09-07T22:51:41", "median": 50000, "low": 48500, "high": 50500, "listings": 5, "confidence": "LOW"}]}};
+const available = [{"search_id": "pin_13pro_market", "model": "iPhone 13 Pro", "storage": 128, "storage_label": "128GB", "current_median": 32500, "current_low": 31000, "current_high": 33000, "listings": 8, "confidence": "MEDIUM"}, {"search_id": "pin_13pro_market", "model": "iPhone 13 Pro", "storage": 256, "storage_label": "256GB", "current_median": 34000, "current_low": 32500, "current_high": 34500, "listings": 7, "confidence": "LOW"}, {"search_id": "pin_13promax_market", "model": "iPhone 13 Pro Max", "storage": 128, "storage_label": "128GB", "current_median": 32500, "current_low": 31000, "current_high": 33000, "listings": 9, "confidence": "MEDIUM"}, {"search_id": "pin_13promax_market", "model": "iPhone 13 Pro Max", "storage": 256, "storage_label": "256GB", "current_median": 32000, "current_low": 30500, "current_high": 32500, "listings": 5, "confidence": "LOW"}, {"search_id": "pin_14pro_market", "model": "iPhone 14 Pro", "storage": 128, "storage_label": "128GB", "current_median": 35000, "current_low": 33500, "current_high": 35500, "listings": 16, "confidence": "HIGH"}, {"search_id": "pin_14pro_market", "model": "iPhone 14 Pro", "storage": 256, "storage_label": "256GB", "current_median": 39000, "current_low": 37500, "current_high": 39500, "listings": 4, "confidence": "LOW"}, {"search_id": "pin_14promax_market", "model": "iPhone 14 Pro Max", "storage": 128, "storage_label": "128GB", "current_median": 42750, "current_low": 41000, "current_high": 43000, "listings": 16, "confidence": "HIGH"}, {"search_id": "pin_15pro_market", "model": "iPhone 15 Pro", "storage": 128, "storage_label": "128GB", "current_median": 47500, "current_low": 46000, "current_high": 48000, "listings": 18, "confidence": "HIGH"}, {"search_id": "pin_15pro_market", "model": "iPhone 15 Pro", "storage": 256, "storage_label": "256GB", "current_median": 49900, "current_low": 48500, "current_high": 50500, "listings": 6, "confidence": "LOW"}, {"search_id": "pin_15promax_market", "model": "iPhone 15 Pro Max", "storage": 256, "storage_label": "256GB", "current_median": 50000, "current_low": 48500, "current_high": 50500, "listings": 5, "confidence": "LOW"}];
+
+let selectedHours = 24;
+
+const modelSelect = document.getElementById("modelSelect");
+const storageSelect = document.getElementById("storageSelect");
+const trendLabel = document.getElementById("trendLabel");
+const currentPrice = document.getElementById("currentPrice");
+const trendChange = document.getElementById("trendChange");
+const periodNote = document.getElementById("periodNote");
+const metaRow = document.getElementById("metaRow");
+const canvas = document.getElementById("trendChart");
+const emptyState = document.getElementById("emptyState");
+
+let chartState = null;
+
+const models = [...new Set(available.map(x => x.model))];
+
+models.forEach(model => {
+  const option = document.createElement("option");
+  option.value = model;
+  option.textContent = model;
+  modelSelect.appendChild(option);
+});
+
+function combosForModel(model) {
+  return available.filter(x => x.model === model);
+}
+
+function populateStorages() {
+  storageSelect.innerHTML = "";
+
+  combosForModel(modelSelect.value).forEach(item => {
+    const option = document.createElement("option");
+    option.value = item.storage;
+    option.textContent = item.storage_label;
+    storageSelect.appendChild(option);
+  });
+
+  renderTrend();
+}
+
+function selectedCombo() {
+  return available.find(
+    x =>
+      x.model === modelSelect.value &&
+      String(x.storage) === String(storageSelect.value)
+  );
+}
+
+function allHistory(combo) {
+  return trendData[combo.search_id]?.[String(combo.storage)] || [];
+}
+
+function money(cents) {
+  const euros = cents / 100;
+  return "€" + euros.toFixed(cents % 100 === 0 ? 0 : 2);
+}
+
+function periodName(hours) {
+  if (hours === 24) return "24H";
+  if (hours === 168) return "7D";
+  return "30D";
+}
+
+function targetDays(hours) {
+  return hours / 24;
+}
+
+function periodSlice(history) {
+  if (!history.length) return [];
+
+  const newest = new Date(history[history.length - 1].captured_at);
+  const cutoff = new Date(newest.getTime() - selectedHours * 3600000);
+
+  return history.filter(p => new Date(p.captured_at) >= cutoff);
+}
+
+function coverageDays(history) {
+  if (history.length < 2) return 0;
+
+  const first = new Date(history[0].captured_at);
+  const last = new Date(history[history.length - 1].captured_at);
+
+  return (last - first) / 86400000;
+}
+
+function renderTrend() {
+  const combo = selectedCombo();
+  if (!combo) return;
+
+  trendLabel.textContent = `${combo.model} · ${combo.storage_label}`;
+  currentPrice.textContent = money(combo.current_median);
+
+  metaRow.textContent =
+    `Range ${money(combo.current_low)}–${money(combo.current_high)} · ` +
+    `${combo.listings} comps · ${combo.confidence} confidence`;
+
+  const history = allHistory(combo);
+  const sliced = periodSlice(history);
+
+  const daysAvailable = coverageDays(history);
+  const needed = targetDays(selectedHours);
+  const enoughCoverage = daysAvailable >= needed * 0.9;
+
+  if (!enoughCoverage) {
+    const shown = Math.min(daysAvailable, needed);
+
+    trendChange.textContent = "Collecting data";
+    trendChange.className = "change flat";
+
+    periodNote.textContent =
+      `${shown.toFixed(shown < 1 ? 1 : 0)} / ${needed} days available`;
+
+    showEmpty(
+      `Collecting ${periodName(selectedHours)} history · ` +
+      `${shown.toFixed(shown < 1 ? 1 : 0)} / ${needed} days`
+    );
+    return;
+  }
+
+  if (sliced.length < 2) {
+    trendChange.textContent = "Insufficient data";
+    trendChange.className = "change flat";
+    periodNote.textContent = periodName(selectedHours);
+    showEmpty("Onvoldoende meetpunten");
+    return;
+  }
+
+  const first = sliced[0];
+  const latest = sliced[sliced.length - 1];
+
+  const diff = latest.median - first.median;
+  const pct = first.median ? (diff / first.median) * 100 : 0;
+
+  if (diff > 0) {
+    trendChange.textContent =
+      `↑ +${money(diff)} (+${pct.toFixed(1)}%)`;
+    trendChange.className = "change up";
+  } else if (diff < 0) {
+    trendChange.textContent =
+      `↓ -${money(Math.abs(diff))} (${pct.toFixed(1)}%)`;
+    trendChange.className = "change down";
+  } else {
+    trendChange.textContent = "→ €0 (0.0%)";
+    trendChange.className = "change flat";
+  }
+
+  periodNote.textContent =
+    `${periodName(selectedHours)} market movement`;
+
+  drawChart(sliced, diff);
+}
+
+function showEmpty(message) {
+  canvas.style.display = "none";
+  emptyState.style.display = "flex";
+  emptyState.textContent = message;
+}
+
+function drawChart(history, diff) {
+  emptyState.style.display = "none";
+  canvas.style.display = "block";
+
+  const rect = canvas.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+
+  const ctx = canvas.getContext("2d");
+  ctx.scale(dpr, dpr);
+
+  const width = rect.width;
+  const height = rect.height;
+
+  const pad = {left: 16, right: 58, top: 18, bottom: 30};
+
+  const vals = history.map(x => x.median / 100);
+
+  let min = Math.min(...vals);
+  let max = Math.max(...vals);
+
+  if (min === max) {
+    min -= 5;
+    max += 5;
+  }
+
+  const range = max - min;
+  min -= range * .12;
+  max += range * .12;
+
+  ctx.clearRect(0, 0, width, height);
+
+  ctx.strokeStyle = "#242c35";
+  ctx.lineWidth = 1;
+
+  for (let i = 0; i <= 4; i++) {
+    const y = pad.top + ((height - pad.top - pad.bottom) / 4) * i;
+
+    ctx.beginPath();
+    ctx.moveTo(pad.left, y);
+    ctx.lineTo(width - pad.right, y);
+    ctx.stroke();
+  }
+
+  ctx.fillStyle = "#77818d";
+  ctx.font = "11px -apple-system, sans-serif";
+
+  for (let i = 0; i <= 4; i++) {
+    const value = max - ((max - min) / 4) * i;
+    const y = pad.top + ((height - pad.top - pad.bottom) / 4) * i;
+
+    ctx.textAlign = "left";
+    ctx.fillText(
+      "€" + value.toFixed(0),
+      width - pad.right + 10,
+      y + 4
+    );
+  }
+
+  const pts = history.map((point, i) => {
+    const x =
+      pad.left +
+      ((width - pad.left - pad.right) * i / Math.max(history.length - 1, 1));
+
+    const value = point.median / 100;
+
+    const y =
+      pad.top +
+      ((max - value) / (max - min)) *
+      (height - pad.top - pad.bottom);
+
+    return {x, y};
+  });
+
+  function xAxisLabel(dateValue) {
+    const date = new Date(dateValue);
+
+    if (selectedHours === 24) {
+      return new Intl.DateTimeFormat("nl-NL", {
+        hour: "2-digit",
+        minute: "2-digit"
+      }).format(date);
+    }
+
+    if (selectedHours === 168) {
+      return new Intl.DateTimeFormat("nl-NL", {
+        weekday: "short",
+        day: "numeric"
+      }).format(date);
+    }
+
+    return new Intl.DateTimeFormat("nl-NL", {
+      day: "numeric",
+      month: "short"
+    }).format(date);
+  }
+
+  const labelCount = Math.min(5, history.length);
+
+  if (labelCount >= 2) {
+    ctx.fillStyle = "#77818d";
+    ctx.font = "11px -apple-system, sans-serif";
+    ctx.textAlign = "center";
+
+    for (let i = 0; i < labelCount; i++) {
+      const index = Math.round(
+        i * (history.length - 1) / (labelCount - 1)
+      );
+
+      const point = pts[index];
+      const label = xAxisLabel(history[index].captured_at);
+
+      ctx.fillText(
+        label,
+        point.x,
+        height - 8
+      );
+    }
+
+    ctx.textAlign = "left";
+  }
+
+  const color =
+    diff > 0 ? "#35d07f" :
+    diff < 0 ? "#ff5f68" :
+    "#9aa4b2";
+
+  const gradient = ctx.createLinearGradient(
+    0,
+    pad.top,
+    0,
+    height - pad.bottom
+  );
+
+  if (diff > 0) {
+    gradient.addColorStop(0, "rgba(53,208,127,0.28)");
+    gradient.addColorStop(0.55, "rgba(53,208,127,0.10)");
+    gradient.addColorStop(1, "rgba(53,208,127,0.00)");
+  } else if (diff < 0) {
+    gradient.addColorStop(0, "rgba(255,95,104,0.26)");
+    gradient.addColorStop(0.55, "rgba(255,95,104,0.09)");
+    gradient.addColorStop(1, "rgba(255,95,104,0.00)");
+  } else {
+    gradient.addColorStop(0, "rgba(154,164,178,0.18)");
+    gradient.addColorStop(1, "rgba(154,164,178,0.00)");
+  }
+
+  ctx.beginPath();
+  ctx.moveTo(pts[0].x, height - pad.bottom);
+
+  pts.forEach((p, i) => {
+    if (i === 0) ctx.lineTo(p.x, p.y);
+    else ctx.lineTo(p.x, p.y);
+  });
+
+  ctx.lineTo(
+    pts[pts.length - 1].x,
+    height - pad.bottom
+  );
+
+  ctx.closePath();
+  ctx.fillStyle = gradient;
+  ctx.fill();
+
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 2.75;
+  ctx.lineJoin = "round";
+  ctx.lineCap = "round";
+
+  ctx.beginPath();
+
+  pts.forEach((p, i) => {
+    if (i === 0) ctx.moveTo(p.x, p.y);
+    else ctx.lineTo(p.x, p.y);
+  });
+
+  ctx.stroke();
+
+  const last = pts[pts.length - 1];
+
+  ctx.shadowColor = color;
+  ctx.shadowBlur = 10;
+  ctx.fillStyle = color;
+
+  ctx.beginPath();
+  ctx.arc(last.x, last.y, 4.5, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.shadowBlur = 0;
+
+  // Current-price badge bij het meest recente datapunt
+  const currentText = money(history[history.length - 1].median);
+
+  ctx.font = "700 12px -apple-system, BlinkMacSystemFont, sans-serif";
+
+  const badgePaddingX = 9;
+  const badgeHeight = 25;
+  const badgeWidth =
+    ctx.measureText(currentText).width + badgePaddingX * 2;
+
+  let badgeX = last.x - badgeWidth - 10;
+  let badgeY = last.y - badgeHeight / 2;
+
+  // Binnen de chart houden
+  badgeX = Math.max(
+    pad.left + 4,
+    Math.min(badgeX, width - pad.right - badgeWidth)
+  );
+
+  badgeY = Math.max(
+    pad.top,
+    Math.min(
+      badgeY,
+      height - pad.bottom - badgeHeight
+    )
+  );
+
+  ctx.fillStyle = "#0c1015";
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 1;
+
+  ctx.beginPath();
+  ctx.roundRect(
+    badgeX,
+    badgeY,
+    badgeWidth,
+    badgeHeight,
+    7
+  );
+  ctx.fill();
+  ctx.stroke();
+
+  ctx.fillStyle = color;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+
+  ctx.fillText(
+    currentText,
+    badgeX + badgeWidth / 2,
+    badgeY + badgeHeight / 2
+  );
+
+  ctx.textAlign = "left";
+  ctx.textBaseline = "alphabetic";
+
+  chartState = {
+    history,
+    diff,
+    pts,
+    color,
+    pad,
+    width,
+    height
+  };
+}
+
+function formatPointTime(value) {
+  const date = new Date(value);
+
+  return new Intl.DateTimeFormat("nl-NL", {
+    day: "numeric",
+    month: "short",
+    hour: "2-digit",
+    minute: "2-digit"
+  }).format(date);
+}
+
+function drawTooltip(index) {
+  if (!chartState) return;
+
+  const {
+    history,
+    diff,
+    pts,
+    color,
+    pad,
+    width,
+    height
+  } = chartState;
+
+  // Basischart opnieuw tekenen zodat oude tooltip verdwijnt.
+  drawChart(history, diff);
+
+  const state = chartState;
+  const point = state.pts[index];
+  const item = state.history[index];
+
+  if (!point || !item) return;
+
+  const ctx = canvas.getContext("2d");
+  const dpr = window.devicePixelRatio || 1;
+
+  // drawChart heeft de context opnieuw geschaald.
+  ctx.save();
+
+  // Verticale guide-line
+  ctx.strokeStyle = "rgba(180,190,202,0.32)";
+  ctx.lineWidth = 1;
+
+  ctx.beginPath();
+  ctx.moveTo(point.x, state.pad.top);
+  ctx.lineTo(point.x, state.height - state.pad.bottom);
+  ctx.stroke();
+
+  // Highlight point
+  ctx.shadowColor = state.color;
+  ctx.shadowBlur = 12;
+  ctx.fillStyle = state.color;
+
+  ctx.beginPath();
+  ctx.arc(point.x, point.y, 5.5, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.shadowBlur = 0;
+
+  const dateText = formatPointTime(item.captured_at);
+  const priceText = money(item.median);
+
+  ctx.font = "12px -apple-system, BlinkMacSystemFont, sans-serif";
+
+  const dateWidth = ctx.measureText(dateText).width;
+
+  ctx.font = "700 15px -apple-system, BlinkMacSystemFont, sans-serif";
+
+  const priceWidth = ctx.measureText(priceText).width;
+
+  const boxWidth = Math.max(dateWidth, priceWidth) + 24;
+  const boxHeight = 54;
+
+  let boxX = point.x + 12;
+
+  if (boxX + boxWidth > state.width - 8) {
+    boxX = point.x - boxWidth - 12;
+  }
+
+  let boxY = point.y - boxHeight - 14;
+
+  if (boxY < 8) {
+    boxY = point.y + 14;
+  }
+
+  // Tooltip background
+  ctx.fillStyle = "rgba(12,16,21,0.96)";
+  ctx.strokeStyle = "#303945";
+  ctx.lineWidth = 1;
+
+  ctx.beginPath();
+  ctx.roundRect(boxX, boxY, boxWidth, boxHeight, 9);
+  ctx.fill();
+  ctx.stroke();
+
+  // Datum
+  ctx.fillStyle = "#8994a1";
+  ctx.font = "12px -apple-system, BlinkMacSystemFont, sans-serif";
+  ctx.fillText(dateText, boxX + 12, boxY + 19);
+
+  // Prijs
+  ctx.fillStyle = "#f4f7fa";
+  ctx.font = "700 15px -apple-system, BlinkMacSystemFont, sans-serif";
+  ctx.fillText(priceText, boxX + 12, boxY + 41);
+
+  ctx.restore();
+}
+
+function tooltipIndexFromEvent(event) {
+  if (!chartState || !chartState.pts.length) return null;
+
+  const rect = canvas.getBoundingClientRect();
+  const x = event.clientX - rect.left;
+
+  let bestIndex = 0;
+  let bestDistance = Infinity;
+
+  chartState.pts.forEach((point, index) => {
+    const distance = Math.abs(point.x - x);
+
+    if (distance < bestDistance) {
+      bestDistance = distance;
+      bestIndex = index;
+    }
+  });
+
+  return bestIndex;
+}
+
+canvas.addEventListener("pointermove", event => {
+  const index = tooltipIndexFromEvent(event);
+
+  if (index !== null) {
+    drawTooltip(index);
+  }
+});
+
+canvas.addEventListener("pointerleave", () => {
+  if (chartState) {
+    drawChart(chartState.history, chartState.diff);
+  }
+});
+
+modelSelect.addEventListener("change", populateStorages);
+storageSelect.addEventListener("change", renderTrend);
+
+document.querySelectorAll(".period-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".period-btn")
+      .forEach(x => x.classList.remove("active"));
+
+    btn.classList.add("active");
+    selectedHours = Number(btn.dataset.hours);
+
+    renderTrend();
+  });
+});
+
+window.addEventListener("resize", renderTrend);
+
+if (models.length) {
+  modelSelect.value = models[0];
+  populateStorages();
+}
+</script>
 </body>
 </html>
