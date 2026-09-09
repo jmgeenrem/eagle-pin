@@ -92,6 +92,23 @@ h1 {
   box-shadow: 0 0 12px rgba(53,208,127,.7);
 }
 
+.live.stale {
+  color: #f5a623;
+}
+
+.live.stale .live-dot {
+  background: #f5a623;
+  box-shadow: 0 0 12px rgba(245,166,35,.7);
+}
+
+.live.offline {
+  color: #ff4d5a;
+}
+
+.live.offline .live-dot {
+  background: #ff4d5a;
+  box-shadow: 0 0 12px rgba(255,77,90,.7);
+}
 .section-label {
   margin: 0 0 10px;
   color: #9ba7b4;
@@ -363,8 +380,8 @@ canvas {
     </div>
 
     <div class="status">
-      <div class="live"><span class="live-dot"></span> LIVE</div>
-      <div>Updated 2026-09-09 08:33</div>
+      <div class="live" id="eagle-status"><span class="live-dot"></span> <span id="eagle-status-text">LIVE</span></div>
+      <div>Updated 2026-09-09 08:49</div>
     </div>
   </div>
 
@@ -1101,6 +1118,32 @@ if (models.length) {
   modelSelect.value = models[0];
   populateStorages();
 }
+
+const eagleUpdatedAt = new Date("2026-09-09T08:49");
+
+function updateEagleStatus() {
+  const status = document.getElementById("eagle-status");
+  const text = document.getElementById("eagle-status-text");
+
+  if (!status || !text) return;
+
+  const ageMinutes = (Date.now() - eagleUpdatedAt.getTime()) / 60000;
+
+  status.classList.remove("stale", "offline");
+
+  if (ageMinutes >= 90) {
+    status.classList.add("offline");
+    text.textContent = "OFFLINE";
+  } else if (ageMinutes >= 45) {
+    status.classList.add("stale");
+    text.textContent = "STALE";
+  } else {
+    text.textContent = "LIVE";
+  }
+}
+
+updateEagleStatus();
+setInterval(updateEagleStatus, 60000);
 </script>
 </body>
 </html>
