@@ -271,6 +271,11 @@ td:not(:first-child) {
   color: #9ba7b4;
 }
 
+.evidence-comps-title:not(.rejected-title) {
+  color: #4ade80;
+  text-shadow: 0 0 12px rgba(74, 222, 128, .18);
+}
+
 .evidence-comps-title.rejected-title {
   margin-top: 10px;
   color: #ff6b75;
@@ -302,8 +307,24 @@ td:not(:first-child) {
   background: rgba(255, 255, 255, .018);
 }
 
+.evidence-comp:not(.rejected) {
+  background: rgba(74, 222, 128, .018);
+  box-shadow: inset 2px 0 0 rgba(74, 222, 128, .10);
+}
+
+.evidence-comp:not(.rejected):hover {
+  background: rgba(74, 222, 128, .035);
+  box-shadow: inset 2px 0 0 rgba(74, 222, 128, .18);
+}
+
 .evidence-comp.rejected {
   background: rgba(255, 77, 90, .025);
+  box-shadow: inset 2px 0 0 rgba(255, 77, 90, .12);
+}
+
+.evidence-comp.rejected:hover {
+  background: rgba(255, 77, 90, .045);
+  box-shadow: inset 2px 0 0 rgba(255, 77, 90, .20);
 }
 
 .evidence-comp-main {
@@ -655,7 +676,7 @@ canvas {
 
     <div class="status">
       <div class="live" id="eagle-status"><span class="live-dot"></span> <span id="eagle-status-text">LIVE</span></div>
-      <div>Updated 2026-09-09 14:59</div>
+      <div>Updated 2026-09-09 15:01</div>
     </div>
   </div>
 
@@ -1661,7 +1682,7 @@ if (models.length) {
   populateStorages();
 }
 
-const eagleUpdatedAt = new Date("2026-09-09T14:59");
+const eagleUpdatedAt = new Date("2026-09-09T15:01");
 
 function updateEagleStatus() {
   const status = document.getElementById("eagle-status");
