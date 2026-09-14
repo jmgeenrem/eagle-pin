@@ -76,6 +76,44 @@ h1 {
   font-size: 14px;
 }
 
+.eagle-nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin: 26px 0 22px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.nav-link {
+  position: relative;
+  padding: 0 0 12px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  transition: color .18s ease;
+}
+
+.nav-link:hover {
+  color: var(--text);
+}
+
+.nav-link.active {
+  color: var(--text);
+}
+
+.nav-link.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--green);
+  border-radius: 2px;
+}
+
 .status {
   text-align: right;
   font-size: 13px;
@@ -676,11 +714,16 @@ canvas {
 
     <div class="status">
       <div class="live" id="eagle-status"><span class="live-dot"></span> <span id="eagle-status-text">LIVE</span></div>
-      <div>Updated 2026-09-14 21:07</div>
+      <div>Updated 2026-09-14 21:09</div>
     </div>
   </div>
 
-  <div class="section-label">MARKET SNAPSHOT</div>
+<nav class="eagle-nav">
+  <a class="nav-link active" href="./">MARKET</a>
+  <a class="nav-link" href="deal-calculator.html">DEAL CALCULATOR</a>
+</nav> 
+
+ <div class="section-label">MARKET SNAPSHOT</div>
 
   <div class="table-wrap">
     <table>
@@ -1712,7 +1755,7 @@ if (models.length) {
   populateStorages();
 }
 
-const eagleUpdatedAt = new Date("2026-09-14T21:07");
+const eagleUpdatedAt = new Date("2026-09-14T21:09");
 
 function updateEagleStatus() {
   const status = document.getElementById("eagle-status");
