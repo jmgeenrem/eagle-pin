@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eagle PIN — Deal Calculator</title>
+
+<style>
+:root {
+  --bg: #090d12;
+  --panel: #11171e;
+  --panel-2: #0e141b;
+  --border: rgba(255,255,255,.08);
+  --text: #f2f5f7;
+  --muted: #8e98a5;
+  --green: #2ee58c;
+  --amber: #d6a64b;
+  --red: #ff5f65;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.wrap {
+  max-width: 1010px;
+  margin: 0 auto;
+  padding: 28px 0 60px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 30px;
+  letter-spacing: -.8px;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin-top: 4px;
+  font-size: 14px;
+}
+
+.status {
+  text-align: right;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.live {
+  color: var(--green);
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.eagle-nav {
+  display: flex;
+  gap: 28px;
+  margin: 26px 0 22px;
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-link {
+  position: relative;
+  padding-bottom: 12px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.nav-link.active {
+  color: var(--text);
+}
+
+.nav-link.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--green);
+  border-radius: 2px;
+}
+
+.section-label {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  margin-bottom: 10px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: 18px;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.field {
+  margin-bottom: 16px;
+}
+
+label {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 7px;
+}
+
+select,
+input {
+  width: 100%;
+  background: var(--panel-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 13px;
+  font-size: 14px;
+  outline: none;
+}
+
+.value-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.value-box {
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.value-box small {
+  display: block;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: .7px;
+  margin-bottom: 4px;
+}
+
+.value-box strong {
+  font-size: 18px;
+}
+
+.repair-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.repair-row:last-child {
+  border-bottom: 0;
+}
+
+.repair-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.repair-row input {
+  width: auto;
+}
+
+.max-buy-card {
+  margin-top: 18px;
+  background: linear-gradient(180deg, rgba(46,229,140,.06), rgba(46,229,140,.02));
+  border: 1px solid rgba(46,229,140,.18);
+  border-radius: 16px;
+  padding: 22px;
+}
+
+.max-buy-label {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+.max-buy {
+  font-size: 48px;
+  font-weight: 800;
+  margin: 4px 0 8px;
+  letter-spacing: -1.5px;
+}
+
+.deal-status {
+  display: inline-flex;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .8px;
+  color: var(--green);
+  border: 1px solid rgba(46,229,140,.22);
+  background: rgba(46,229,140,.08);
+}
+
+.summary-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin-top: 22px;
+  border-top: 1px solid rgba(255,255,255,.08);
+  padding-top: 18px;
+}
+
+.summary-item {
+  padding: 0 18px;
+  border-right: 1px solid rgba(255,255,255,.08);
+}
+
+.summary-item:first-child {
+  padding-left: 0;
+}
+
+.summary-item:last-child {
+  border-right: 0;
+}
+
+.summary-item span {
+  display: block;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.summary-item strong {
+  font-size: 16px;
+  color: var(--text);
+}
+
+input[type="number"] {
+  color-scheme: dark;
+}
+
+.breakdown {
+  margin-top: 18px;
+}
+
+.breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 9px 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.breakdown-row strong {
+  color: var(--text);
+}
+
+@media (max-width: 760px) {
+  .wrap {
+    padding: 18px 14px 32px;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .status {
+    text-align: left;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pin-confidence {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="brand">
+      <img class="logo" src="eagle-pin-icon.jpg" alt="Eagle PIN">
+      <div>
+        <h1>EAGLE PIN</h1>
+        <div class="subtitle">iPhone Resale Market Intelligence</div>
+      </div>
+    </div>
+
+    <div class="status">
+      <div class="live">● LIVE</div>
+      <div>Deal underwriting engine</div>
+    </div>
+  </div>
+
+  <nav class="eagle-nav">
+    <a class="nav-link" href="Eagle_PIN_2.html">MARKET</a>
+    <a class="nav-link active" href="deal-calculator.html">DEAL CALCULATOR</a>
+  </nav>
+
+  <div class="section-label">DEAL UNDERWRITING</div>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="field">
+        <label>Model</label>
+        <select id="modelSelect">
+          <option>iPhone 14 Pro Max</option>
+          <option>iPhone 15 Pro</option>
+          <option>iPhone 14 Pro</option>
+          <option>iPhone 13 Pro Max</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Opslag</label>
+        <select id="storageSelect">
+          <option>128GB</option>
+          <option>256GB</option>
+          <option>512GB</option>
+          <option>1TB</option>
+        </select>
+      </div>
+
+      <div class="value-strip">
+        <div class="value-box">
+          <small>LOW</small>
+          <strong>€400</strong>
+        </div>
+
+        <div class="value-box">
+          <small>EAGLE PIN</small>
+          <strong>€410</strong>
+        </div>
+
+        <div class="value-box">
+          <small>HIGH</small>
+          <strong>€420</strong>
+        </div>
+      </div>
+
+      <div class="field" style="margin-top:18px;">
+        <label>Seller asks</label>
+        <input type="number" placeholder="€300">
+      </div>
+
+      <div class="field">
+        <label>Target profit</label>
+        <input type="number" value="60">
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-label">REPAIRS</div>
+
+      <div id="repairList"></div>
+    </div>
+
+  </div>
+
+  <div class="max-buy-card">
+    <div class="max-buy-label">MAX BUY</div>
+    <div class="max-buy">€317,15</div>
+    <div class="deal-status">INTERCEPT</div>
+
+<div class="summary-strip">
+  <div class="summary-item">
+    <span>EAGLE PIN</span>
+    <strong>€410,00</strong>
+          <small id="eaglePinConfidence" class="pin-confidence"></small>
+  </div>
+
+  <div class="summary-item">
+    <span>REPAIRS</span>
+    <strong>€32,85</strong>
+  </div>
+
+  <div class="summary-item">
+    <span>TARGET PROFIT</span>
+    <strong>€60,00</strong>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+
+<script src="eagle-market-data.js"></script>
+<script>
+
+const MARKET_DATA = window.EAGLE_MARKET_DATA || {};
+
+const REPAIR_DATA = {
+  "iPhone 14 Pro Max": [
+    ["Housing", 60.00, "housing"],
+    ["Battery cell", 9.50, "supplier"],
+    ["Battery flex", 15.00, "supplier"],
+    ["Screen", 48.50, "supplier"],
+    ["Screen adhesive", 0.85, "supplier"]
+  ],
+
+  "iPhone 14 Pro": [
+    ["Housing", 57.00, "housing"],
+    ["Battery cell", 9.50, "supplier"],
+    ["Battery flex", 15.00, "supplier"],
+    ["Screen", 48.00, "supplier"],
+    ["Screen adhesive", 0.85, "supplier"]
+  ],
+
+  "iPhone 15 Pro": [
+    ["Housing / backglass", 65.00, "housing"],
+    ["Battery cell", 11.50, "supplier"],
+    ["Battery flex", 15.00, "supplier"],
+    ["Screen", 70.00, "supplier"],
+    ["Screen adhesive", 1.85, "supplier"]
+  ]
+};
+
+const SUPPLIER_SHIPPING = 12.50;
+
+function renderRepairs() {
+  const repairList = document.getElementById("repairList");
+  const repairs = REPAIR_DATA[modelSelect.value] || [];
+
+  if (!repairs.length) {
+    repairList.innerHTML = `
+      <div style="color:var(--muted);font-size:13px;padding:16px 0;">
+        Nog geen repair costs ingesteld voor dit model.
+      </div>
+    `;
+    calculateDeal();
+    return;
+  }
+
+  repairList.innerHTML = repairs.map(([name, price, source]) => `
+    <div class="repair-row" data-source="${source}" data-price="${price}">
+      <div class="repair-left">
+        <input type="checkbox">
+        <span>${name}</span>
+      </div>
+      <strong>${euro(price)}</strong>
+    </div>
+  `).join("") + `
+    <div class="repair-row" id="supplierShippingRow" style="display:none;">
+      <div class="repair-left">
+        <span style="color:var(--muted);">Supplier shipping</span>
+      </div>
+      <strong>${euro(SUPPLIER_SHIPPING)}</strong>
+    </div>
+  `;
+
+  repairList.querySelectorAll('input[type="checkbox"]').forEach(input => {
+    input.addEventListener("change", calculateDeal);
+  });
+
+  calculateDeal();
+}
+
+function euro(value) {
+  return new Intl.NumberFormat("nl-NL", {
+    style: "currency",
+    currency: "EUR"
+  }).format(value);
+}
+
+const modelSelect = document.getElementById("modelSelect");
+const storageSelect = document.getElementById("storageSelect");
+
+function calculateEaglePin(data) {
+  if (!data) return 0;
+
+  const low = Number(data.low);
+  const median = Number(data.median);
+  const high = Number(data.high);
+  const listings = Number(data.listings) || 0;
+
+  const confidenceScores = {
+    HIGH: 1.00,
+    MEDIUM: 0.65,
+    LOW: 0.35
+  };
+
+  const confidenceScore =
+    confidenceScores[String(data.confidence).toUpperCase()] ?? 0.35;
+
+  // Vanaf ongeveer 40 bruikbare listings krijgt de markt
+  // voor dit onderdeel de maximale betrouwbaarheid.
+  const listingScore = Math.min(listings / 40, 1);
+
+  // Een smallere markt-range = betrouwbaardere waardering.
+  const spreadPct = median > 0
+    ? (high - low) / median
+    : 1;
+
+  const spreadScore = Math.max(
+    0,
+    Math.min(1, 1 - (spreadPct / 0.15))
+  );
+
+  // Reliability score:
+  // confidence weegt het zwaarst,
+  // daarna sample size,
+  // daarna marktspreiding.
+  const reliability =
+    (confidenceScore * 0.50) +
+    (listingScore * 0.30) +
+    (spreadScore * 0.20);
+
+  // Eagle PIN blijft bewust tussen LOW en MEDIAN.
+  // Zwakke data ≈ dichter bij LOW.
+  // Sterke data ≈ dichter bij MEDIAN.
+  const position = 0.55 + (reliability * 0.40);
+
+  const pin =
+    low + ((median - low) * position);
+
+  return Math.round(
+    Math.max(low, Math.min(median, pin))
+  );
+}
+
+function updateMarket() {
+  const model = modelSelect.value;
+  const storages = Object.keys(MARKET_DATA[model] || {});
+
+  const currentStorage = storageSelect.value;
+
+  storageSelect.innerHTML = storages
+    .map(storage => `<option value="${storage}">${storage}</option>`)
+    .join("");
+
+  if (storages.includes(currentStorage)) {
+    storageSelect.value = currentStorage;
+  }
+
+  const data = MARKET_DATA[model]?.[storageSelect.value];
+  if (!data) return;
+
+  const boxes = document.querySelectorAll(".value-box strong");
+
+  boxes[0].textContent = euro(data.low);
+
+  // Voor nu gebruiken we tijdelijk een conservatieve Eagle PIN.
+  // De echte waarderingsengine bouwen we hierna.
+  const eaglePin = calculateEaglePin(data);
+
+  boxes[1].textContent = euro(eaglePin);
+  boxes[2].textContent = euro(data.high);
+
+  const confidenceEl = document.getElementById("eaglePinConfidence");
+  if (confidenceEl) {
+    confidenceEl.textContent =
+      `${data.confidence} CONFIDENCE • ${data.listings} LISTINGS`;
+  }
+
+  calculateDeal();
+}
+
+modelSelect.addEventListener("change", () => {
+  updateMarket();
+  renderRepairs();
+});
+
+storageSelect.addEventListener("change", () => {
+  const data = MARKET_DATA[modelSelect.value]?.[storageSelect.value];
+  if (!data) return;
+
+  const boxes = document.querySelectorAll(".value-box strong");
+  boxes[0].textContent = euro(data.low);
+
+  const eaglePin = calculateEaglePin(data);
+
+  boxes[1].textContent = euro(eaglePin);
+  boxes[2].textContent = euro(data.high);
+
+  calculateDeal();
+});
+
+function calculateDeal() {
+  const eaglePin = parseFloat(
+    document.querySelector(".value-box:nth-child(2) strong")
+      .textContent.replace("€", "").replace(",", ".")
+  );
+
+  const inputs = document.querySelectorAll('input[type="number"]');
+  const sellerAsk = parseFloat(inputs[0].value) || 0;
+  const targetProfit = parseFloat(inputs[1].value) || 0;
+
+  let repairCosts = 0;
+  let needsSupplierShipping = false;
+
+  document.querySelectorAll("#repairList .repair-row[data-price]").forEach(row => {
+    const checkbox = row.querySelector('input[type="checkbox"]');
+
+    if (checkbox && checkbox.checked) {
+      repairCosts += parseFloat(row.dataset.price) || 0;
+
+      if (row.dataset.source === "supplier") {
+        needsSupplierShipping = true;
+      }
+    }
+  });
+
+  if (needsSupplierShipping) {
+    repairCosts += SUPPLIER_SHIPPING;
+  }
+
+  const shippingRow = document.getElementById("supplierShippingRow");
+  if (shippingRow) {
+    shippingRow.style.display = needsSupplierShipping ? "flex" : "none";
+  }
+
+  const maxBuy = eaglePin - repairCosts - targetProfit;
+  const expectedProfit = eaglePin - sellerAsk - repairCosts;
+
+  document.querySelector(".max-buy").textContent = euro(maxBuy);
+
+  const summaryValues = document.querySelectorAll(".summary-item strong");
+  summaryValues[0].textContent = euro(eaglePin);
+  summaryValues[1].textContent = euro(repairCosts);
+  summaryValues[2].textContent = euro(targetProfit);
+
+  const status = document.querySelector(".deal-status");
+
+  const negotiateLimit = maxBuy * 1.08;
+
+  if (sellerAsk <= maxBuy) {
+    status.textContent = "INTERCEPT";
+    status.style.color = "var(--green)";
+    status.style.borderColor = "rgba(46,229,140,.22)";
+    status.style.background = "rgba(46,229,140,.08)";
+  } else if (sellerAsk <= negotiateLimit) {
+    status.textContent = "NEGOTIATE";
+    status.style.color = "var(--amber)";
+    status.style.borderColor = "rgba(214,166,75,.25)";
+    status.style.background = "rgba(214,166,75,.08)";
+  } else {
+    status.textContent = "PASS";
+    status.style.color = "var(--red)";
+    status.style.borderColor = "rgba(255,95,101,.25)";
+    status.style.background = "rgba(255,95,101,.08)";
+  }
+}
+
+document.querySelectorAll("input").forEach(input => {
+  input.addEventListener("input", calculateDeal);
+  input.addEventListener("change", calculateDeal);
+});
+
+updateMarket();
+renderRepairs();
+</script>
+
+</body>
+</html>
