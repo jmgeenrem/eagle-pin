@@ -387,10 +387,12 @@ input[type="number"] {
   border-radius: 10px;
   display: grid;
   place-items: center;
-  color: var(--accent);
-  background: rgba(127,179,255,.07);
-  border: 1px solid rgba(127,179,255,.14);
-  box-shadow: 0 0 24px rgba(127,179,255,.04);
+  color: #d9c391;
+  background: rgba(177,142,76,.07);
+  border: 1px solid rgba(202,164,88,.22);
+  box-shadow:
+    inset 0 1px 0 rgba(255,225,165,.035),
+    0 0 20px rgba(177,142,76,.045);
 }
 
 .part-icon svg {
@@ -460,14 +462,33 @@ input[type="number"] {
 }
 
 .part-link {
-  color: var(--text);
-  background: rgba(127,179,255,.08);
-  border: 1px solid rgba(127,179,255,.18);
+  color: #d9c391;
+  background:
+    linear-gradient(180deg, rgba(177,142,76,.10), rgba(177,142,76,.035)),
+    #111318;
+  border: 1px solid rgba(202,164,88,.30);
+  box-shadow:
+    inset 0 1px 0 rgba(255,225,165,.04),
+    0 2px 7px rgba(0,0,0,.18);
+  transition:
+    color .18s ease,
+    background .18s ease,
+    border-color .18s ease,
+    box-shadow .18s ease,
+    transform .18s ease;
 }
 
 .part-link:hover {
-  background: rgba(127,179,255,.13);
-  border-color: rgba(127,179,255,.3);
+  color: #ead7a6;
+  background:
+    linear-gradient(180deg, rgba(177,142,76,.17), rgba(177,142,76,.06)),
+    #121419;
+  border-color: rgba(202,164,88,.58);
+  box-shadow:
+    inset 0 1px 0 rgba(255,225,165,.07),
+    0 3px 12px rgba(0,0,0,.22),
+    0 0 12px rgba(177,142,76,.06);
+  transform: translateY(-1px);
 }
 
 .part-link-disabled {
