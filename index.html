@@ -712,14 +712,14 @@ canvas {
 
     <div class="status">
       <div class="live" id="eagle-status"><span class="live-dot"></span> <span id="eagle-status-text">LIVE</span></div>
-      <div>Updated 2026-09-15 11:00</div>
+      <div>Updated 2026-09-15 11:07</div>
     </div>
   </div>
 
 <nav class="eagle-nav">
-  <a class="nav-link active" href="./">MARKET</a>
-  <a class="nav-link" href="deal-calculator.html">DEAL CALCULATOR</a>
-  <a class="nav-link" href="parts-hub.html">PARTS HUB</a>
+  <a class="nav-link active" href="./?v=v20260915-1">MARKET</a>
+  <a class="nav-link" href="deal-calculator.html?v=v20260915-1">DEAL CALCULATOR</a>
+  <a class="nav-link" href="parts-hub.html?v=v20260915-1">PARTS HUB</a>
 </nav> 
 
  <div class="section-label">MARKET SNAPSHOT</div>
@@ -1739,7 +1739,7 @@ if (models.length) {
   populateStorages();
 }
 
-const eagleUpdatedAt = new Date("2026-09-15T11:00");
+const eagleUpdatedAt = new Date("2026-09-15T11:07");
 
 function updateEagleStatus() {
   const status = document.getElementById("eagle-status");
