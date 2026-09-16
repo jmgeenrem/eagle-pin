@@ -763,7 +763,7 @@ canvas {
 
     <div class="status">
       <div class="live" id="eagle-status"><span class="live-dot"></span> <span id="eagle-status-text">LIVE</span></div>
-      <div>Updated 2026-09-16 21:17</div>
+      <div>Updated 2026-09-16 21:26</div>
     </div>
   </div>
 
@@ -1195,6 +1195,7 @@ const available = [{"search_id": "pin_12pro_market", "model": "iPhone 12 Pro", "
 
 const ACTIVE_FLIP_MODELS = new Set([
   "iPhone 14 Pro Max",
+  "iPhone 15",
   "iPhone 15 Pro"
 ]);
 
@@ -1222,13 +1223,17 @@ function applyMarketFilter(filter) {
   document.querySelectorAll(".market-filter-btn").forEach(btn => {
     btn.classList.toggle("active", btn.dataset.filter === filter);
   });
+
+  activeMarketFilter = filter;
+
+  if (typeof populateModelsForFilter === "function") {
+    populateModelsForFilter(filter);
+  }
 }
 
 document.querySelectorAll(".market-filter-btn").forEach(btn => {
   btn.addEventListener("click", () => applyMarketFilter(btn.dataset.filter));
 });
-
-applyMarketFilter("active");
 
 let selectedHours = 24;
 
@@ -1467,12 +1472,55 @@ document.querySelectorAll(".market-row").forEach(row => {
 });
 const models = [...new Set(available.map(x => x.model))];
 
-models.forEach(model => {
-  const option = document.createElement("option");
-  option.value = model;
-  option.textContent = model;
-  modelSelect.appendChild(option);
-});
+const TREND_MODELS_BY_FILTER = {
+  active: [
+    "iPhone 14 Pro Max",
+    "iPhone 15",
+    "iPhone 15 Pro"
+  ]
+};
+
+let activeMarketFilter = "active";
+
+function populateModelsForFilter(filter) {
+  const previousModel = modelSelect.value;
+
+  let allowedModels = models;
+
+  if (filter === "active") {
+    allowedModels = TREND_MODELS_BY_FILTER.active.filter(
+      model => models.includes(model)
+    );
+  } else if (filter === "pro") {
+    allowedModels = models.filter(
+      model => model.includes(" Pro")
+    );
+  } else if (filter === "latest") {
+    allowedModels = models.filter(
+      model =>
+        model.startsWith("iPhone 16") ||
+        model.startsWith("iPhone 17") ||
+        model === "iPhone Air"
+    );
+  }
+
+  modelSelect.innerHTML = "";
+
+  allowedModels.forEach(model => {
+    const option = document.createElement("option");
+    option.value = model;
+    option.textContent = model;
+    modelSelect.appendChild(option);
+  });
+
+  if (allowedModels.includes(previousModel)) {
+    modelSelect.value = previousModel;
+  } else if (allowedModels.length) {
+    modelSelect.value = allowedModels[0];
+  }
+
+  populateStorages();
+}
 
 function combosForModel(model) {
   return available.filter(x => x.model === model);
@@ -2457,12 +2505,11 @@ document.querySelectorAll(".period-btn").forEach(btn => {
 
 window.addEventListener("resize", renderTrend);
 
-if (models.length) {
-  modelSelect.value = models[0];
-  populateStorages();
-}
+// Initialiseer Market Snapshot + Trend Analyzer
+// vanuit dezelfde ACTIVE FLIPS-context.
+applyMarketFilter("active");
 
-const eagleUpdatedAt = new Date("2026-09-16T21:17");
+const eagleUpdatedAt = new Date("2026-09-16T21:26");
 
 function updateEagleStatus() {
   const status = document.getElementById("eagle-status");
