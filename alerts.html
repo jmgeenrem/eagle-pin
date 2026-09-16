@@ -155,29 +155,106 @@ h1 {
 
 .feed {
   display: grid;
-  gap: 12px;
+  gap: 20px;
 }
 
 .alert-card {
+  position: relative;
   display: grid;
-  grid-template-columns: 180px 1fr;
+  grid-template-columns: 320px minmax(0, 1fr);
   overflow: hidden;
+  background:
+    radial-gradient(circle at 88% 0%, rgba(201,170,106,.07), transparent 28%),
+    linear-gradient(145deg, #121a22 0%, #10161d 60%, #0e141a 100%);
+  border: 1px solid rgba(255,255,255,.11);
+  border-radius: 20px;
+  box-shadow:
+    0 24px 70px rgba(0,0,0,.25),
+    inset 0 1px 0 rgba(255,255,255,.025);
+}
+
+.alert-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(
+    to bottom,
+    rgba(201,170,106,.95),
+    rgba(201,170,106,.15)
+  );
+  z-index: 3;
+}
+
+.alert-card.intercept {
+  border-color: rgba(46,229,140,.34);
+  background:
+    radial-gradient(circle at 87% 0%, rgba(46,229,140,.10), transparent 30%),
+    radial-gradient(circle at 60% 100%, rgba(201,170,106,.07), transparent 38%),
+    linear-gradient(145deg, #121b21 0%, #10181d 62%, #0d1418 100%);
+  box-shadow:
+    0 0 0 1px rgba(46,229,140,.035),
+    0 28px 80px rgba(0,0,0,.30),
+    0 0 42px rgba(46,229,140,.035);
+}
+
+.alert-card.intercept::before {
+  background: linear-gradient(
+    to bottom,
+    var(--green),
+    var(--gold) 55%,
+    rgba(201,170,106,.18)
+  );
+}
+
+.alert-media {
+  position: relative;
+  min-height: 100%;
+  background:
+    radial-gradient(circle at center, rgba(201,170,106,.09), transparent 55%),
+    #090e14;
+  border-right: 1px solid rgba(255,255,255,.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+}
+
+.alert-media::after {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border: 1px solid rgba(255,255,255,.045);
+  border-radius: 15px;
+  pointer-events: none;
 }
 
 .alert-image {
-  width: 180px;
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
   height: 100%;
-  min-height: 220px;
-  object-fit: cover;
-  background: var(--panel-2);
+  max-height: 430px;
+  object-fit: contain;
+  border-radius: 13px;
+  filter: contrast(1.03) saturate(1.05);
+}
+
+.image-placeholder {
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 1px;
 }
 
 .alert-content {
-  padding: 18px 20px;
+  padding: 25px 27px 22px;
+  min-width: 0;
 }
 
-.alert-top,
-.alert-meta {
+.alert-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -186,95 +263,344 @@ h1 {
 
 .badges {
   display: flex;
-  gap: 7px;
+  gap: 8px;
 }
 
 .badge {
   display: inline-block;
-  padding: 5px 8px;
-  border-radius: 6px;
+  padding: 6px 10px;
+  border-radius: 7px;
   font-size: 9px;
-  font-weight: 800;
-  letter-spacing: .7px;
+  font-weight: 850;
+  letter-spacing: .9px;
 }
 
 .badge.label {
-  color: var(--gold);
-  background: rgba(201,170,106,.10);
-  border: 1px solid rgba(201,170,106,.22);
+  color: #ecd49d;
+  background: linear-gradient(
+    180deg,
+    rgba(201,170,106,.18),
+    rgba(201,170,106,.08)
+  );
+  border: 1px solid rgba(201,170,106,.32);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.035);
+}
+
+.alert-card.intercept .badge.label {
+  color: #aaf5ce;
+  background: rgba(46,229,140,.10);
+  border-color: rgba(46,229,140,.28);
+  box-shadow: 0 0 20px rgba(46,229,140,.055);
 }
 
 .badge.kind {
-  color: var(--muted);
-  background: rgba(255,255,255,.04);
-  border: 1px solid var(--border);
+  color: #aab4bf;
+  background: rgba(255,255,255,.045);
+  border: 1px solid rgba(255,255,255,.09);
 }
 
 .alert-time {
-  color: var(--muted);
+  color: #798693;
   font-size: 10px;
 }
 
 .alert-title {
-  font-size: 18px;
-  font-weight: 700;
-  margin-top: 16px;
-}
-
-.alert-meta {
-  margin-top: 12px;
-}
-
-.price {
-  color: var(--green);
-  font-size: 20px;
-  font-weight: 750;
-}
-
-.old-price {
-  color: var(--muted);
-  text-decoration: line-through;
-  margin-right: 7px;
-}
-
-.arrow {
-  color: var(--muted);
-  margin-right: 7px;
-}
-
-.score {
-  color: var(--muted);
-  font-size: 9px;
-  letter-spacing: .8px;
-}
-
-.score strong {
-  color: var(--gold);
-  font-size: 16px;
-  margin-left: 5px;
+  font-size: 22px;
+  font-weight: 760;
+  margin-top: 19px;
+  letter-spacing: -.45px;
+  line-height: 1.18;
 }
 
 .location {
-  color: var(--muted);
+  color: #8995a1;
   font-size: 11px;
-  margin-top: 11px;
+  margin-top: 6px;
 }
 
-.reason {
-  color: #c8ced5;
+.headline {
+  margin-top: 19px;
+  padding: 16px 17px;
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 13px;
+  background:
+    linear-gradient(100deg, rgba(46,229,140,.055), rgba(255,255,255,.018) 42%, rgba(201,170,106,.045));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 22px;
+}
+
+.price {
+  color: #43efa0;
+  font-size: 31px;
+  font-weight: 800;
+  letter-spacing: -.7px;
+  text-shadow: 0 0 22px rgba(46,229,140,.08);
+}
+
+.old-price {
+  color: #6f7b87;
+  text-decoration: line-through;
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+.arrow {
+  color: #8793a0;
+  margin-right: 8px;
+}
+
+.headline-metrics {
+  display: flex;
+  gap: 9px;
+}
+
+.headline-metrics > div {
+  min-width: 96px;
+  padding: 10px 12px;
+  text-align: right;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.07);
+  background: rgba(7,11,15,.34);
+}
+
+.headline-metrics > div:first-child {
+  border-color: rgba(201,170,106,.17);
+  background: rgba(201,170,106,.045);
+}
+
+.headline-metrics > div:last-child {
+  border-color: rgba(76,174,255,.17);
+  background: rgba(76,174,255,.045);
+}
+
+.headline-metrics span {
+  display: block;
+  color: #778592;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 1.1px;
+}
+
+.headline-metrics strong {
+  display: block;
+  font-size: 19px;
+  margin-top: 5px;
+}
+
+.headline-metrics > div:first-child strong {
+  color: #dfbd76;
+}
+
+.headline-metrics > div:last-child strong {
+  color: #69bfff;
+}
+
+.detail-section {
+  margin-top: 20px;
+}
+
+.detail-title {
+  color: #9ba6b2;
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: 1.55px;
+  margin-bottom: 10px;
+}
+
+.detail-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.device-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.deal-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.detail-item {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.025), transparent),
+    #0d141b;
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 11px;
+  padding: 11px 12px 12px;
+  min-width: 0;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.018);
+}
+
+.detail-item::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: rgba(255,255,255,.08);
+}
+
+.device-grid .detail-item:nth-child(1)::after {
+  background: #6f8fa8;
+}
+
+.device-grid .detail-item:nth-child(2)::after {
+  background: #61c995;
+}
+
+.device-grid .detail-item:nth-child(3)::after {
+  background: #729bc7;
+}
+
+.device-grid .detail-item:nth-child(4)::after {
+  background: #b4916b;
+}
+
+.device-grid .detail-item:nth-child(5)::after {
+  background: #8e7fc8;
+}
+
+.device-grid .detail-item:nth-child(6)::after {
+  background: #9aa3ad;
+}
+
+.detail-item span {
+  display: block;
+  color: #778591;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.detail-item strong {
+  display: block;
+  color: #e9edf0;
   font-size: 12px;
-  line-height: 1.55;
-  margin-top: 12px;
+  font-weight: 700;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.deal-grid .detail-item:nth-child(1) {
+  background: rgba(70,154,215,.055);
+  border-color: rgba(70,154,215,.12);
+}
+
+.deal-grid .detail-item:nth-child(1)::after {
+  background: #58a9e1;
+}
+
+.deal-grid .detail-item:nth-child(2) {
+  background: rgba(150,112,205,.045);
+  border-color: rgba(150,112,205,.11);
+}
+
+.deal-grid .detail-item:nth-child(2)::after {
+  background: #9573c5;
+}
+
+.deal-grid .detail-item:nth-child(3) {
+  background: rgba(201,170,106,.065);
+  border-color: rgba(201,170,106,.15);
+}
+
+.deal-grid .detail-item:nth-child(3)::after {
+  background: var(--gold);
+}
+
+.deal-grid .detail-item:nth-child(4) {
+  background: rgba(46,229,140,.045);
+}
+
+.deal-grid .detail-item:nth-child(4)::after {
+  background: var(--green);
+}
+
+.detail-item.gold strong {
+  color: #e3c786;
+}
+
+.detail-item.positive {
+  background: rgba(46,229,140,.055) !important;
+  border-color: rgba(46,229,140,.14) !important;
+}
+
+.detail-item.positive strong {
+  color: #48e99b;
+}
+
+.detail-item.negative {
+  background: rgba(255,95,101,.065) !important;
+  border-color: rgba(255,95,101,.16) !important;
+}
+
+.detail-item.negative::after {
+  background: var(--red) !important;
+}
+
+.detail-item.negative strong {
+  color: #ff777d;
+}
+
+.signals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 18px;
+}
+
+.signal {
+  padding: 7px 9px;
+  border-radius: 8px;
+  font-size: 9px;
+  font-weight: 650;
+  line-height: 1.2;
+}
+
+.signal.warning {
+  color: #dfbd76;
+  background: rgba(214,166,75,.10);
+  border: 1px solid rgba(214,166,75,.20);
+}
+
+.signal.risk {
+  color: #ff7c82;
+  background: rgba(255,95,101,.09);
+  border: 1px solid rgba(255,95,101,.18);
+}
+
+.alert-footer {
+  margin-top: 19px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,.07);
 }
 
 .open-button {
-  display: inline-block;
-  margin-top: 16px;
-  color: var(--gold);
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 12px;
+  border-radius: 8px;
+  color: #dfbd76;
+  background: rgba(201,170,106,.075);
+  border: 1px solid rgba(201,170,106,.17);
   text-decoration: none;
-  font-size: 10px;
-  font-weight: 800;
+  font-size: 9px;
+  font-weight: 850;
   letter-spacing: 1px;
+  transition: .15s ease;
+}
+
+.open-button:hover {
+  color: #f0d89f;
+  background: rgba(201,170,106,.12);
+  border-color: rgba(201,170,106,.28);
+  transform: translateY(-1px);
 }
 
 .empty-state {
@@ -318,10 +644,27 @@ h1 {
     grid-template-columns: 1fr;
   }
 
+  .alert-media {
+    min-height: 250px;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
   .alert-image {
-    width: 100%;
-    height: 220px;
-    min-height: 0;
+    max-height: 320px;
+  }
+
+  .headline {
+    align-items: flex-start;
+  }
+
+  .headline-metrics {
+    gap: 12px;
+  }
+
+  .device-grid,
+  .deal-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 </style>
@@ -383,7 +726,10 @@ h1 {
   <div class="feed">
     
     <article class="alert-card">
-      <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3263e21f-d714-45e8-8986-edcb06ff526b?rule=ecg_mp_eps$_83.jpg" alt="" loading="lazy">
+      <div class="alert-media">
+        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3263e21f-d714-45e8-8986-edcb06ff526b?rule=ecg_mp_eps$_83.jpg" alt="iPhone 15 Pro - Defect scherm, voor onderdelen" loading="lazy">
+      </div>
+
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
@@ -394,19 +740,45 @@ h1 {
         </div>
 
         <div class="alert-title">iPhone 15 Pro - Defect scherm, voor onderdelen</div>
+        <div class="location">Oude Pekela</div>
 
-        <div class="alert-meta">
+        <div class="headline">
           <div><span class="price">€600,00</span></div>
-          <div class="score">EAGLE SCORE <strong>34</strong></div>
+
+          <div class="headline-metrics">
+            <div>
+              <span>EAGLE SCORE</span>
+              <strong>34</strong>
+            </div>
+            <div>
+              <span>CONFIDENCE</span>
+              <strong>35%</strong>
+            </div>
+          </div>
         </div>
 
-        <div class="location">Oude Pekela</div>
-        <div class="reason">confidence=35;;storage=unknown;;battery_health=unknown;;resale_low=44500;;resale_high=46500;;repair_low=0;;repair_high=0;;margin_low=-15500;;margin_high=-13500;;max_buy=38500;;good=;;warnings=Batterijconditie onbekend || Face ID niet bevestigd || Onderdelenhistorie onbekend;;risks=</div>
+        <div class="detail-section">
+          <div class="detail-title">DEVICE</div>
+          <div class="detail-grid device-grid">
+            <div class="detail-item"><span>STORAGE</span><strong>Onbekend</strong></div><div class="detail-item"><span>BATTERY</span><strong>❔ Onbekend</strong></div><div class="detail-item"><span>SCREEN</span><strong>❔ Onbekend</strong></div><div class="detail-item"><span>BACK</span><strong>❔ Onbekend</strong></div><div class="detail-item"><span>FACE ID</span><strong>❔ Onbekend</strong></div><div class="detail-item"><span>PARTS</span><strong>❔ Onbekend</strong></div>
+          </div>
+        </div>
 
-        <a class="open-button"
-           href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443486490-iphone-15-pro-defect-scherm-voor-onderdelen"
-           target="_blank"
-           rel="noopener noreferrer">OPEN LISTING</a>
+        <div class="detail-section">
+          <div class="detail-title">DEAL</div>
+          <div class="detail-grid deal-grid">
+            <div class="detail-item"><span>RESALE</span><strong>€445,00 – €465,00</strong></div><div class="detail-item"><span>REPAIR</span><strong>€0,00</strong></div><div class="detail-item gold"><span>MAX BUY</span><strong>€385,00</strong></div><div class="detail-item negative"><span>PROFIT</span><strong>€-155,00 – €-135,00</strong></div>
+          </div>
+        </div>
+
+        <div class="signals"><span class="signal warning">⚠ Batterijconditie onbekend</span><span class="signal warning">⚠ Face ID niet bevestigd</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
+
+        <div class="alert-footer">
+          <a class="open-button"
+             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443486490-iphone-15-pro-defect-scherm-voor-onderdelen"
+             target="_blank"
+             rel="noopener noreferrer">OPEN LISTING ↗</a>
+        </div>
       </div>
     </article>
     
@@ -415,3 +787,581 @@ h1 {
 </div>
 </body>
 </html>
+
+<style>
+/* EAGLE ALERTS — unified gold / graphite visual language */
+
+/* Main card: stronger gold presence without gold body text */
+.alert-card {
+  border-color: rgba(201,170,106,.20);
+  box-shadow:
+    0 26px 80px rgba(0,0,0,.32),
+    0 0 42px rgba(201,170,106,.035),
+    inset 0 1px 0 rgba(255,255,255,.025);
+}
+
+.alert-card::before {
+  width: 3px;
+  background: linear-gradient(
+    to bottom,
+    rgba(225,197,139,.95),
+    rgba(201,170,106,.52) 45%,
+    rgba(201,170,106,.08)
+  );
+  box-shadow: 0 0 18px rgba(201,170,106,.20);
+}
+
+.alert-card.intercept {
+  border-color: rgba(201,170,106,.42);
+  box-shadow:
+    0 0 0 1px rgba(201,170,106,.055),
+    0 30px 90px rgba(0,0,0,.34),
+    0 0 55px rgba(201,170,106,.075);
+}
+
+.alert-card.intercept::before {
+  background: linear-gradient(
+    to bottom,
+    #e4c98e,
+    #c9aa6a 55%,
+    rgba(201,170,106,.12)
+  );
+  box-shadow: 0 0 24px rgba(201,170,106,.28);
+}
+
+/* Image well */
+.alert-media {
+  background:
+    radial-gradient(circle at 50% 48%,
+      rgba(201,170,106,.105),
+      rgba(201,170,106,.025) 38%,
+      transparent 67%),
+    #090d12;
+  border-right-color: rgba(201,170,106,.13);
+}
+
+.alert-media::after {
+  border-color: rgba(201,170,106,.10);
+  box-shadow:
+    inset 0 0 30px rgba(201,170,106,.025),
+    0 0 30px rgba(201,170,106,.025);
+}
+
+/* Badges: gold container, neutral text */
+.badge.label,
+.alert-card.intercept .badge.label {
+  color: #f1f3f5;
+  background: rgba(201,170,106,.105);
+  border-color: rgba(201,170,106,.28);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.035),
+    0 0 16px rgba(201,170,106,.045);
+}
+
+.badge.kind {
+  color: #aeb7c0;
+  background: rgba(255,255,255,.035);
+  border-color: rgba(255,255,255,.08);
+}
+
+/* Hero price area */
+.headline {
+  background:
+    radial-gradient(circle at 0% 50%,
+      rgba(201,170,106,.075),
+      transparent 42%),
+    rgba(8,12,16,.34);
+  border-color: rgba(201,170,106,.13);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.018),
+    0 0 28px rgba(201,170,106,.02);
+}
+
+/* Price remains semantic green */
+.price {
+  color: #47e99d;
+  text-shadow: 0 0 22px rgba(46,229,140,.075);
+}
+
+/* Score + confidence: same EAGLE styling, values white */
+.headline-metrics > div,
+.headline-metrics > div:first-child,
+.headline-metrics > div:last-child {
+  border-color: rgba(201,170,106,.16);
+  background:
+    linear-gradient(145deg,
+      rgba(201,170,106,.065),
+      rgba(255,255,255,.012));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.025),
+    0 0 18px rgba(201,170,106,.025);
+}
+
+.headline-metrics > div:first-child strong,
+.headline-metrics > div:last-child strong {
+  color: #f1f4f6;
+}
+
+/* All regular information tiles: graphite + gold detail */
+.detail-item,
+.device-grid .detail-item,
+.deal-grid .detail-item:nth-child(1),
+.deal-grid .detail-item:nth-child(2),
+.deal-grid .detail-item:nth-child(3),
+.deal-grid .detail-item:nth-child(4) {
+  background:
+    linear-gradient(145deg,
+      rgba(201,170,106,.035),
+      rgba(255,255,255,.012)),
+    #0d141b;
+  border-color: rgba(201,170,106,.105);
+}
+
+.detail-item::after,
+.device-grid .detail-item:nth-child(1)::after,
+.device-grid .detail-item:nth-child(2)::after,
+.device-grid .detail-item:nth-child(3)::after,
+.device-grid .detail-item:nth-child(4)::after,
+.device-grid .detail-item:nth-child(5)::after,
+.device-grid .detail-item:nth-child(6)::after,
+.deal-grid .detail-item:nth-child(1)::after,
+.deal-grid .detail-item:nth-child(2)::after,
+.deal-grid .detail-item:nth-child(3)::after,
+.deal-grid .detail-item:nth-child(4)::after {
+  background: rgba(201,170,106,.78);
+  box-shadow: 0 0 10px rgba(201,170,106,.10);
+}
+
+/* Data values neutral white */
+.detail-item strong,
+.detail-item.gold strong {
+  color: #edf1f4;
+}
+
+/* Only actual P/L keeps semantic color */
+.detail-item.positive {
+  background:
+    linear-gradient(145deg,
+      rgba(46,229,140,.055),
+      rgba(255,255,255,.01)),
+    #0d141b !important;
+  border-color: rgba(46,229,140,.15) !important;
+}
+
+.detail-item.positive::after {
+  background: var(--green) !important;
+}
+
+.detail-item.positive strong {
+  color: #48e99b;
+}
+
+.detail-item.negative {
+  background:
+    linear-gradient(145deg,
+      rgba(255,95,101,.07),
+      rgba(255,255,255,.01)),
+    #0d141b !important;
+  border-color: rgba(255,95,101,.18) !important;
+}
+
+.detail-item.negative::after {
+  background: var(--red) !important;
+}
+
+.detail-item.negative strong {
+  color: #ff777d;
+}
+
+/* Warning chips: restrained gold */
+.signal.warning {
+  color: #e6e9ec;
+  background: rgba(201,170,106,.075);
+  border-color: rgba(201,170,106,.20);
+  box-shadow: 0 0 14px rgba(201,170,106,.025);
+}
+
+/* Button: gold framing, white text */
+.open-button {
+  color: #f0f2f4;
+  background:
+    linear-gradient(145deg,
+      rgba(201,170,106,.115),
+      rgba(201,170,106,.045));
+  border-color: rgba(201,170,106,.25);
+  box-shadow:
+    0 0 18px rgba(201,170,106,.035),
+    inset 0 1px 0 rgba(255,255,255,.025);
+}
+
+.open-button:hover {
+  color: #ffffff;
+  background: rgba(201,170,106,.14);
+  border-color: rgba(201,170,106,.42);
+  box-shadow: 0 0 24px rgba(201,170,106,.08);
+}
+</style>
+
+<style>
+/* ============================================================
+   EAGLE ALERTS — NEON TECH PASS
+   graphite + cold cyan + gold
+   ============================================================ */
+
+:root {
+  --neon-cyan: #65d8ff;
+  --neon-cyan-soft: rgba(101,216,255,.16);
+  --neon-gold: #c9aa6a;
+  --neon-gold-soft: rgba(201,170,106,.16);
+}
+
+/* Entire card */
+.alert-card {
+  background:
+    radial-gradient(circle at 76% -10%,
+      rgba(101,216,255,.085),
+      transparent 34%),
+    radial-gradient(circle at 15% 110%,
+      rgba(201,170,106,.07),
+      transparent 40%),
+    linear-gradient(135deg,
+      #111820 0%,
+      #0d141b 48%,
+      #0a1016 100%);
+  border: 1px solid rgba(101,216,255,.13);
+  box-shadow:
+    0 30px 90px rgba(0,0,0,.38),
+    0 0 45px rgba(101,216,255,.025),
+    0 0 75px rgba(201,170,106,.018),
+    inset 0 1px 0 rgba(255,255,255,.025);
+}
+
+.alert-card::before {
+  width: 3px;
+  background:
+    linear-gradient(
+      to bottom,
+      var(--neon-cyan),
+      var(--neon-gold) 52%,
+      rgba(201,170,106,.08)
+    );
+  box-shadow:
+    0 0 12px rgba(101,216,255,.32),
+    0 0 24px rgba(201,170,106,.16);
+}
+
+/* INTERCEPT = stronger version of same identity */
+.alert-card.intercept {
+  border-color: rgba(101,216,255,.28);
+  box-shadow:
+    0 30px 100px rgba(0,0,0,.42),
+    0 0 38px rgba(101,216,255,.065),
+    0 0 60px rgba(201,170,106,.045);
+}
+
+/* Image bay */
+.alert-media {
+  background:
+    radial-gradient(circle at 50% 50%,
+      rgba(101,216,255,.065),
+      transparent 38%),
+    radial-gradient(circle at 45% 72%,
+      rgba(201,170,106,.05),
+      transparent 52%),
+    #080d12;
+  border-right: 1px solid rgba(101,216,255,.11);
+}
+
+.alert-media::after {
+  border-color: rgba(101,216,255,.10);
+  box-shadow:
+    inset 0 0 38px rgba(101,216,255,.025),
+    0 0 32px rgba(101,216,255,.025);
+}
+
+/* Main price panel becomes the visual hero */
+.headline {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 5% 50%,
+      rgba(101,216,255,.105),
+      transparent 38%),
+    radial-gradient(circle at 88% 15%,
+      rgba(201,170,106,.085),
+      transparent 32%),
+    linear-gradient(100deg,
+      rgba(15,26,34,.96),
+      rgba(13,19,25,.92));
+  border: 1px solid rgba(101,216,255,.16);
+  box-shadow:
+    0 0 28px rgba(101,216,255,.045),
+    0 0 40px rgba(201,170,106,.025),
+    inset 0 1px 0 rgba(255,255,255,.025);
+}
+
+.headline::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      115deg,
+      transparent 15%,
+      rgba(101,216,255,.035) 42%,
+      transparent 58%,
+      rgba(201,170,106,.025) 76%,
+      transparent
+    );
+}
+
+/* Price itself = white */
+.price {
+  position: relative;
+  z-index: 1;
+  color: #f4f7f9;
+  text-shadow:
+    0 0 18px rgba(101,216,255,.10);
+}
+
+/* Score / confidence values white.
+   Their cards get the neon color instead. */
+.headline-metrics > div,
+.headline-metrics > div:first-child,
+.headline-metrics > div:last-child {
+  position: relative;
+  background:
+    linear-gradient(145deg,
+      rgba(101,216,255,.045),
+      rgba(201,170,106,.025));
+  border-color: rgba(101,216,255,.13);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.025),
+    0 0 18px rgba(101,216,255,.022);
+}
+
+.headline-metrics > div:first-child {
+  border-color: rgba(201,170,106,.18);
+}
+
+.headline-metrics > div:first-child strong,
+.headline-metrics > div:last-child strong {
+  color: #f3f6f8;
+}
+
+/* Device + Deal cards use one unified tech language */
+.detail-item,
+.device-grid .detail-item,
+.deal-grid .detail-item:nth-child(1),
+.deal-grid .detail-item:nth-child(2),
+.deal-grid .detail-item:nth-child(3),
+.deal-grid .detail-item:nth-child(4) {
+  background:
+    linear-gradient(145deg,
+      rgba(101,216,255,.025),
+      rgba(201,170,106,.018)),
+    #0c1319;
+  border-color: rgba(101,216,255,.085);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.018),
+    0 0 15px rgba(101,216,255,.012);
+}
+
+/* alternating cyan / gold light rails */
+.device-grid .detail-item:nth-child(odd)::after,
+.deal-grid .detail-item:nth-child(odd)::after {
+  background: rgba(101,216,255,.82);
+  box-shadow: 0 0 10px rgba(101,216,255,.22);
+}
+
+.device-grid .detail-item:nth-child(even)::after,
+.deal-grid .detail-item:nth-child(even)::after {
+  background: rgba(201,170,106,.82);
+  box-shadow: 0 0 10px rgba(201,170,106,.16);
+}
+
+/* All informational values neutral */
+.detail-item strong,
+.detail-item.gold strong {
+  color: #eef2f5;
+}
+
+/* Profit remains semantic */
+.detail-item.positive strong {
+  color: #5ce4a2;
+}
+
+.detail-item.negative strong {
+  color: #ff7d82;
+}
+
+/* Warnings: graphite/gold, not bright yellow */
+.signal.warning {
+  color: #e7eaed;
+  background:
+    linear-gradient(145deg,
+      rgba(201,170,106,.085),
+      rgba(101,216,255,.018));
+  border-color: rgba(201,170,106,.18);
+  box-shadow:
+    0 0 14px rgba(201,170,106,.025);
+}
+
+/* PASS / NEW */
+.badge.label {
+  color: #f2f4f6;
+  background:
+    linear-gradient(145deg,
+      rgba(201,170,106,.13),
+      rgba(101,216,255,.025));
+  border-color: rgba(201,170,106,.23);
+}
+
+.badge.kind {
+  color: #c0c8cf;
+  background:
+    linear-gradient(145deg,
+      rgba(101,216,255,.055),
+      rgba(255,255,255,.02));
+  border-color: rgba(101,216,255,.11);
+}
+
+/* CTA */
+.open-button {
+  color: #f4f6f7;
+  background:
+    linear-gradient(100deg,
+      rgba(101,216,255,.075),
+      rgba(201,170,106,.095));
+  border-color: rgba(201,170,106,.21);
+  box-shadow:
+    0 0 18px rgba(101,216,255,.025),
+    0 0 18px rgba(201,170,106,.025);
+}
+
+.open-button:hover {
+  color: #fff;
+  border-color: rgba(101,216,255,.34);
+  background:
+    linear-gradient(100deg,
+      rgba(101,216,255,.13),
+      rgba(201,170,106,.15));
+  box-shadow:
+    0 0 22px rgba(101,216,255,.08),
+    0 0 28px rgba(201,170,106,.055);
+}
+</style>
+
+<style>
+/* ============================================================
+   EAGLE ALERTS — FINAL POLISH
+   ============================================================ */
+
+/* Slightly stronger premium frame */
+.alert-card {
+  border-color: rgba(101,216,255,.17);
+  box-shadow:
+    0 34px 100px rgba(0,0,0,.42),
+    0 0 42px rgba(101,216,255,.045),
+    0 0 70px rgba(201,170,106,.028),
+    inset 0 1px 0 rgba(255,255,255,.028);
+}
+
+/* PASS stays restrained */
+.alert-card:not(.intercept) .badge.label {
+  color: #d9dde1;
+  background:
+    linear-gradient(145deg,
+      rgba(255,255,255,.045),
+      rgba(201,170,106,.045));
+  border-color: rgba(201,170,106,.15);
+  box-shadow: none;
+}
+
+/* INTERCEPT gets the premium signal */
+.alert-card.intercept .badge.label {
+  color: #f7f8f9;
+  background:
+    linear-gradient(145deg,
+      rgba(101,216,255,.11),
+      rgba(201,170,106,.10));
+  border-color: rgba(101,216,255,.30);
+  box-shadow:
+    0 0 20px rgba(101,216,255,.08),
+    0 0 28px rgba(201,170,106,.055);
+}
+
+/* Image well: less dead space */
+.alert-media {
+  padding: 16px;
+  align-items: center;
+}
+
+.alert-media::after {
+  inset: 10px;
+}
+
+.alert-image {
+  max-height: 360px;
+}
+
+/* Section headings more deliberate */
+.detail-title {
+  color: #c0c8cf;
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 1.7px;
+  margin-bottom: 11px;
+  text-shadow: 0 0 12px rgba(101,216,255,.04);
+}
+
+/* Give sections a bit more separation */
+.detail-section + .detail-section {
+  margin-top: 22px;
+}
+
+/* Slightly stronger tile borders */
+.detail-item,
+.device-grid .detail-item,
+.deal-grid .detail-item:nth-child(1),
+.deal-grid .detail-item:nth-child(2),
+.deal-grid .detail-item:nth-child(3),
+.deal-grid .detail-item:nth-child(4) {
+  border-color: rgba(101,216,255,.10);
+}
+
+/* CTA more intentional */
+.open-button {
+  min-width: 150px;
+  justify-content: center;
+  padding: 11px 16px;
+  font-size: 10px;
+  letter-spacing: 1.15px;
+  border-color: rgba(101,216,255,.18);
+  background:
+    linear-gradient(100deg,
+      rgba(101,216,255,.09),
+      rgba(201,170,106,.10));
+  box-shadow:
+    0 0 20px rgba(101,216,255,.035),
+    0 0 24px rgba(201,170,106,.03),
+    inset 0 1px 0 rgba(255,255,255,.025);
+}
+
+.open-button:hover {
+  border-color: rgba(101,216,255,.40);
+  background:
+    linear-gradient(100deg,
+      rgba(101,216,255,.15),
+      rgba(201,170,106,.16));
+  box-shadow:
+    0 0 28px rgba(101,216,255,.10),
+    0 0 34px rgba(201,170,106,.07);
+}
+
+/* Slightly stronger divider before footer */
+.alert-footer {
+  border-top-color: rgba(101,216,255,.08);
+}
+</style>
