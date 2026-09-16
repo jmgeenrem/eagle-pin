@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eagle PIN · Alerts</title>
+
+<style>
+:root {
+  --bg: #090d12;
+  --panel: #11171e;
+  --panel-2: #0e141b;
+  --border: rgba(255,255,255,.08);
+  --text: #f2f5f7;
+  --muted: #8e98a5;
+  --green: #2ee58c;
+  --gold: #c9aa6a;
+  --red: #ff5f65;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.wrap {
+  max-width: 1010px;
+  margin: 0 auto;
+  padding: 28px 0 60px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo {
+  width: 58px;
+  height: 58px;
+  border-radius: 14px;
+  object-fit: cover;
+  display: block;
+  box-shadow:
+    0 0 0 1px rgba(216,170,91,.22),
+    0 6px 18px rgba(0,0,0,.35),
+    0 0 18px rgba(216,170,91,.10);
+}
+
+h1 {
+  margin: 0;
+  font-size: 30px;
+  letter-spacing: -.8px;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin-top: 4px;
+  font-size: 14px;
+}
+
+.status {
+  text-align: right;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.live {
+  color: var(--green);
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.eagle-nav {
+  display: flex;
+  gap: 28px;
+  margin: 26px 0 22px;
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-link {
+  position: relative;
+  padding-bottom: 12px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.nav-link.active { color: var(--text); }
+
+.nav-link.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--gold);
+  border-radius: 2px;
+}
+
+.section-label {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  margin: 26px 0 10px;
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 12px;
+}
+
+.card,
+.alert-card,
+.empty-state {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+
+.kpi {
+  padding: 18px;
+  min-height: 108px;
+}
+
+.kpi-label {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.1px;
+}
+
+.kpi-value {
+  font-size: 25px;
+  font-weight: 750;
+  margin-top: 13px;
+  letter-spacing: -.5px;
+}
+
+.feed {
+  display: grid;
+  gap: 12px;
+}
+
+.alert-card {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  overflow: hidden;
+}
+
+.alert-image {
+  width: 180px;
+  height: 100%;
+  min-height: 220px;
+  object-fit: cover;
+  background: var(--panel-2);
+}
+
+.alert-content {
+  padding: 18px 20px;
+}
+
+.alert-top,
+.alert-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.badges {
+  display: flex;
+  gap: 7px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 5px 8px;
+  border-radius: 6px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .7px;
+}
+
+.badge.label {
+  color: var(--gold);
+  background: rgba(201,170,106,.10);
+  border: 1px solid rgba(201,170,106,.22);
+}
+
+.badge.kind {
+  color: var(--muted);
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border);
+}
+
+.alert-time {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.alert-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 16px;
+}
+
+.alert-meta {
+  margin-top: 12px;
+}
+
+.price {
+  color: var(--green);
+  font-size: 20px;
+  font-weight: 750;
+}
+
+.old-price {
+  color: var(--muted);
+  text-decoration: line-through;
+  margin-right: 7px;
+}
+
+.arrow {
+  color: var(--muted);
+  margin-right: 7px;
+}
+
+.score {
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: .8px;
+}
+
+.score strong {
+  color: var(--gold);
+  font-size: 16px;
+  margin-left: 5px;
+}
+
+.location {
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 11px;
+}
+
+.reason {
+  color: #c8ced5;
+  font-size: 12px;
+  line-height: 1.55;
+  margin-top: 12px;
+}
+
+.open-button {
+  display: inline-block;
+  margin-top: 16px;
+  color: var(--gold);
+  text-decoration: none;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.empty-state {
+  padding: 55px 25px;
+  text-align: center;
+}
+
+.empty-title {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.empty-sub {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+@media (max-width: 760px) {
+  .wrap { padding: 20px 16px 45px; }
+
+  .logo {
+    width: 48px;
+    height: 48px;
+  }
+
+  h1 { font-size: 24px; }
+
+  .status { display: none; }
+
+  .eagle-nav {
+    overflow-x: auto;
+    gap: 22px;
+  }
+
+  .kpi-grid {
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .alert-card {
+    grid-template-columns: 1fr;
+  }
+
+  .alert-image {
+    width: 100%;
+    height: 220px;
+    min-height: 0;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="brand">
+      <img class="logo" src="eagle-pin-icon.jpg" alt="Eagle PIN">
+      <div>
+        <h1>Eagle PIN</h1>
+        <div class="subtitle">Alert Intelligence</div>
+      </div>
+    </div>
+
+    <div class="status">
+      <div class="live">● LIVE</div>
+      <div>Deal opportunity history</div>
+    </div>
+  </div>
+
+  <nav class="eagle-nav">
+    <a class="nav-link" href="./">MARKET</a>
+    <a class="nav-link" href="deal-calculator.html">DEAL CALCULATOR</a>
+    <a class="nav-link" href="parts-hub.html">PARTS HUB</a>
+    <a class="nav-link" href="repair-hub.html">REPAIR HUB</a>
+    <a class="nav-link" href="finance.html">FINANCE</a>
+    <a class="nav-link active" href="alerts.html">ALERTS</a>
+  </nav>
+
+  <div class="section-label">ALERT OVERVIEW</div>
+
+  <div class="kpi-grid">
+    <div class="card kpi">
+      <div class="kpi-label">TOTAL ALERTS</div>
+      <div class="kpi-value">0</div>
+    </div>
+
+    <div class="card kpi">
+      <div class="kpi-label">INTERCEPTS</div>
+      <div class="kpi-value">0</div>
+    </div>
+
+    <div class="card kpi">
+      <div class="kpi-label">PRICE DROPS</div>
+      <div class="kpi-value">0</div>
+    </div>
+
+    <div class="card kpi">
+      <div class="kpi-label">LAST ALERT</div>
+      <div class="kpi-value" style="font-size:15px">—</div>
+    </div>
+  </div>
+
+  <div class="section-label">ALERT FEED</div>
+
+  <div class="feed">
+    
+        <div class="empty-state">
+          <div class="empty-title">No alerts recorded yet</div>
+          <div class="empty-sub">
+            Successful EAGLE notifications will appear here automatically.
+          </div>
+        </div>
+        
+  </div>
+
+</div>
+</body>
+</html>
