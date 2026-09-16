@@ -763,7 +763,7 @@ canvas {
 
     <div class="status">
       <div class="live" id="eagle-status"><span class="live-dot"></span> <span id="eagle-status-text">LIVE</span></div>
-      <div>Updated 2026-09-16 21:15</div>
+      <div>Updated 2026-09-16 21:17</div>
     </div>
   </div>
 
@@ -2271,7 +2271,7 @@ function drawFlipTooltip(marker) {
         `PIN €${pin.toFixed(0)} · SOLD €${actualSale.toFixed(0)}`;
 
       deviationText =
-        `DEVIATION ${euroSign}€${Math.abs(euroDiff).toFixed(0)} · ` +
+        `DEVIATION ${euroSign}€${Math.abs(euroDiff).toFixed(0)} / ` +
         `${pctSign}${Math.abs(deviation * 100).toFixed(1)}%`;
 
       deviationColor =
@@ -2462,7 +2462,7 @@ if (models.length) {
   populateStorages();
 }
 
-const eagleUpdatedAt = new Date("2026-09-16T21:15");
+const eagleUpdatedAt = new Date("2026-09-16T21:17");
 
 function updateEagleStatus() {
   const status = document.getElementById("eagle-status");
