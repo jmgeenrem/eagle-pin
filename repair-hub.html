@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Eagle PIN · Parts Hub</title>
+<title>Eagle PIN · Repair Hub</title>
 
 <style>
 
@@ -581,18 +581,18 @@ input {
 
     <div class="status">
       <div class="live">● LIVE</div>
-      <div>Parts sourcing database</div>
+      <div>Repair knowledge database</div>
     </div>
   </div>
 
   <nav class="eagle-nav">
     <a class="nav-link" href="./?v=v20260915-1">MARKET</a>
     <a class="nav-link" href="deal-calculator.html?v=v20260915-1">DEAL CALCULATOR</a>
-    <a class="nav-link active" href="parts-hub.html?v=v20260915-1">PARTS HUB</a>
-    <a class="nav-link" href="repair-hub.html?v=v20260916-1">REPAIR HUB</a>
+    <a class="nav-link" href="parts-hub.html?v=v20260915-1">PARTS HUB</a>
+    <a class="nav-link active" href="repair-hub.html?v=v20260916-1">REPAIR HUB</a>
   </nav>
 
-  <div class="section-label">PARTS SOURCING</div>
+  <div class="section-label">REPAIR KNOWLEDGE</div>
 
   <div class="parts-head">
     <div class="field">
@@ -600,222 +600,102 @@ input {
       <select id="modelSelect"></select>
     </div>
 
-    <div class="parts-count" id="partsCount"></div>
+    <div class="field">
+      <label>Repair</label>
+      <select id="repairSelect"></select>
+    </div>
   </div>
 
-  <div class="parts-grid" id="partsGrid"></div>
+  <div class="grid">
 
-</div>
+    <div class="card">
+      <div class="section-label">VIDEO GUIDE</div>
+
+      <div id="videoArea"></div>
+    </div>
+
+    <div class="card">
+      <div class="section-label">STEP-BY-STEP GUIDES</div>
+      <div id="guidesArea"></div>
+    </div>
+
+  </div>
 
 <script>
-const PARTS_DATA = {
-  "iPhone 15 Pro": [
-    {
-      category: "SCREEN",
-      name: "Diagnostic Display",
-      price: 70.00,
-      supplier: "Componenti Digitali",
-      shipping: "Supplier shipping €12,50",
-      icon: "screen",
-      preferred: true,
-      url: "https://www.componentidigitali.com/en/componenti-digitali-home-page/spare-parts-for-mobile-phones/spare-parts-for-apple-iphone/iphone-15-pro/display-lcd-for-iphone-15-pro-soft-oled-itrucolor-self-diagnosable.2.39.1010.gp.49821.uw"
+const REPAIR_DATA = {
+  "iPhone 14 Pro Max": {
+    "Screen Replacement": {
+      videos: [
+        {
+          title: "Self-Diagnostic Screen / Repair Assistant",
+          youtube: "Cx7MAtB1z38",
+          start: 0,
+          end: 137,
+          relevant: "0:00–2:17"
+        }
+      ],
+      guides: [
+        {
+          title: "iFixit Display Replacement",
+          type: "iFixit",
+          url: "https://nl.ifixit.com/Guide/iPhone+14+Pro+Max+Vervanging+van+het+scherm/153003"
+        }
+      ]
     },
-    {
-      category: "ON-TAG FLEX",
-      name: "JCID Diagnostic Flex",
-      price: 11.50,
-      supplier: "Componenti Digitali",
-      shipping: "Supplier shipping €12,50",
-      icon: "flex",
-      preferred: true,
-      url: "https://www.componentidigitali.com/en/componenti-digitali-home-page/spare-parts-for-mobile-phones/spare-parts-for-apple-iphone/iphone-15-pro/-flat-batteria-tag-on-jcid-autodiagnosticabile-per-iphone-15-pro-15-pro-max.2.39.1010.gp.48616.uw"
-    },
-    {
-      category: "BATTERY",
-      name: "DEJI Diagnostic Battery",
-      price: 15.00,
-      supplier: "Componenti Digitali",
-      shipping: "Supplier shipping €12,50",
-      icon: "battery",
-      preferred: true,
-      url: "https://www.componentidigitali.com/it/componenti-digitali-home-page/ricambi-per-cellulari-tablet/ricambi-per-apple-iphone/iphone-15-pro/batteria-per-iphone-15-pro-deji-3274mah-autodiagnosticabile.1.39.1010.gp.43017.uw"
-    },
-    {
-      category: "BACK GLASS",
-      name: "Used OEM Pull Grade-B",
-      price: 65.00,
-      supplier: "MobileSentrix",
-      shipping: "Shipping €8,00",
-      icon: "housing",
-      preferred: true,
-      url: "https://www.mobilesentrix.eu/back-glass-w-magsafe-magnet-nfc-flashlight-flex-for-iphone-15-pro-used-oem-pull-grade-b-black-titanium"
-    },
-    {
-      category: "ADHESIVE",
-      name: "Original Back Glass Adhesive",
-      price: 1.85,
-      supplier: "Componenti Digitali",
-      shipping: "Supplier shipping €12,50",
-      icon: "adhesive",
-      preferred: true,
-      url: "https://www.componentidigitali.com/en/componenti-digitali-home-page/spare-parts-for-mobile-phones/spare-parts-for-apple-iphone/iphone-15-pro/adhesive-frame-back-cover-for-iphone-15-pro-923-09189.2.39.1010.gp.43578.uw"
-    }
-  ],
 
-  "iPhone 14 Pro Max": [
-    {
-      category: "SCREEN",
-      name: "Diagnostic Display",
-      price: 48.50,
-      supplier: "Componenti Digitali",
-      shipping: "Supplier shipping €12,50",
-      icon: "screen",
-      preferred: true,
-      url: "https://www.componentidigitali.com/it/componenti-digitali-home-page/ricambi-per-cellulari-tablet/ricambi-per-apple-iphone/iphone-14-pro-max/display-lcd-per-iphone-14-pro-max-soft-oled-itrucolor-autodiagnosticabile.1.39.939.gp.49824.uw"
+    "Battery Replacement": {
+      videos: [
+        {
+          title: "DEJI Self-Diagnostic Battery",
+          youtube: "kYXd4pELxsQ"
+        }
+      ],
+      guides: [
+        {
+          title: "iFixit Battery Replacement",
+          type: "iFixit",
+          url: "https://nl.ifixit.com/Guide/iPhone+14+Pro+Max+Vervanging+van+de+batterij/153006"
+        },
+        {
+          title: "Battery Adhesive / Tesa",
+          type: "iFixit",
+          url: "https://nl.ifixit.com/Guide/Hoe+een+voorgesneden+zelfklevend+vel+te+gebruiken-/113604"
+        }
+      ]
     },
-    {
-      category: "HOUSING",
-      name: "OEM Grade-B",
-      price: 60.00,
-      supplier: "Nordvik",
-      shipping: "Shipping €14",
-      icon: "housing",
-      preferred: true,
-      url: "https://www.nordviks.se/products/oem-battery-back-cover-with-side-keys-card-tray-power-volume-flex-cable-for-iphone-14-pro-max-gold?_pos=6&_psq=iphone+14+pro+housing&_psid=1b8818894&_ss=e"
-    },
-    {
-      category: "ON-TAG FLEX",
-      name: "JCID Diagnostic Flex",
-      price: 9.50,
-      supplier: "Componenti Digitali",
-      shipping: "Supplier shipping €12,50",
-      icon: "flex",
-      preferred: true,
-      url: "https://www.componentidigitali.com/en/componenti-digitali-home-page/spare-parts-for-mobile-phones/spare-parts-for-apple-iphone/iphone-14-pro/flat-batteria-tag-on-jcid-per-iphone-14-pro-14-pro-max-v1-0-autodiagnosticabile.2.39.938.gp.48614.uw"
-    },
-    {
-      category: "BATTERY",
-      name: "DEJI Diagnostic Battery",
-      price: 15.00,
-      supplier: "Componenti Digitali",
-      shipping: "Supplier shipping €12,50",
-      icon: "battery",
-      preferred: true,
-      url: "https://www.componentidigitali.com/en/componenti-digitali-home-page/spare-parts-for-mobile-phones/spare-parts-for-apple-iphone/iphone-14-pro-max/battery-for-iphone-14-pro-max-deji-4323mah-self-diagnosable.2.39.939.gp.43014.uw"
-    },
-    {
-      category: "DISPLAY ADHESIVE",
-      name: "Display Adhesive",
-      price: 0.85,
-      supplier: "Componenti Digitali",
-      shipping: "Supplier shipping €12,50",
-      icon: "adhesive",
-      preferred: true,
-      url: "https://www.componentidigitali.com/en/componenti-digitali-home-page/spare-parts-for-mobile-phones/spare-parts-for-apple-iphone/iphone-14-pro-max/adhesive-display-lcd-for-iphone-14-pro-max.2.39.939.gp.32232.uw"
-    }
-  ],
 
-  "iPhone 14 Pro": [
-    {
-      category: "SCREEN",
-      name: "Diagnostic Display",
-      price: 48.00,
-      supplier: "Componenti Digitali",
-      shipping: "Supplier shipping €12,50",
-      icon: "screen",
-      preferred: true,
-      url: "https://www.componentidigitali.com/it/componenti-digitali-home-page/ricambi-per-cellulari-tablet/ricambi-per-apple-iphone/iphone-14-pro/display-lcd-per-iphone-14-pro-soft-oled-itrucolor-autodiagnosticabile.1.39.938.gp.49825.uw"
+    "Housing Replacement": {
+      videos: [
+        {
+          title: "Housing Replacement",
+          youtube: "Zow3XlIbNcU"
+        }
+      ],
+      guides: []
     },
-    {
-      category: "HOUSING",
-      name: "OEM Grade-B",
-      price: 57.00,
-      supplier: "Nordvik",
-      shipping: "Shipping €14,00",
-      icon: "housing",
-      preferred: true,
-      url: "https://www.nordviks.se/products/oem-battery-back-cover-with-side-keys-card-tray-power-volume-flex-cable-for-iphone-14-pro-gold?_pos=5&_psq=iphone+14+pro+housing&_psid=1b8818894&_ss=e"
-    },
-    {
-      category: "ON-TAG FLEX",
-      name: "JCID Diagnostic Flex",
-      price: 9.50,
-      supplier: "Componenti Digitali",
-      shipping: "Supplier shipping €12,50",
-      icon: "flex",
-      preferred: true,
-      url: "https://www.componentidigitali.com/en/componenti-digitali-home-page/spare-parts-for-mobile-phones/spare-parts-for-apple-iphone/iphone-14-pro/flat-batteria-tag-on-jcid-per-iphone-14-pro-14-pro-max-v1-0-autodiagnosticabile.2.39.938.gp.48614.uw"
-    },
-    {
-      category: "BATTERY",
-      name: "DEJI Diagnostic Battery",
-      price: 15.00,
-      supplier: "Componenti Digitali",
-      shipping: "Supplier shipping €12,50",
-      icon: "battery",
-      preferred: true,
-      url: "https://www.componentidigitali.com/en/componenti-digitali-home-page/spare-parts-for-mobile-phones/spare-parts-for-apple-iphone/iphone-14-pro/battery-for-iphone-14-pro-deji-self-diagnosable-increased-3510mah.2.39.938.gp.43028.uw"
-    }
-  ],
 
-  "iPhone 13 Pro Max": [],
-  "iPhone 12 Pro Max": []
+    "On-Tag Flex": {
+      videos: [
+        {
+          title: "JCID On-Tag Flex",
+          youtube: "cHYxcU17H3Y"
+        }
+      ],
+      guides: []
+    }
+  },
+
+  "iPhone 15 Pro": {},
+  "iPhone 14 Pro": {},
+  "iPhone 13 Pro Max": {}
 };
 
-function euro(value) {
-  return new Intl.NumberFormat("nl-NL", {
-    style: "currency",
-    currency: "EUR"
-  }).format(value);
-}
-
-function icon(type) {
-  const icons = {
-    screen: `
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7">
-        <rect x="6" y="2.5" width="12" height="19" rx="2.3"/>
-        <path d="M10 18.5h4"/>
-      </svg>`,
-
-    housing: `
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7">
-        <rect x="5" y="2.5" width="14" height="19" rx="2.5"/>
-        <circle cx="9" cy="7" r="1.6"/>
-        <circle cx="14" cy="7" r="1.6"/>
-        <circle cx="9" cy="12" r="1.6"/>
-      </svg>`,
-
-    battery: `
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7">
-        <rect x="3" y="7" width="17" height="10" rx="2"/>
-        <path d="M20 10h1.5v4H20"/>
-        <path d="M7 10.5v3M10 9.5v5M13 11v2"/>
-      </svg>`,
-
-    flex: `
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7">
-        <rect x="3.5" y="8" width="7" height="8" rx="1.5"/>
-        <rect x="15" y="9.5" width="5.5" height="5" rx="1"/>
-        <path d="M10.5 10h2.5v4h2"/>
-        <path d="M5.5 6V4M8.5 6V4M5.5 20v-2M8.5 20v-2"/>
-      </svg>`,
-
-    adhesive: `
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7">
-        <path d="M12 3 4 7l8 4 8-4-8-4Z"/>
-        <path d="m4 12 8 4 8-4"/>
-        <path d="m4 17 8 4 8-4"/>
-      </svg>`
-  };
-
-  return icons[type] || icons.screen;
-}
-
 const modelSelect = document.getElementById("modelSelect");
-const partsGrid = document.getElementById("partsGrid");
-const partsCount = document.getElementById("partsCount");
+const repairSelect = document.getElementById("repairSelect");
+const videoArea = document.getElementById("videoArea");
+const guidesArea = document.getElementById("guidesArea");
 
-Object.keys(PARTS_DATA).forEach(model => {
+Object.keys(REPAIR_DATA).forEach(model => {
   const option = document.createElement("option");
   option.value = model;
   option.textContent = model;
@@ -824,51 +704,121 @@ Object.keys(PARTS_DATA).forEach(model => {
 
 modelSelect.value = "iPhone 14 Pro Max";
 
-function renderParts() {
-  const model = modelSelect.value;
-  const parts = PARTS_DATA[model] || [];
+function loadRepairs() {
+  const repairs = REPAIR_DATA[modelSelect.value] || {};
+  repairSelect.innerHTML = "";
 
-  partsCount.textContent =
-    `${parts.length} SOURCE${parts.length === 1 ? "" : "S"}`;
+  Object.keys(repairs).forEach(repair => {
+    const option = document.createElement("option");
+    option.value = repair;
+    option.textContent = repair;
+    repairSelect.appendChild(option);
+  });
 
-  if (!parts.length) {
-    partsGrid.innerHTML = `
+  renderRepair();
+}
+
+function renderRepair() {
+  const repair =
+    REPAIR_DATA[modelSelect.value]?.[repairSelect.value];
+
+  if (!repair) {
+    videoArea.innerHTML = `
       <div class="empty-state">
-        <strong>No sourcing data yet</strong>
-        Parts voor ${model} zijn nog niet toegevoegd.
+        <strong>No tutorial data yet</strong>
+        Tutorials voor dit model zijn nog niet toegevoegd.
       </div>
     `;
+    guidesArea.innerHTML = "";
     return;
   }
 
-  partsGrid.innerHTML = parts.map(part => `
-    <article class="part-card">
-      <div class="part-top">
-        <div class="part-icon">${icon(part.icon)}</div>
-        ${part.preferred ? '<span class="preferred">PREFERRED</span>' : ''}
-      </div>
+  const videos = repair.videos || [];
+  const guides = repair.guides || [];
 
-      <div class="part-category">${part.category}</div>
-      <div class="part-name">${part.name}</div>
-      <div class="part-price">${euro(part.price)}</div>
+  if (videos.length) {
+    videoArea.innerHTML = videos.map(video => `
+      <div style="margin-bottom:16px;">
+        <div style="
+          aspect-ratio:16/9;
+          overflow:hidden;
+          border-radius:12px;
+          border:1px solid var(--border);
+          background:#000;
+        ">
+          <iframe
+            src="https://www.youtube.com/embed/${video.youtube}?start=${video.start || 0}${video.end ? `&end=${video.end}` : ""}"
+            title="${video.title}"
+            style="width:100%;height:100%;border:0;"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
 
-      <div class="part-meta">
-        ${part.supplier}<br>
-        ${part.shipping}
-      </div>
+        <div style="
+          margin-top:10px;
+          font-size:13px;
+          font-weight:700;
+          color:var(--text);
+        ">
+          ${video.title}
+        </div>
 
-      <div class="part-footer">
-        ${part.url
-          ? `<a class="part-link" href="${part.url}" target="_blank" rel="noopener">OPEN PART ↗</a>`
-          : `<div class="part-link-disabled">LINK NOG TOEVOEGEN</div>`
-        }
+        ${video.relevant ? `
+          <div style="
+            margin-top:5px;
+            color:#d9c391;
+            font-size:9px;
+            font-weight:800;
+            letter-spacing:.10em;
+          ">
+            RELEVANT SECTION · ${video.relevant}
+          </div>
+        ` : ""}
       </div>
-    </article>
-  `).join("");
+    `).join("");
+  } else {
+    videoArea.innerHTML = `
+      <div class="empty-state">
+        <strong>No video guide yet</strong>
+        Video tutorial nog niet toegevoegd.
+      </div>
+    `;
+  }
+
+  if (guides.length) {
+    guidesArea.innerHTML = guides.map(guide => `
+      <div class="repair-row">
+        <div>
+          <strong>${guide.title}</strong>
+          <div class="part-meta">
+            ${guide.type} · Photos + detailed repair steps
+          </div>
+        </div>
+
+        <a
+          class="part-link"
+          style="width:120px;"
+          href="${guide.url}"
+          target="_blank"
+          rel="noopener">
+          OPEN GUIDE ↗
+        </a>
+      </div>
+    `).join("");
+  } else {
+    guidesArea.innerHTML = `
+      <div class="part-meta" style="padding:12px 0;">
+        Geen step-by-step guide toegevoegd.
+      </div>
+    `;
+  }
 }
 
-modelSelect.addEventListener("change", renderParts);
-renderParts();
+modelSelect.addEventListener("change", loadRepairs);
+repairSelect.addEventListener("change", renderRepair);
+
+loadRepairs();
 </script>
 
 </body>
