@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eagle PIN · Finance</title>
+
+<style>
+:root {
+  --bg: #090d12;
+  --panel: #11171e;
+  --panel-2: #0e141b;
+  --border: rgba(255,255,255,.08);
+  --text: #f2f5f7;
+  --muted: #8e98a5;
+  --green: #2ee58c;
+  --amber: #d6a64b;
+  --gold: #c9aa6a;
+  --red: #ff5f65;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.wrap {
+  max-width: 1010px;
+  margin: 0 auto;
+  padding: 28px 0 60px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo {
+  width: 58px;
+  height: 58px;
+  border-radius: 14px;
+  object-fit: cover;
+  display: block;
+  box-shadow:
+    0 0 0 1px rgba(216,170,91,.22),
+    0 6px 18px rgba(0,0,0,.35),
+    0 0 18px rgba(216,170,91,.10);
+}
+
+h1 {
+  margin: 0;
+  font-size: 30px;
+  letter-spacing: -.8px;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin-top: 4px;
+  font-size: 14px;
+}
+
+.status {
+  text-align: right;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.live {
+  color: var(--green);
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.eagle-nav {
+  display: flex;
+  gap: 28px;
+  margin: 26px 0 22px;
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-link {
+  position: relative;
+  padding-bottom: 12px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.nav-link.active { color: var(--text); }
+
+.nav-link.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--gold);
+  border-radius: 2px;
+}
+
+.section-label {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  margin: 26px 0 10px;
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 12px;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+
+.kpi {
+  padding: 18px;
+  min-height: 116px;
+}
+
+.kpi-label {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.1px;
+}
+
+.kpi-value {
+  font-size: 25px;
+  font-weight: 750;
+  margin-top: 13px;
+  letter-spacing: -.5px;
+}
+
+.kpi-note {
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 8px;
+}
+
+.positive { color: var(--green); }
+.negative { color: var(--red); }
+.gold { color: var(--gold); }
+
+.chart-card {
+  padding: 20px;
+}
+
+.chart-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.chart-title {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.chart-sub {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.chart-stats {
+  display: flex;
+  gap: 22px;
+  text-align: right;
+}
+
+.chart-stat small {
+  display: block;
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+
+.chart-stat strong {
+  font-size: 13px;
+}
+
+.chart {
+  width: 100%;
+  height: 230px;
+  display: block;
+}
+
+.grid-line {
+  stroke: rgba(255,255,255,.06);
+  stroke-width: 1;
+}
+
+.capital-line {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.capital-area {
+  fill: url(#capitalGradient);
+}
+
+.point {
+  fill: var(--bg);
+  stroke: var(--gold);
+  stroke-width: 3;
+}
+
+.axis-text {
+  fill: var(--muted);
+  font-size: 10px;
+}
+
+.performance-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 12px;
+}
+
+.performance {
+  padding: 16px 18px;
+}
+
+.performance small {
+  display: block;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: .8px;
+  margin-bottom: 8px;
+}
+
+.performance strong {
+  font-size: 18px;
+}
+
+.table-card {
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  text-align: left;
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: .8px;
+  padding: 13px 15px;
+  border-bottom: 1px solid var(--border);
+}
+
+td {
+  padding: 15px;
+  font-size: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+tr:last-child td { border-bottom: 0; }
+
+.model {
+  font-weight: 650;
+  color: var(--text);
+}
+
+.subtext {
+  color: var(--muted);
+  font-size: 10px;
+  margin-top: 4px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 5px 8px;
+  border-radius: 6px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .7px;
+}
+
+.badge.active {
+  color: var(--gold);
+  background: rgba(201,170,106,.10);
+  border: 1px solid rgba(201,170,106,.22);
+}
+
+.badge.sold {
+  color: var(--green);
+  background: rgba(46,229,140,.08);
+  border: 1px solid rgba(46,229,140,.18);
+}
+
+@media (max-width: 760px) {
+  .wrap { padding: 20px 16px 45px; }
+
+  .topbar {
+    align-items: flex-start;
+  }
+
+  .logo {
+    width: 48px;
+    height: 48px;
+  }
+
+  h1 { font-size: 24px; }
+
+  .status { display: none; }
+
+  .eagle-nav {
+    overflow-x: auto;
+    gap: 22px;
+  }
+
+  .kpi-grid,
+  .performance-grid {
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .chart-head {
+    display: block;
+  }
+
+  .chart-stats {
+    margin-top: 15px;
+    text-align: left;
+  }
+
+  .table-card {
+    overflow-x: auto;
+  }
+
+  table {
+    min-width: 800px;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="brand">
+      <img class="logo" src="eagle-pin-icon.jpg" alt="Eagle PIN">
+      <div>
+        <h1>Eagle PIN</h1>
+        <div class="subtitle">Finance & Flip Performance</div>
+      </div>
+    </div>
+
+    <div class="status">
+      <div class="live">● LIVE</div>
+      <div>Financial intelligence</div>
+    </div>
+  </div>
+
+  <nav class="eagle-nav">
+    <a class="nav-link" href="./?v=v20260915-1">MARKET</a>
+    <a class="nav-link" href="deal-calculator.html?v=v20260915-1">DEAL CALCULATOR</a>
+    <a class="nav-link" href="parts-hub.html?v=v20260915-1">PARTS HUB</a>
+    <a class="nav-link" href="repair-hub.html?v=v20260916-1">REPAIR HUB</a>
+    <a class="nav-link active" href="finance.html?v=v20260916-1">FINANCE</a>
+  </nav>
+
+  <div class="section-label">FINANCIAL OVERVIEW</div>
+
+  <div class="kpi-grid">
+    <div class="card kpi">
+      <div class="kpi-label">AVAILABLE CASH</div>
+      <div class="kpi-value">€0,00</div>
+      <div class="kpi-note">Ready to deploy</div>
+    </div>
+
+    <div class="card kpi">
+      <div class="kpi-label">CAPITAL INVESTED</div>
+      <div class="kpi-value gold">€301,51</div>
+      <div class="kpi-note">Active inventory</div>
+    </div>
+
+    <div class="card kpi">
+      <div class="kpi-label">REALIZED PROFIT</div>
+      <div class="kpi-value positive">+€18,98</div>
+      <div class="kpi-note">Closed flips</div>
+    </div>
+
+    <div class="card kpi">
+      <div class="kpi-label">TOTAL SALES</div>
+      <div class="kpi-value">€370,00</div>
+      <div class="kpi-note">Closed flip revenue</div>
+    </div>
+  </div>
+
+  <div class="section-label">REALIZED P/L GROWTH</div>
+
+  <div class="card chart-card">
+    <div class="chart-head">
+      <div>
+        <div class="chart-title">Cumulative Profit</div>
+        <div class="chart-sub">Realized profit from closed flips over time</div>
+      </div>
+
+      <div class="chart-stats">
+        
+        <div class="chart-stat">
+          <small>START</small>
+          <strong>€0,00</strong>
+        </div>
+        <div class="chart-stat">
+          <small>CURRENT</small>
+          <strong class="positive">+€18,98</strong>
+        </div>
+        <div class="chart-stat">
+          <small>CLOSED FLIPS</small>
+          <strong>1</strong>
+        </div>
+      </div>
+    </div>
+
+    
+    <svg class="chart"
+         viewBox="0 0 900 230"
+         preserveAspectRatio="none">
+
+      <defs>
+        <linearGradient id="capitalGradient"
+                        x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"
+                stop-color="#c9aa6a"
+                stop-opacity=".20"/>
+          <stop offset="100%"
+                stop-color="#c9aa6a"
+                stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+
+      <line class="grid-line" x1="55" y1="30.0" x2="870" y2="30.0"/><line class="grid-line" x1="55" y1="83.3" x2="870" y2="83.3"/><line class="grid-line" x1="55" y1="136.7" x2="870" y2="136.7"/><line class="grid-line" x1="55" y1="190.0" x2="870" y2="190.0"/>
+      <text class="axis-text" x="4" y="34.0">€28,98</text><text class="axis-text" x="4" y="87.3">€15,99</text><text class="axis-text" x="4" y="140.7">€2,99</text><text class="axis-text" x="4" y="194.0">€-10,00</text>
+
+      <path class="capital-area" d="M55.0 149.0 L870.0 71.0 L870.0 190 L55.0 190 Z"/>
+      <path class="capital-line" d="M55.0 149.0 L870.0 71.0"/>
+
+      <circle class="point" cx="55.0" cy="149.0" r="4"/><circle class="point" cx="870.0" cy="71.0" r="4"/>
+      <text class="axis-text" x="55.0" y="218" text-anchor="start">START</text><text class="axis-text" x="870.0" y="218" text-anchor="end">F001</text>
+    </svg>
+  </div>
+
+  <div class="section-label">PERFORMANCE</div>
+
+  <div class="performance-grid">
+    <div class="card performance">
+      <small>CLOSED FLIPS</small>
+      <strong>1</strong>
+    </div>
+
+    <div class="card performance">
+      <small>AVG. PROFIT</small>
+      <strong class="positive">+€18,98</strong>
+    </div>
+
+    <div class="card performance">
+      <small>AVG. ROI</small>
+      <strong class="positive">+5,4%</strong>
+    </div>
+
+    <div class="card performance">
+      <small>AVG. HOLD</small>
+      <strong>10 days</strong>
+    </div>
+  </div>
+
+  <div class="section-label">ACTIVE FLIPS</div>
+
+  <div class="card table-card">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>DEVICE</th>
+          <th>BOUGHT</th>
+          <th>PURCHASE</th>
+          <th>REPAIRS</th>
+          <th>INVESTED</th>
+          <th>PIN</th>
+          <th>STATUS</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+          <td>F002</td>
+          <td>
+            <div class="model">iPhone 14 Pro Max 128GB</div>
+          </td>
+          <td>14 Sep</td>
+          <td>€200,00</td>
+          <td>€101,51</td>
+          <td><strong>€301,51</strong></td>
+          <td>—</td>
+          <td><span class="badge active">ACTIVE</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-label">FLIP HISTORY</div>
+
+  <div class="card table-card">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>DEVICE</th>
+          <th>BOUGHT</th>
+          <th>SOLD</th>
+          <th>INVESTED</th>
+          <th>SALE</th>
+          <th>P/L</th>
+          <th>ROI</th>
+          <th>HELD</th>
+          <th>STATUS</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+          <td>F001</td>
+          <td>
+            <div class="model">iPhone 14 Pro Max 128GB</div>
+          </td>
+          <td>02 Sep</td>
+          <td>12 Sep</td>
+          <td>€351,02</td>
+          <td>€370,00</td>
+          <td><strong class="positive">+€18,98</strong></td>
+          <td class="positive">+5,4%</td>
+          <td>10d</td>
+          <td><span class="badge sold">SOLD</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</body>
+</html>
