@@ -910,5 +910,180 @@ modelSelect.addEventListener("change", renderParts);
 renderParts();
 </script>
 
+
+<script>
+// EAGLE_PULL_REFRESH
+(() => {
+  if (!("ontouchstart" in window)) return;
+
+  const mode = "wrap";
+
+  const contentElements =
+    mode === "chat"
+      ? [
+          document.querySelector(".topbar"),
+          document.querySelector(".shell")
+        ].filter(Boolean)
+      : [document.querySelector(".wrap")].filter(Boolean);
+
+  if (!contentElements.length) return;
+
+  document.documentElement.style.overscrollBehaviorY = "none";
+  document.body.style.overscrollBehaviorY = "none";
+
+  const indicator = document.createElement("div");
+  indicator.id = "eagle-pull-refresh";
+  indicator.style.cssText = [
+    "position:fixed",
+    "top:10px",
+    "left:50%",
+    "transform:translate(-50%,-60px)",
+    "z-index:100001",
+    "padding:9px 14px",
+    "border:1px solid rgba(255,255,255,.12)",
+    "border-radius:999px",
+    "background:rgba(12,17,23,.96)",
+    "color:#c9aa6a",
+    "font:700 10px -apple-system,BlinkMacSystemFont,sans-serif",
+    "letter-spacing:1px",
+    "opacity:0",
+    "pointer-events:none",
+    "transition:opacity .12s ease"
+  ].join(";");
+
+  indicator.textContent = "↓ PULL TO REFRESH";
+  document.body.appendChild(indicator);
+
+  let startY = 0;
+  let distance = 0;
+  let pulling = false;
+  const trigger = 90;
+
+  function pageAtTop() {
+    return window.scrollY <= 1 &&
+      document.documentElement.scrollTop <= 1 &&
+      document.body.scrollTop <= 1;
+  }
+
+  function nestedScrollerAboveTop(target) {
+    let el = target instanceof Element ? target : null;
+
+    while (el && el !== document.body) {
+      const style = window.getComputedStyle(el);
+      const scrollable =
+        /(auto|scroll)/.test(style.overflowY) &&
+        el.scrollHeight > el.clientHeight + 1;
+
+      if (scrollable && el.scrollTop > 1) {
+        return true;
+      }
+
+      el = el.parentElement;
+    }
+
+    return false;
+  }
+
+  function setContentTransform(value) {
+    contentElements.forEach(el => {
+      el.style.transform = value;
+    });
+  }
+
+  function setContentTransition(value) {
+    contentElements.forEach(el => {
+      el.style.transition = value;
+    });
+  }
+
+  function reset() {
+    setContentTransition("transform .22s ease");
+    setContentTransform("translateY(0px)");
+    indicator.style.opacity = "0";
+    indicator.style.transform = "translate(-50%,-60px)";
+
+    setTimeout(() => {
+      setContentTransition("");
+    }, 230);
+  }
+
+  document.addEventListener("touchstart", event => {
+    if (event.touches.length !== 1) return;
+    if (!pageAtTop()) return;
+    if (nestedScrollerAboveTop(event.target)) return;
+
+    startY = event.touches[0].clientY;
+    distance = 0;
+    pulling = true;
+    setContentTransition("none");
+  }, { passive: true, capture: true });
+
+  document.addEventListener("touchmove", event => {
+    if (!pulling || event.touches.length !== 1) return;
+
+    const rawDistance = event.touches[0].clientY - startY;
+
+    if (rawDistance <= 0) {
+      distance = 0;
+      setContentTransform("translateY(0px)");
+      return;
+    }
+
+    if (!pageAtTop()) {
+      pulling = false;
+      reset();
+      return;
+    }
+
+    event.preventDefault();
+
+    distance = rawDistance;
+
+    const drag = Math.min(
+      110,
+      Math.pow(rawDistance, 0.82)
+    );
+
+    setContentTransform(
+      "translateY(" + drag + "px)"
+    );
+
+    indicator.style.opacity = "1";
+    indicator.style.transform = "translate(-50%,10px)";
+    indicator.textContent =
+      distance >= trigger
+        ? "↻ RELEASE TO REFRESH"
+        : "↓ PULL TO REFRESH";
+  }, { passive: false, capture: true });
+
+  document.addEventListener("touchend", () => {
+    if (!pulling) return;
+
+    pulling = false;
+
+    if (distance >= trigger) {
+      indicator.textContent = "↻ REFRESHING";
+      setContentTransition("transform .18s ease");
+      setContentTransform("translateY(54px)");
+
+      setTimeout(() => {
+        const url = new URL(window.location.href);
+        url.searchParams.set("refresh", Date.now().toString());
+        window.location.replace(url.toString());
+      }, 120);
+
+      return;
+    }
+
+    reset();
+  }, { capture: true });
+
+  document.addEventListener("touchcancel", () => {
+    pulling = false;
+    reset();
+  }, { capture: true });
+})();
+</script>
+
 </body>
 </html>
