@@ -1270,6 +1270,164 @@ h1 {
 }
 </style>
 
+
+<style>
+/* ============================================================
+   EAGLE ALERTS — MOBILE STRUCTURE 2026-09-17
+   Final responsive override layer.
+   ============================================================ */
+
+@media (max-width: 760px) {
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .wrap {
+    width: 100%;
+    max-width: 100%;
+    padding: 18px 14px 42px;
+  }
+
+  .feed,
+  .alert-card,
+  .alert-content,
+  .headline,
+  .headline-metrics,
+  .detail-grid,
+  .detail-item {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .alert-card {
+    grid-template-columns: minmax(0, 1fr);
+    border-radius: 18px;
+  }
+
+  .alert-media {
+    min-height: 0;
+    padding: 12px;
+    border-right: 0;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+  }
+
+  .alert-media::after {
+    inset: 8px;
+    border-radius: 13px;
+  }
+
+  .alert-image {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    object-fit: contain;
+  }
+
+  .alert-content {
+    padding: 20px 18px 18px;
+  }
+
+  .alert-top {
+    align-items: center;
+    gap: 10px;
+  }
+
+  .badges {
+    flex-wrap: wrap;
+  }
+
+  .alert-time {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .alert-title {
+    margin-top: 17px;
+    font-size: 21px;
+    line-height: 1.18;
+  }
+
+  .headline {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 15px;
+    padding: 15px;
+    align-items: stretch;
+  }
+
+  .price {
+    font-size: 32px;
+    line-height: 1.05;
+    overflow-wrap: anywhere;
+  }
+
+  .old-price {
+    font-size: 13px;
+  }
+
+  .headline-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    gap: 9px;
+  }
+
+  .headline-metrics > div,
+  .headline-metrics > div:first-child,
+  .headline-metrics > div:last-child {
+    width: 100%;
+    min-width: 0;
+    padding: 11px 10px;
+    text-align: left;
+  }
+
+  .headline-metrics span {
+    font-size: 8px;
+    line-height: 1.25;
+  }
+
+  .headline-metrics strong {
+    margin-top: 6px;
+    font-size: 20px;
+  }
+
+  .device-grid,
+  .deal-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+  }
+
+  .detail-item {
+    min-height: 78px;
+    padding: 13px 12px;
+    overflow: hidden;
+  }
+
+  .detail-item span {
+    overflow-wrap: anywhere;
+  }
+
+  .detail-item strong {
+    overflow-wrap: anywhere;
+  }
+
+  .signal-row {
+    flex-wrap: wrap;
+  }
+
+  .alert-footer {
+    margin-top: 18px;
+  }
+
+  .open-button {
+    min-height: 46px;
+    padding: 12px 17px;
+  }
+}
+</style>
+
 </head>
 
 <body>
@@ -1305,7 +1463,7 @@ h1 {
   <div class="kpi-grid">
     <div class="card kpi">
       <div class="kpi-label">TOTAL ALERTS</div>
-      <div class="kpi-value">17</div>
+      <div class="kpi-value">18</div>
     </div>
 
     <div class="card kpi">
@@ -1315,12 +1473,12 @@ h1 {
 
     <div class="card kpi">
       <div class="kpi-label">PRICE DROPS</div>
-      <div class="kpi-value">3</div>
+      <div class="kpi-value">4</div>
     </div>
 
     <div class="card kpi">
       <div class="kpi-label">LAST ALERT</div>
-      <div class="kpi-value" style="font-size:15px">17-09-2026 · 16:17</div>
+      <div class="kpi-value" style="font-size:15px">17-09-2026 · 17:30</div>
     </div>
   </div>
 
@@ -1328,6 +1486,64 @@ h1 {
 
   <div class="feed">
     
+    <article class="alert-card">
+      <div class="alert-media">
+        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b3ec2df9-81fb-427e-bb49-e1f799255d68?rule=ecg_mp_eps$_83.jpg" alt="iPhone 14 Pro Max - Schadevrij" loading="lazy">
+      </div>
+
+      <div class="alert-content">
+        <div class="alert-top">
+          <div class="badges">
+            <span class="badge label">BEOORDELEN</span>
+            <span class="badge kind">PRICE DROP</span>
+          </div>
+          <div class="alert-time">17-09-2026 · 17:30</div>
+        </div>
+
+        <div class="alert-title">iPhone 14 Pro Max - Schadevrij</div>
+        <div class="location">Arnhem</div>
+
+        <div class="headline">
+          <div><span class="old-price">€350,00</span><span class="arrow">→</span><span class="price">€250,00</span></div>
+
+          <div class="headline-metrics">
+            <div>
+              <span>EAGLE SCORE</span>
+              <strong>75</strong>
+            </div>
+            <div>
+              <span>CONFIDENCE</span>
+              <strong>35%</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-section">
+          <div class="detail-title">DEVICE</div>
+          <div class="detail-grid device-grid">
+            <div class="detail-item"><span>STORAGE</span><strong>Onbekend</strong></div><div class="detail-item"><span>BATTERY</span><strong>❔ Onbekend</strong></div><div class="detail-item"><span>SCREEN</span><strong>❔ Onbekend</strong></div><div class="detail-item"><span>BACK</span><strong>❔ Onbekend</strong></div><div class="detail-item"><span>FACE ID</span><strong>❔ Onbekend</strong></div><div class="detail-item"><span>PARTS</span><strong>❔ Onbekend</strong></div>
+          </div>
+        </div>
+
+        <div class="detail-section">
+          <div class="detail-title">DEAL</div>
+          <div class="detail-grid deal-grid">
+            <div class="detail-item"><span>RESALE</span><strong>€385,00 – €405,00</strong></div><div class="detail-item"><span>REPAIR</span><strong>€0,00</strong></div><div class="detail-item gold"><span>MAX BUY</span><strong>—</strong></div><div class="detail-item positive"><span>PROFIT</span><strong>—</strong></div>
+          </div>
+        </div>
+
+        <div class="signals"><span class="signal warning">⚠ Batterijconditie onbekend</span><span class="signal warning">⚠ Face ID niet bevestigd</span><span class="signal warning">⚠ Herstel/restore vereist — oorzaak nog onbekend</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
+
+        <div class="alert-footer">
+          <a class="open-button"
+             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2420081924-iphone-14-pro-max-schadevrij"
+             target="_blank"
+             rel="noopener noreferrer">OPEN LISTING ↗</a>
+        </div>
+      </div>
+    </article>
+    
+
     <article class="alert-card">
       <div class="alert-media">
         <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/19ebb423-deb3-49af-b8f8-86a0541fab60?rule=ecg_mp_eps$_83.jpg" alt="Iphone 15 Pro | 88% batterij 128gb" loading="lazy">
