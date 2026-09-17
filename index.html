@@ -814,7 +814,7 @@ canvas {
 
     <div class="status">
       <div class="live" id="eagle-status"><span class="live-dot"></span> <span id="eagle-status-text">LIVE</span></div>
-      <div>Updated 2026-09-17 16:58</div>
+      <div>Updated 2026-09-17 16:59</div>
     </div>
   </div>
 
@@ -2547,7 +2547,7 @@ window.addEventListener("resize", renderTrend);
 // vanuit dezelfde ACTIVE FLIPS-context.
 applyMarketFilter("active");
 
-const eagleUpdatedAt = new Date("2026-09-17T16:58");
+const eagleUpdatedAt = new Date("2026-09-17T16:59");
 
 function updateEagleStatus() {
   const status = document.getElementById("eagle-status");
@@ -2572,6 +2572,171 @@ function updateEagleStatus() {
 
 updateEagleStatus();
 setInterval(updateEagleStatus, 60000);
+
+// EAGLE_PULL_REFRESH
+(() => {
+  if (!("ontouchstart" in window)) return;
+
+  const content = document.querySelector(".wrap");
+  if (!content) return;
+
+  document.documentElement.style.overscrollBehaviorY = "none";
+  document.body.style.overscrollBehaviorY = "none";
+
+  const indicator = document.createElement("div");
+  indicator.id = "eagle-pull-refresh";
+  indicator.style.cssText = [
+    "position:fixed",
+    "top:10px",
+    "left:50%",
+    "transform:translate(-50%,-60px)",
+    "z-index:100001",
+    "padding:9px 14px",
+    "border:1px solid rgba(255,255,255,.12)",
+    "border-radius:999px",
+    "background:rgba(12,17,23,.96)",
+    "color:#c9aa6a",
+    "font:700 10px -apple-system,BlinkMacSystemFont,sans-serif",
+    "letter-spacing:1px",
+    "opacity:0",
+    "pointer-events:none",
+    "transition:opacity .12s ease"
+  ].join(";");
+
+  indicator.textContent = "↓ PULL TO REFRESH";
+  document.body.appendChild(indicator);
+
+  let startY = 0;
+  let distance = 0;
+  let pulling = false;
+  const trigger = 130;
+
+  function atTop() {
+    return window.scrollY <= 1 &&
+      document.documentElement.scrollTop <= 1 &&
+      document.body.scrollTop <= 1;
+  }
+
+  function reset() {
+    content.style.transition = "transform .22s ease";
+    content.style.transform = "translateY(0px)";
+    indicator.style.opacity = "0";
+    indicator.style.transform = "translate(-50%,-60px)";
+
+    setTimeout(() => {
+      content.style.transition = "";
+    }, 230);
+  }
+
+  document.addEventListener("touchstart", event => {
+    if (event.touches.length !== 1 || !atTop()) return;
+
+    startY = event.touches[0].clientY;
+    distance = 0;
+    pulling = true;
+    content.style.transition = "none";
+  }, { passive: true, capture: true });
+
+  document.addEventListener("touchmove", event => {
+    if (!pulling || event.touches.length !== 1) return;
+
+    const rawDistance = event.touches[0].clientY - startY;
+
+    if (rawDistance <= 0) {
+      distance = 0;
+      content.style.transform = "translateY(0px)";
+      return;
+    }
+
+    if (!atTop()) {
+      pulling = false;
+      reset();
+      return;
+    }
+
+    event.preventDefault();
+
+    distance = rawDistance;
+
+    const drag = Math.min(
+      150,
+      Math.pow(rawDistance, 0.82)
+    );
+
+    content.style.transform =
+      "translateY(" + drag + "px)";
+
+    indicator.style.opacity = "1";
+    indicator.style.transform = "translate(-50%,10px)";
+    indicator.textContent =
+      distance >= trigger
+        ? "↻ RELEASE TO REFRESH"
+        : "↓ PULL TO REFRESH";
+  }, { passive: false, capture: true });
+
+  document.addEventListener("touchend", () => {
+    if (!pulling) return;
+
+    pulling = false;
+
+    if (distance >= trigger) {
+      indicator.textContent = "↻ REFRESHING";
+      content.style.transition = "transform .18s ease";
+      content.style.transform = "translateY(54px)";
+
+      setTimeout(() => {
+        const url = new URL(window.location.href);
+        url.searchParams.set("refresh", Date.now().toString());
+        window.location.replace(url.toString());
+      }, 120);
+
+      return;
+    }
+
+    reset();
+  }, { capture: true });
+
+  document.addEventListener("touchcancel", () => {
+    pulling = false;
+    reset();
+  }, { capture: true });
+})();
+
+
+
+
+
 </script>
+
+<script>
+// EAGLE_NAV_FRESH
+(() => {
+  document.querySelectorAll(".eagle-nav a.nav-link").forEach(link => {
+    link.addEventListener("click", event => {
+      if (
+        event.defaultPrevented ||
+        event.button > 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey
+      ) {
+        return;
+      }
+
+      const href = link.getAttribute("href");
+      if (!href || href.startsWith("#")) return;
+
+      event.preventDefault();
+
+      const url = new URL(href, window.location.href);
+      url.searchParams.set("refresh", Date.now().toString());
+
+      window.location.assign(url.toString());
+    });
+  });
+})();
+</script>
+
 </body>
 </html>
