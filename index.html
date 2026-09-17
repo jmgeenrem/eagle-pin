@@ -814,7 +814,7 @@ canvas {
 
     <div class="status">
       <div class="live" id="eagle-status"><span class="live-dot"></span> <span id="eagle-status-text">LIVE</span></div>
-      <div>Updated 2026-09-17 16:20</div>
+      <div>Updated 2026-09-17 16:24</div>
     </div>
   </div>
 
@@ -2547,7 +2547,7 @@ window.addEventListener("resize", renderTrend);
 // vanuit dezelfde ACTIVE FLIPS-context.
 applyMarketFilter("active");
 
-const eagleUpdatedAt = new Date("2026-09-17T16:20");
+const eagleUpdatedAt = new Date("2026-09-17T16:24");
 
 function updateEagleStatus() {
   const status = document.getElementById("eagle-status");
@@ -2577,88 +2577,102 @@ setInterval(updateEagleStatus, 60000);
 (() => {
   if (!("ontouchstart" in window)) return;
 
+  const content = document.querySelector(".wrap");
+  if (!content) return;
+
   document.documentElement.style.overscrollBehaviorY = "none";
   document.body.style.overscrollBehaviorY = "none";
 
-  const pullZone = document.createElement("div");
-  pullZone.id = "eagle-pull-zone";
-  pullZone.style.cssText = `
-    position:fixed;
-    top:0;
-    left:0;
-    right:0;
-    height:28px;
-    z-index:100000;
-    background:transparent;
-    touch-action:none;
-    -webkit-user-select:none;
-    user-select:none;
-  `;
-  document.body.appendChild(pullZone);
-
   const indicator = document.createElement("div");
   indicator.id = "eagle-pull-refresh";
-  indicator.style.cssText = `
-    position:fixed;
-    top:12px;
-    left:50%;
-    transform:translate(-50%,-70px);
-    z-index:100001;
-    padding:9px 14px;
-    border:1px solid rgba(255,255,255,.12);
-    border-radius:999px;
-    background:rgba(12,17,23,.94);
-    color:#c9aa6a;
-    font:700 10px -apple-system,BlinkMacSystemFont,sans-serif;
-    letter-spacing:1px;
-    backdrop-filter:blur(12px);
-    -webkit-backdrop-filter:blur(12px);
-    transition:transform .16s ease,opacity .16s ease;
-    opacity:0;
-    pointer-events:none;
-  `;
+  indicator.style.cssText = [
+    "position:fixed",
+    "top:10px",
+    "left:50%",
+    "transform:translate(-50%,-60px)",
+    "z-index:100001",
+    "padding:9px 14px",
+    "border:1px solid rgba(255,255,255,.12)",
+    "border-radius:999px",
+    "background:rgba(12,17,23,.96)",
+    "color:#c9aa6a",
+    "font:700 10px -apple-system,BlinkMacSystemFont,sans-serif",
+    "letter-spacing:1px",
+    "opacity:0",
+    "pointer-events:none",
+    "transition:opacity .12s ease"
+  ].join(";");
+
   indicator.textContent = "↓ PULL TO REFRESH";
   document.body.appendChild(indicator);
 
   let startY = 0;
-  let pulling = false;
   let distance = 0;
-  const trigger = 72;
+  let pulling = false;
+  const trigger = 90;
 
-  function pageAtTop() {
+  function atTop() {
     return window.scrollY <= 1 &&
       document.documentElement.scrollTop <= 1 &&
       document.body.scrollTop <= 1;
   }
 
-  pullZone.addEventListener("touchstart", event => {
-    if (!pageAtTop() || event.touches.length !== 1) return;
+  function reset() {
+    content.style.transition = "transform .22s ease";
+    content.style.transform = "translateY(0px)";
+    indicator.style.opacity = "0";
+    indicator.style.transform = "translate(-50%,-60px)";
+
+    setTimeout(() => {
+      content.style.transition = "";
+    }, 230);
+  }
+
+  document.addEventListener("touchstart", event => {
+    if (event.touches.length !== 1 || !atTop()) return;
 
     startY = event.touches[0].clientY;
     distance = 0;
     pulling = true;
-
-    indicator.style.opacity = "1";
-    indicator.style.transform = "translate(-50%,-34px)";
-    event.preventDefault();
-  }, { passive:false });
+    content.style.transition = "none";
+  }, { passive: true, capture: true });
 
   document.addEventListener("touchmove", event => {
     if (!pulling || event.touches.length !== 1) return;
 
-    distance = Math.max(0, event.touches[0].clientY - startY);
+    const rawDistance = event.touches[0].clientY - startY;
+
+    if (rawDistance <= 0) {
+      distance = 0;
+      content.style.transform = "translateY(0px)";
+      return;
+    }
+
+    if (!atTop()) {
+      pulling = false;
+      reset();
+      return;
+    }
+
     event.preventDefault();
 
-    const visibleDistance = Math.min(distance * 0.55, 72);
-    indicator.style.opacity = "1";
-    indicator.style.transform =
-      `translate(-50%,${Math.max(-34 + visibleDistance, 12)}px)`;
+    distance = rawDistance;
 
+    const drag = Math.min(
+      110,
+      Math.pow(rawDistance, 0.82)
+    );
+
+    content.style.transform =
+      "translateY(" + drag + "px)";
+
+    indicator.style.opacity = "1";
+    indicator.style.transform = "translate(-50%,10px)";
     indicator.textContent =
       distance >= trigger
         ? "↻ RELEASE TO REFRESH"
         : "↓ PULL TO REFRESH";
-  }, { passive:false });
+  }, { passive: false, capture: true });
 
   document.addEventListener("touchend", () => {
     if (!pulling) return;
@@ -2667,22 +2681,27 @@ setInterval(updateEagleStatus, 60000);
 
     if (distance >= trigger) {
       indicator.textContent = "↻ REFRESHING";
-      indicator.style.opacity = "1";
-      indicator.style.transform = "translate(-50%,12px)";
-      window.location.reload();
+      content.style.transition = "transform .18s ease";
+      content.style.transform = "translateY(54px)";
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 120);
+
       return;
     }
 
-    indicator.style.opacity = "0";
-    indicator.style.transform = "translate(-50%,-70px)";
-  });
+    reset();
+  }, { capture: true });
 
   document.addEventListener("touchcancel", () => {
     pulling = false;
-    indicator.style.opacity = "0";
-    indicator.style.transform = "translate(-50%,-70px)";
-  });
+    reset();
+  }, { capture: true });
 })();
+
+
+
 
 
 </script>
