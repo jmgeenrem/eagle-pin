@@ -2503,6 +2503,7 @@ init();
   let pulling = false;
   let gestureLocked = false;
   const trigger = 220;
+  const indicatorReveal = 85;
 
   function pageAtTop() {
     return window.scrollY <= 1 &&
@@ -2626,12 +2627,17 @@ init();
       "translateY(" + drag + "px)"
     );
 
-    indicator.style.opacity = "1";
-    indicator.style.transform = "translate(-50%,10px)";
-    indicator.textContent =
-      distance >= trigger
-        ? "↻ RELEASE TO REFRESH"
-        : "↓ PULL TO REFRESH";
+    if (distance >= indicatorReveal) {
+      indicator.style.opacity = "1";
+      indicator.style.transform = "translate(-50%,10px)";
+      indicator.textContent =
+        distance >= trigger
+          ? "↻ RELEASE TO REFRESH"
+          : "↓ PULL TO REFRESH";
+    } else {
+      indicator.style.opacity = "0";
+      indicator.style.transform = "translate(-50%,-60px)";
+    }
   }, { passive: false, capture: true });
 
   document.addEventListener("touchend", () => {
