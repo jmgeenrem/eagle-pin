@@ -1907,6 +1907,206 @@ h1 {
 }
 </style>
 
+
+<style>
+/* EAGLE SCORE GUIDE */
+
+.feed-tools {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 10px;
+}
+
+.feed-tools .filter-count {
+  margin-bottom: 0;
+}
+
+.score-guide-button {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  background: transparent;
+  color: #7f8b95;
+  font: inherit;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.05px;
+  cursor: pointer;
+  padding: 3px 0;
+  white-space: nowrap;
+}
+
+.score-guide-button span {
+  color: #c9aa6a;
+  margin-left: 3px;
+}
+
+.score-guide-button:hover {
+  color: #dce2e6;
+}
+
+.score-guide-overlay[hidden] {
+  display: none !important;
+}
+
+.score-guide-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  background: rgba(2,5,8,.54);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 120px;
+}
+
+.score-guide-panel {
+  width: min(430px, calc(100vw - 32px));
+  background: #0b1218;
+  border: 1px solid rgba(201,170,106,.22);
+  border-radius: 16px;
+  box-shadow: 0 30px 90px rgba(0,0,0,.55);
+  padding: 20px;
+}
+
+.score-guide-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.score-guide-eyebrow {
+  color: #75828d;
+  font-size: 8px;
+  font-weight: 850;
+  letter-spacing: 1.5px;
+}
+
+.score-guide-title {
+  color: #f1f4f6;
+  font-size: 21px;
+  font-weight: 760;
+  margin-top: 4px;
+}
+
+.score-guide-close {
+  appearance: none;
+  border: 1px solid rgba(255,255,255,.08);
+  background: #10171d;
+  color: #8e9aa4;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.score-guide-block {
+  background: #0e161d;
+  border: 1px solid rgba(255,255,255,.065);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.score-guide-block + .score-guide-block {
+  margin-top: 10px;
+}
+
+.score-guide-label {
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: 1.2px;
+}
+
+.score-guide-label.gold {
+  color: #c9aa6a;
+}
+
+.score-guide-label.cyan {
+  color: #65d8ff;
+}
+
+.score-guide-copy {
+  color: #a2adb6;
+  font-size: 11px;
+  line-height: 1.45;
+  margin-top: 7px;
+}
+
+.score-scale {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.score-scale span {
+  background: #091016;
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 9px;
+  padding: 9px 7px;
+  text-align: center;
+}
+
+.score-scale b {
+  display: block;
+  color: #e6ebee;
+  font-size: 11px;
+}
+
+.score-scale small {
+  display: block;
+  color: #687580;
+  font-size: 7px;
+  font-weight: 850;
+  letter-spacing: .9px;
+  margin-top: 4px;
+}
+
+@media (max-width: 760px) {
+  .feed-tools {
+    gap: 10px;
+  }
+
+  .score-guide-button {
+    font-size: 9px;
+  }
+
+  .score-guide-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .score-guide-panel {
+    width: 100%;
+    max-width: none;
+    border-radius: 20px 20px 0 0;
+    border-bottom: 0;
+    padding: 20px 18px calc(22px + env(safe-area-inset-bottom));
+  }
+
+  .score-guide-title {
+    font-size: 23px;
+  }
+
+  .score-guide-copy {
+    font-size: 12px;
+  }
+
+  .score-scale b {
+    font-size: 12px;
+  }
+
+  .score-scale small {
+    font-size: 8px;
+  }
+}
+</style>
+
 </head>
 
 <body>
@@ -1963,7 +2163,48 @@ h1 {
 
   <div class="feed-heading">
     <div class="section-label">ALERT FEED</div>
-    <div class="filter-count" id="filter-count">30 MATCHES</div>
+    <div class="feed-tools">
+      <button class="score-guide-button" id="score-guide-button" type="button">
+        SCORE GUIDE <span>ⓘ</span>
+      </button>
+      <div class="filter-count" id="filter-count">30 MATCHES</div>
+    </div>
+  </div>
+
+  <div class="score-guide-overlay" id="score-guide-overlay" hidden>
+    <div class="score-guide-panel" role="dialog" aria-modal="true" aria-label="Eagle scoring guide">
+      <div class="score-guide-head">
+        <div>
+          <div class="score-guide-eyebrow">EAGLE INTELLIGENCE</div>
+          <div class="score-guide-title">Score Guide</div>
+        </div>
+        <button class="score-guide-close" id="score-guide-close" type="button" aria-label="Sluiten">×</button>
+      </div>
+
+      <div class="score-guide-block">
+        <div class="score-guide-label gold">EAGLE SCORE</div>
+        <div class="score-guide-copy">
+          Dealkwaliteit op basis van marge, reparatierisico en listing-signalen.
+        </div>
+        <div class="score-scale">
+          <span><b>0–4.9</b><small>LOW</small></span>
+          <span><b>5.0–7.4</b><small>REVIEW</small></span>
+          <span><b>7.5–10</b><small>STRONG</small></span>
+        </div>
+      </div>
+
+      <div class="score-guide-block">
+        <div class="score-guide-label cyan">CONFIDENCE</div>
+        <div class="score-guide-copy">
+          Hoe compleet en betrouwbaar de informatie achter de beoordeling is.
+        </div>
+        <div class="score-scale">
+          <span><b>&lt;55%</b><small>LOW</small></span>
+          <span><b>55–69%</b><small>MEDIUM</small></span>
+          <span><b>70%+</b><small>STRONG</small></span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="alert-filters" id="alert-filters">
@@ -4419,6 +4660,44 @@ h1 {
   });
 
   applyFilters();
+})();
+</script>
+
+
+
+
+
+<script>
+// EAGLE_SCORE_GUIDE
+(() => {
+  const button = document.getElementById("score-guide-button");
+  const overlay = document.getElementById("score-guide-overlay");
+  const close = document.getElementById("score-guide-close");
+
+  if (!button || !overlay || !close) return;
+
+  function openGuide() {
+    overlay.hidden = false;
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeGuide() {
+    overlay.hidden = true;
+    document.body.style.overflow = "";
+  }
+
+  button.addEventListener("click", openGuide);
+  close.addEventListener("click", closeGuide);
+
+  overlay.addEventListener("click", event => {
+    if (event.target === overlay) closeGuide();
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && !overlay.hidden) {
+      closeGuide();
+    }
+  });
 })();
 </script>
 
