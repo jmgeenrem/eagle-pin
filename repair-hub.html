@@ -89,9 +89,19 @@ h1 {
   gap: 28px;
   margin: 26px 0 22px;
   border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.eagle-nav::-webkit-scrollbar {
+  display: none;
 }
 
 .nav-link {
+  flex: 0 0 auto;
   position: relative;
   padding-bottom: 12px;
   color: var(--muted);
@@ -311,6 +321,32 @@ input[type="number"] {
 
   .status {
     text-align: left;
+  }
+
+
+  .eagle-nav {
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 22px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .eagle-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-link {
+    flex: 0 0 auto;
+    min-height: 32px;
+    white-space: nowrap;
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    font-size: 16px;
   }
 
   .grid {
