@@ -814,7 +814,7 @@ canvas {
 
     <div class="status">
       <div class="live" id="eagle-status"><span class="live-dot"></span> <span id="eagle-status-text">LIVE</span></div>
-      <div>Updated 2026-09-17 17:09</div>
+      <div>Updated 2026-09-17 17:12</div>
     </div>
   </div>
 
@@ -2547,7 +2547,7 @@ window.addEventListener("resize", renderTrend);
 // vanuit dezelfde ACTIVE FLIPS-context.
 applyMarketFilter("active");
 
-const eagleUpdatedAt = new Date("2026-09-17T17:09");
+const eagleUpdatedAt = new Date("2026-09-17T17:12");
 
 function updateEagleStatus() {
   const status = document.getElementById("eagle-status");
@@ -2612,6 +2612,7 @@ setInterval(updateEagleStatus, 60000);
   let pulling = false;
   let gestureLocked = false;
   const trigger = 220;
+  const indicatorReveal = 85;
 
   function atTop() {
     return window.scrollY <= 1 &&
@@ -2701,12 +2702,17 @@ setInterval(updateEagleStatus, 60000);
     content.style.transform =
       "translateY(" + drag + "px)";
 
-    indicator.style.opacity = "1";
-    indicator.style.transform = "translate(-50%,10px)";
-    indicator.textContent =
-      distance >= trigger
-        ? "↻ RELEASE TO REFRESH"
-        : "↓ PULL TO REFRESH";
+    if (distance >= indicatorReveal) {
+      indicator.style.opacity = "1";
+      indicator.style.transform = "translate(-50%,10px)";
+      indicator.textContent =
+        distance >= trigger
+          ? "↻ RELEASE TO REFRESH"
+          : "↓ PULL TO REFRESH";
+    } else {
+      indicator.style.opacity = "0";
+      indicator.style.transform = "translate(-50%,-60px)";
+    }
   }, { passive: false, capture: true });
 
   document.addEventListener("touchend", () => {
