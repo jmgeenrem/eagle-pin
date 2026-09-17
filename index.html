@@ -814,7 +814,7 @@ canvas {
 
     <div class="status">
       <div class="live" id="eagle-status"><span class="live-dot"></span> <span id="eagle-status-text">LIVE</span></div>
-      <div>Updated 2026-09-17 16:29</div>
+      <div>Updated 2026-09-17 16:31</div>
     </div>
   </div>
 
@@ -2547,7 +2547,7 @@ window.addEventListener("resize", renderTrend);
 // vanuit dezelfde ACTIVE FLIPS-context.
 applyMarketFilter("active");
 
-const eagleUpdatedAt = new Date("2026-09-17T16:29");
+const eagleUpdatedAt = new Date("2026-09-17T16:31");
 
 function updateEagleStatus() {
   const status = document.getElementById("eagle-status");
@@ -2579,10 +2579,6 @@ setInterval(updateEagleStatus, 60000);
 
   const content = document.querySelector(".wrap");
   if (!content) return;
-
-  content.style.willChange = "transform";
-  content.style.backfaceVisibility = "hidden";
-  content.style.webkitBackfaceVisibility = "hidden";
 
   document.documentElement.style.overscrollBehaviorY = "none";
   document.body.style.overscrollBehaviorY = "none";
@@ -2623,7 +2619,7 @@ setInterval(updateEagleStatus, 60000);
 
   function reset() {
     content.style.transition = "transform .22s ease";
-    content.style.transform = "translate3d(0,0,0)";
+    content.style.transform = "translateY(0px)";
     indicator.style.opacity = "0";
     indicator.style.transform = "translate(-50%,-60px)";
 
@@ -2648,7 +2644,7 @@ setInterval(updateEagleStatus, 60000);
 
     if (rawDistance <= 0) {
       distance = 0;
-      content.style.transform = "translate3d(0,0,0)";
+      content.style.transform = "translateY(0px)";
       return;
     }
 
@@ -2668,7 +2664,7 @@ setInterval(updateEagleStatus, 60000);
     );
 
     content.style.transform =
-      "translate3d(0," + drag + "px,0)";
+      "translateY(" + drag + "px)";
 
     indicator.style.opacity = "1";
     indicator.style.transform = "translate(-50%,10px)";
@@ -2685,12 +2681,12 @@ setInterval(updateEagleStatus, 60000);
 
     if (distance >= trigger) {
       indicator.textContent = "↻ REFRESHING";
-      content.style.transition = "transform .24s cubic-bezier(.22,.61,.36,1)";
-      content.style.transform = "translate3d(0,54px,0)";
+      content.style.transition = "transform .18s ease";
+      content.style.transform = "translateY(54px)";
 
       setTimeout(() => {
         window.location.reload();
-      }, 260);
+      }, 120);
 
       return;
     }
