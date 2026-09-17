@@ -2360,9 +2360,11 @@ h1 {
   indicator.textContent = "↓ PULL TO REFRESH";
   document.body.appendChild(indicator);
 
+  let startX = 0;
   let startY = 0;
   let distance = 0;
   let pulling = false;
+  let gestureLocked = false;
   const trigger = 220;
 
   function pageAtTop() {
@@ -2417,17 +2419,31 @@ h1 {
     if (event.touches.length !== 1) return;
     if (!pageAtTop()) return;
     if (nestedScrollerAboveTop(event.target)) return;
+    if (event.target.closest(".eagle-nav")) return;
 
+    startX = event.touches[0].clientX;
     startY = event.touches[0].clientY;
     distance = 0;
     pulling = true;
+    gestureLocked = false;
     setContentTransition("none");
   }, { passive: true, capture: true });
 
   document.addEventListener("touchmove", event => {
     if (!pulling || event.touches.length !== 1) return;
 
+    const deltaX = event.touches[0].clientX - startX;
     const rawDistance = event.touches[0].clientY - startY;
+
+    if (!gestureLocked) {
+      if (Math.abs(deltaX) > Math.abs(rawDistance) && Math.abs(deltaX) > 8) {
+        pulling = false;
+        return;
+      }
+
+      if (rawDistance < 10) return;
+      gestureLocked = true;
+    }
 
     if (rawDistance <= 0) {
       distance = 0;
