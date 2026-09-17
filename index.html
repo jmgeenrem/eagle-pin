@@ -814,7 +814,7 @@ canvas {
 
     <div class="status">
       <div class="live" id="eagle-status"><span class="live-dot"></span> <span id="eagle-status-text">LIVE</span></div>
-      <div>Updated 2026-09-17 17:05</div>
+      <div>Updated 2026-09-17 17:09</div>
     </div>
   </div>
 
@@ -2547,7 +2547,7 @@ window.addEventListener("resize", renderTrend);
 // vanuit dezelfde ACTIVE FLIPS-context.
 applyMarketFilter("active");
 
-const eagleUpdatedAt = new Date("2026-09-17T17:05");
+const eagleUpdatedAt = new Date("2026-09-17T17:09");
 
 function updateEagleStatus() {
   const status = document.getElementById("eagle-status");
@@ -2632,10 +2632,20 @@ setInterval(updateEagleStatus, 60000);
 
   document.addEventListener("touchstart", event => {
     if (event.touches.length !== 1 || !atTop()) return;
-    if (event.target.closest(".eagle-nav")) return;
 
-    startX = event.touches[0].clientX;
-    startY = event.touches[0].clientY;
+    const touch = event.touches[0];
+    const nav = document.querySelector(".eagle-nav");
+
+    if (nav) {
+      const rect = nav.getBoundingClientRect();
+      if (
+        touch.clientY >= rect.top - 35 &&
+        touch.clientY <= rect.bottom + 35
+      ) return;
+    }
+
+    startX = touch.clientX;
+    startY = touch.clientY;
     distance = 0;
     pulling = true;
     gestureLocked = false;
@@ -2649,12 +2659,21 @@ setInterval(updateEagleStatus, 60000);
     const rawDistance = event.touches[0].clientY - startY;
 
     if (!gestureLocked) {
-      if (Math.abs(deltaX) > Math.abs(rawDistance) && Math.abs(deltaX) > 8) {
+      if (
+        Math.abs(deltaX) > 12 &&
+        Math.abs(deltaX) >= Math.abs(rawDistance) * 0.8
+      ) {
         pulling = false;
         return;
       }
 
-      if (rawDistance < 10) return;
+      if (rawDistance < 30) return;
+
+      if (rawDistance < Math.abs(deltaX) * 1.35) {
+        pulling = false;
+        return;
+      }
+
       gestureLocked = true;
     }
 
