@@ -814,7 +814,7 @@ canvas {
 
     <div class="status">
       <div class="live" id="eagle-status"><span class="live-dot"></span> <span id="eagle-status-text">LIVE</span></div>
-      <div>Updated 2026-09-17 16:12</div>
+      <div>Updated 2026-09-17 16:15</div>
     </div>
   </div>
 
@@ -2547,7 +2547,7 @@ window.addEventListener("resize", renderTrend);
 // vanuit dezelfde ACTIVE FLIPS-context.
 applyMarketFilter("active");
 
-const eagleUpdatedAt = new Date("2026-09-17T16:12");
+const eagleUpdatedAt = new Date("2026-09-17T16:15");
 
 function updateEagleStatus() {
   const status = document.getElementById("eagle-status");
@@ -2576,6 +2576,9 @@ setInterval(updateEagleStatus, 60000);
 // EAGLE_PULL_REFRESH
 (() => {
   if (!("ontouchstart" in window)) return;
+
+  document.documentElement.style.overscrollBehaviorY = "none";
+  document.body.style.overscrollBehaviorY = "none";
 
   const indicator = document.createElement("div");
   indicator.id = "eagle-pull-refresh";
@@ -2612,7 +2615,7 @@ setInterval(updateEagleStatus, 60000);
       document.body.scrollTop <= 0;
   }
 
-  window.addEventListener("touchstart", event => {
+  document.addEventListener("touchstart", event => {
     if (!pageAtTop() || event.touches.length !== 1) return;
 
     startY = event.touches[0].clientY;
@@ -2620,7 +2623,7 @@ setInterval(updateEagleStatus, 60000);
     pulling = true;
   }, { passive:true });
 
-  window.addEventListener("touchmove", event => {
+  document.addEventListener("touchmove", event => {
     if (!pulling || event.touches.length !== 1) return;
 
     distance = event.touches[0].clientY - startY;
@@ -2649,7 +2652,7 @@ setInterval(updateEagleStatus, 60000);
         : "↓ PULL TO REFRESH";
   }, { passive:false });
 
-  window.addEventListener("touchend", () => {
+  document.addEventListener("touchend", () => {
     if (!pulling) return;
 
     pulling = false;
@@ -2667,7 +2670,7 @@ setInterval(updateEagleStatus, 60000);
     indicator.style.transform = "translate(-50%,-70px)";
   });
 
-  window.addEventListener("touchcancel", () => {
+  document.addEventListener("touchcancel", () => {
     pulling = false;
     indicator.style.opacity = "0";
     indicator.style.transform = "translate(-50%,-70px)";
