@@ -814,7 +814,7 @@ canvas {
 
     <div class="status">
       <div class="live" id="eagle-status"><span class="live-dot"></span> <span id="eagle-status-text">LIVE</span></div>
-      <div>Updated 2026-09-17 16:59</div>
+      <div>Updated 2026-09-17 17:01</div>
     </div>
   </div>
 
@@ -2547,7 +2547,7 @@ window.addEventListener("resize", renderTrend);
 // vanuit dezelfde ACTIVE FLIPS-context.
 applyMarketFilter("active");
 
-const eagleUpdatedAt = new Date("2026-09-17T16:59");
+const eagleUpdatedAt = new Date("2026-09-17T17:01");
 
 function updateEagleStatus() {
   const status = document.getElementById("eagle-status");
@@ -2660,7 +2660,7 @@ setInterval(updateEagleStatus, 60000);
 
     const drag = Math.min(
       150,
-      Math.pow(rawDistance, 0.82)
+      rawDistance * 0.78
     );
 
     content.style.transform =
