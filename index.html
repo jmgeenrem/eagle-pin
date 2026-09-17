@@ -80,9 +80,19 @@ h1 {
   gap: 28px;
   margin: 26px 0 22px;
   border-bottom: 1px solid rgba(255,255,255,.08);
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.eagle-nav::-webkit-scrollbar {
+  display: none;
 }
 
 .nav-link {
+  flex: 0 0 auto;
   position: relative;
   padding: 0 0 12px;
   color: var(--muted);
@@ -717,6 +727,47 @@ canvas {
     text-align: left;
   }
 
+
+  .eagle-nav {
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 22px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .eagle-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-link {
+    flex: 0 0 auto;
+    min-height: 32px;
+    white-space: nowrap;
+  }
+
+  .market-filters {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .market-filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .market-filter-btn {
+    flex: 0 0 auto;
+    min-height: 40px;
+  }
+
+  select,
+  input,
+  button {
+    font-size: 16px;
+  }
+
   .controls {
     grid-template-columns: 1fr;
   }
@@ -763,7 +814,7 @@ canvas {
 
     <div class="status">
       <div class="live" id="eagle-status"><span class="live-dot"></span> <span id="eagle-status-text">LIVE</span></div>
-      <div>Updated 2026-09-17 12:18</div>
+      <div>Updated 2026-09-17 12:34</div>
     </div>
   </div>
 
@@ -774,7 +825,7 @@ canvas {
   <a class="nav-link" href="repair-hub.html?v=v20260916-1">REPAIR HUB</a>
   <a class="nav-link" href="finance.html?v=v20260916-1">FINANCE</a>
   <a class="nav-link" href="alerts.html?v=v20260917-1">ALERTS</a>
-  <a class="nav-link" href="http://127.0.0.1:8765/">CHAT</a>
+  <a class="nav-link" href="http://MacBook-Pro-van-Jeremiah.local:8765/">CHAT</a>
 </nav> 
 
  <div class="section-label">MARKET SNAPSHOT</div>
@@ -2511,7 +2562,7 @@ window.addEventListener("resize", renderTrend);
 // vanuit dezelfde ACTIVE FLIPS-context.
 applyMarketFilter("active");
 
-const eagleUpdatedAt = new Date("2026-09-17T12:18");
+const eagleUpdatedAt = new Date("2026-09-17T12:34");
 
 function updateEagleStatus() {
   const status = document.getElementById("eagle-status");
