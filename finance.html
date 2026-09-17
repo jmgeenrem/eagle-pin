@@ -646,7 +646,7 @@ tr:last-child td { border-bottom: 0; }
   let startY = 0;
   let distance = 0;
   let pulling = false;
-  const trigger = 90;
+  const trigger = 130;
 
   function pageAtTop() {
     return window.scrollY <= 1 &&
@@ -729,7 +729,7 @@ tr:last-child td { border-bottom: 0; }
     distance = rawDistance;
 
     const drag = Math.min(
-      110,
+      150,
       Math.pow(rawDistance, 0.82)
     );
 
