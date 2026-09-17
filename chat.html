@@ -1864,6 +1864,212 @@ body {
     font-size:9px;
   }
 }
+
+
+/* EAGLE MOBILE DRAWER — PROVEN MARKET IMPLEMENTATION */
+.eagle-mobile-menu,
+.eagle-mobile-menu-overlay {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  body.eagle-mobile-menu-open {
+    overflow: hidden;
+  }
+
+  #eagle-mobile-menu-trigger {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      transform .18s ease,
+      box-shadow .18s ease;
+  }
+
+  #eagle-mobile-menu-trigger:active {
+    transform: scale(.96);
+  }
+
+  .eagle-mobile-menu-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 998;
+    background: rgba(3, 5, 8, .66);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity .28s ease,
+      visibility .28s ease;
+  }
+
+  .eagle-mobile-menu {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    width: min(84vw, 350px);
+    padding:
+      calc(20px + env(safe-area-inset-top))
+      18px
+      calc(24px + env(safe-area-inset-bottom));
+    box-sizing: border-box;
+    background:
+      linear-gradient(180deg, rgba(24,27,33,.98), rgba(10,12,16,.99));
+    border-right: 1px solid rgba(201,170,106,.16);
+    box-shadow: 20px 0 60px rgba(0,0,0,.42);
+    transform: translate3d(-104%, 0, 0);
+    visibility: hidden;
+    will-change: transform;
+    transition:
+      transform .32s cubic-bezier(.22,.75,.22,1),
+      visibility .32s ease;
+  }
+
+  body.eagle-mobile-menu-open .eagle-mobile-menu-overlay {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  body.eagle-mobile-menu-open .eagle-mobile-menu {
+    transform: translate3d(0,0,0);
+    visibility: visible;
+  }
+
+  .eagle-mobile-menu-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+
+  .eagle-mobile-menu-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .eagle-mobile-menu-logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 11px;
+    object-fit: cover;
+    box-shadow:
+      0 0 0 1px rgba(216,170,91,.22),
+      0 6px 18px rgba(0,0,0,.35);
+  }
+
+  .eagle-mobile-menu-title {
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: .7px;
+  }
+
+  .eagle-mobile-menu-subtitle {
+    margin-top: 3px;
+    color: #7f8996;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.6px;
+  }
+
+  .eagle-mobile-menu-close {
+    width: 42px;
+    height: 42px;
+    border: 0;
+    border-radius: 12px;
+    color: #a9b1ba;
+    background: rgba(255,255,255,.055);
+    font-size: 27px;
+    font-weight: 300;
+    line-height: 1;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .eagle-mobile-menu-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding-top: 18px;
+  }
+
+  .eagle-mobile-menu-nav a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 50px;
+    padding: 0 14px;
+    border-radius: 12px;
+    color: #929ca8;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 750;
+    letter-spacing: .9px;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      color .16s ease,
+      background .16s ease,
+      transform .16s ease;
+  }
+
+  .eagle-mobile-menu-nav a:active {
+    transform: scale(.985);
+  }
+
+  .eagle-mobile-menu-nav a.active {
+    color: #f2f4f7;
+    background:
+      linear-gradient(90deg, rgba(201,170,106,.13), rgba(201,170,106,.035));
+    box-shadow: inset 2px 0 0 #c9aa6a;
+  }
+
+  .eagle-mobile-menu-nav a span:last-child {
+    color: #5f6873;
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  .eagle-mobile-menu-nav a.active span:last-child {
+    color: #c9aa6a;
+  }
+
+  .eagle-mobile-menu-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: auto;
+    padding: 18px 12px 2px;
+    color: #6f7985;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+  }
+
+  .eagle-mobile-menu-live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #35d07f;
+    box-shadow: 0 0 10px rgba(53,208,127,.55);
+  }
+
+  .eagle-nav {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .eagle-mobile-menu,
+    .eagle-mobile-menu-overlay {
+      transition-duration: .01ms;
+    }
+  }
+
 </style>
 
 </head>
@@ -1872,7 +2078,7 @@ body {
 <div class="topbar">
   <div class="topbar-row">
     <div class="brand">
-      <img class="logo" src="eagle-pin-icon.jpg" alt="Eagle PIN">
+      <img class="logo" id="eagle-mobile-menu-trigger" src="eagle-pin-icon.jpg" alt="Eagle PIN" role="button" tabindex="0" aria-label="Open navigation menu" aria-expanded="false">
       <div>
         <h1>EAGLE PIN</h1>
         <div class="subtitle">iPhone Resale Market Intelligence</div>
@@ -1885,7 +2091,38 @@ body {
     </div>
   </div>
 
-  <nav class="eagle-nav" aria-label="EAGLE navigation">
+  <div class="eagle-mobile-menu-overlay" id="eagle-mobile-menu-overlay"></div>
+
+<aside class="eagle-mobile-menu" id="eagle-mobile-menu" aria-hidden="true">
+  <div class="eagle-mobile-menu-head">
+    <div class="eagle-mobile-menu-brand">
+      <img class="eagle-mobile-menu-logo" src="eagle-pin-icon.jpg" alt="">
+      <div>
+        <div class="eagle-mobile-menu-title">EAGLE PIN</div>
+        <div class="eagle-mobile-menu-subtitle">NAVIGATION</div>
+      </div>
+    </div>
+
+    <button class="eagle-mobile-menu-close" id="eagle-mobile-menu-close" type="button" aria-label="Close navigation menu">×</button>
+  </div>
+
+  <nav class="eagle-mobile-menu-nav">
+    <a href="https://jmgeenrem.github.io/eagle-pin/"><span>MARKET</span><span>›</span></a>
+    <a href="https://jmgeenrem.github.io/eagle-pin/deal-calculator.html"><span>DEAL CALCULATOR</span><span>›</span></a>
+    <a href="https://jmgeenrem.github.io/eagle-pin/parts-hub.html"><span>PARTS HUB</span><span>›</span></a>
+    <a href="https://jmgeenrem.github.io/eagle-pin/repair-hub.html"><span>REPAIR HUB</span><span>›</span></a>
+    <a href="https://jmgeenrem.github.io/eagle-pin/finance.html"><span>FINANCE</span><span>›</span></a>
+    <a href="https://jmgeenrem.github.io/eagle-pin/alerts.html"><span>ALERTS</span><span>›</span></a>
+    <a class="active" href="chat.html?v=20260917-4"><span>CHAT</span><span>›</span></a>
+  </nav>
+
+  <div class="eagle-mobile-menu-footer">
+    <span class="eagle-mobile-menu-live-dot"></span>
+    LIVE
+  </div>
+</aside>
+
+<nav class="eagle-nav" aria-label="EAGLE navigation">
     <a class="nav-link" href="https://jmgeenrem.github.io/eagle-pin/">MARKET</a>
     <a class="nav-link" href="https://jmgeenrem.github.io/eagle-pin/deal-calculator.html">DEAL CALCULATOR</a>
     <a class="nav-link" href="https://jmgeenrem.github.io/eagle-pin/parts-hub.html">PARTS HUB</a>
@@ -3020,6 +3257,126 @@ init();
 
       window.location.assign(url.toString());
     });
+  });
+})();
+</script>
+
+
+
+<script>
+// EAGLE MOBILE NAVIGATION
+(() => {
+  const trigger = document.getElementById("eagle-mobile-menu-trigger");
+  const menu = document.getElementById("eagle-mobile-menu");
+  const overlay = document.getElementById("eagle-mobile-menu-overlay");
+  const closeButton = document.getElementById("eagle-mobile-menu-close");
+
+  if (!trigger || !menu || !overlay || !closeButton) return;
+
+  function openMenu() {
+    document.body.classList.add("eagle-mobile-menu-open");
+    trigger.setAttribute("aria-expanded", "true");
+    menu.setAttribute("aria-hidden", "false");
+  }
+
+  function closeMenu() {
+    document.body.classList.remove("eagle-mobile-menu-open");
+    trigger.setAttribute("aria-expanded", "false");
+    menu.setAttribute("aria-hidden", "true");
+  }
+
+  trigger.addEventListener("click", openMenu);
+
+  trigger.addEventListener("keydown", event => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openMenu();
+    }
+  });
+
+  closeButton.addEventListener("click", closeMenu);
+  overlay.addEventListener("click", closeMenu);
+
+  let swipeStartX = 0;
+  let swipeStartY = 0;
+  let swipeTracking = false;
+  let swipeLocked = false;
+
+  menu.addEventListener("touchstart", event => {
+    if (
+      event.touches.length !== 1 ||
+      !document.body.classList.contains("eagle-mobile-menu-open")
+    ) return;
+
+    const touch = event.touches[0];
+    swipeStartX = touch.clientX;
+    swipeStartY = touch.clientY;
+    swipeTracking = true;
+    swipeLocked = false;
+  }, { passive: true });
+
+  menu.addEventListener("touchmove", event => {
+    if (!swipeTracking || event.touches.length !== 1) return;
+
+    const deltaX = event.touches[0].clientX - swipeStartX;
+    const deltaY = event.touches[0].clientY - swipeStartY;
+
+    if (!swipeLocked) {
+      if (Math.abs(deltaY) > 14 && Math.abs(deltaY) > Math.abs(deltaX)) {
+        swipeTracking = false;
+        return;
+      }
+
+      if (Math.abs(deltaX) < 14) return;
+
+      if (Math.abs(deltaX) <= Math.abs(deltaY) * 1.2) {
+        swipeTracking = false;
+        return;
+      }
+
+      swipeLocked = true;
+    }
+
+    if (deltaX >= 0) return;
+
+    event.preventDefault();
+
+    const drag = Math.max(deltaX, -140);
+    menu.style.transition = "none";
+    menu.style.transform = "translate3d(" + drag + "px,0,0)";
+  }, { passive: false });
+
+  function finishSwipe(event) {
+    if (!swipeTracking) return;
+
+    const touch = event.changedTouches && event.changedTouches[0];
+    const deltaX = touch ? touch.clientX - swipeStartX : 0;
+
+    swipeTracking = false;
+    menu.style.transition = "";
+    menu.style.transform = "";
+
+    if (swipeLocked && deltaX <= -70) {
+      closeMenu();
+    }
+
+    swipeLocked = false;
+  }
+
+  menu.addEventListener("touchend", finishSwipe, { passive: true });
+  menu.addEventListener("touchcancel", () => {
+    swipeTracking = false;
+    swipeLocked = false;
+    menu.style.transition = "";
+    menu.style.transform = "";
+  }, { passive: true });
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") closeMenu();
+  });
+
+  menu.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", closeMenu);
   });
 })();
 </script>
