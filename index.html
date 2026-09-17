@@ -814,7 +814,7 @@ canvas {
 
     <div class="status">
       <div class="live" id="eagle-status"><span class="live-dot"></span> <span id="eagle-status-text">LIVE</span></div>
-      <div>Updated 2026-09-17 17:02</div>
+      <div>Updated 2026-09-17 17:05</div>
     </div>
   </div>
 
@@ -2547,7 +2547,7 @@ window.addEventListener("resize", renderTrend);
 // vanuit dezelfde ACTIVE FLIPS-context.
 applyMarketFilter("active");
 
-const eagleUpdatedAt = new Date("2026-09-17T17:02");
+const eagleUpdatedAt = new Date("2026-09-17T17:05");
 
 function updateEagleStatus() {
   const status = document.getElementById("eagle-status");
@@ -2606,9 +2606,11 @@ setInterval(updateEagleStatus, 60000);
   indicator.textContent = "↓ PULL TO REFRESH";
   document.body.appendChild(indicator);
 
+  let startX = 0;
   let startY = 0;
   let distance = 0;
   let pulling = false;
+  let gestureLocked = false;
   const trigger = 220;
 
   function atTop() {
@@ -2630,17 +2632,31 @@ setInterval(updateEagleStatus, 60000);
 
   document.addEventListener("touchstart", event => {
     if (event.touches.length !== 1 || !atTop()) return;
+    if (event.target.closest(".eagle-nav")) return;
 
+    startX = event.touches[0].clientX;
     startY = event.touches[0].clientY;
     distance = 0;
     pulling = true;
+    gestureLocked = false;
     content.style.transition = "none";
   }, { passive: true, capture: true });
 
   document.addEventListener("touchmove", event => {
     if (!pulling || event.touches.length !== 1) return;
 
+    const deltaX = event.touches[0].clientX - startX;
     const rawDistance = event.touches[0].clientY - startY;
+
+    if (!gestureLocked) {
+      if (Math.abs(deltaX) > Math.abs(rawDistance) && Math.abs(deltaX) > 8) {
+        pulling = false;
+        return;
+      }
+
+      if (rawDistance < 10) return;
+      gestureLocked = true;
+    }
 
     if (rawDistance <= 0) {
       distance = 0;
