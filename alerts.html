@@ -1494,6 +1494,70 @@ h1 {
   color: #f1f4f6;
 }
 
+/* Circular Eagle Score / Confidence */
+.headline-metrics > .metric-ring {
+  --progress: 0;
+  width: 82px;
+  min-width: 82px;
+  height: 82px;
+  padding: 3px;
+  border: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  position: relative;
+  text-align: center;
+  box-shadow: none;
+}
+
+.headline-metrics > div.metric-ring.score-ring {
+  background:
+    conic-gradient(
+      #c9aa6a var(--progress),
+      rgba(201,170,106,.10) 0
+    );
+}
+
+.headline-metrics > div.metric-ring.confidence-ring {
+  background:
+    conic-gradient(
+      #65d8ff var(--progress),
+      rgba(101,216,255,.10) 0
+    );
+}
+
+.metric-ring-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #0b1117;
+  border: 1px solid rgba(255,255,255,.065);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.headline-metrics .metric-ring span {
+  margin: 0;
+  font-size: 7px;
+  line-height: 1.15;
+  letter-spacing: .85px;
+}
+
+.headline-metrics .metric-ring strong {
+  margin-top: 4px;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.offer-price {
+  letter-spacing: 2.4px;
+  font-size: 25px;
+  color: #edf1f4;
+}
+
 /* Device + Deal information */
 .detail-item,
 .device-grid .detail-item,
@@ -1654,6 +1718,24 @@ h1 {
     font-size: 22px;
   }
 
+  .headline-metrics > .metric-ring {
+    width: 78px;
+    min-width: 78px;
+    height: 78px;
+  }
+
+  .headline-metrics .metric-ring span {
+    font-size: 8px;
+  }
+
+  .headline-metrics .metric-ring strong {
+    font-size: 19px;
+  }
+
+  .offer-price {
+    font-size: 28px;
+  }
+
   .detail-title {
     font-size: 12px;
     letter-spacing: 1.8px;
@@ -1768,16 +1850,20 @@ h1 {
         <div class="location">Leeuwarden</div>
 
         <div class="headline">
-          <div><span class="price">—</span></div>
+          <div><span class="price offer-price">OFFER</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>0</strong>
+            <div class="metric-ring score-ring" style="--progress:0%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>0.0</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>71%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:71%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>71%</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -1829,13 +1915,17 @@ h1 {
           <div><span class="price">€250,00</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>79</strong>
+            <div class="metric-ring score-ring" style="--progress:79%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>7.9</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>47%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:47%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>47%</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -1887,13 +1977,17 @@ h1 {
           <div><span class="price">€325,00</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>66</strong>
+            <div class="metric-ring score-ring" style="--progress:66%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>6.6</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>71%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:71%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>71%</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -1945,13 +2039,17 @@ h1 {
           <div><span class="price">€450,00</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>50</strong>
+            <div class="metric-ring score-ring" style="--progress:50%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>5.0</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>71%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:71%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>71%</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -2003,13 +2101,17 @@ h1 {
           <div><span class="old-price">€545,00</span><span class="arrow">→</span><span class="price">€525,00</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>40</strong>
+            <div class="metric-ring score-ring" style="--progress:40%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>4.0</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>71%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:71%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>71%</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -2058,16 +2160,20 @@ h1 {
         <div class="location">Noordwijk</div>
 
         <div class="headline">
-          <div><span class="price">—</span></div>
+          <div><span class="price offer-price">OFFER</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>0</strong>
+            <div class="metric-ring score-ring" style="--progress:0%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>0.0</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>59%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:59%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>59%</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -2119,13 +2225,17 @@ h1 {
           <div><span class="old-price">€549,00</span><span class="arrow">→</span><span class="price">€545,00</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>40</strong>
+            <div class="metric-ring score-ring" style="--progress:40%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>4.0</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>71%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:71%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>71%</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -2177,13 +2287,17 @@ h1 {
           <div><span class="price">€400,00</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>64</strong>
+            <div class="metric-ring score-ring" style="--progress:64%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>6.4</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>59%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:59%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>59%</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -2235,13 +2349,17 @@ h1 {
           <div><span class="price">€350,00</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>77</strong>
+            <div class="metric-ring score-ring" style="--progress:77%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>7.7</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>71%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:71%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>71%</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -2290,16 +2408,20 @@ h1 {
         <div class="location">Zeddam</div>
 
         <div class="headline">
-          <div><span class="price">—</span></div>
+          <div><span class="price offer-price">OFFER</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>0</strong>
+            <div class="metric-ring score-ring" style="--progress:0%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>0.0</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>83%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:83%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>83%</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -2351,13 +2473,17 @@ h1 {
           <div><span class="price">€449,00</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>71</strong>
+            <div class="metric-ring score-ring" style="--progress:71%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>7.1</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>59%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:59%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>59%</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -2409,13 +2535,17 @@ h1 {
           <div><span class="price">€450,00</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>71</strong>
+            <div class="metric-ring score-ring" style="--progress:71%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>7.1</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>59%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:59%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>59%</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -2467,13 +2597,17 @@ h1 {
           <div><span class="old-price">€350,00</span><span class="arrow">→</span><span class="price">€250,00</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>75</strong>
+            <div class="metric-ring score-ring" style="--progress:75%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>7.5</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>35%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:35%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>35%</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -2525,13 +2659,17 @@ h1 {
           <div><span class="price">€525,00</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>40</strong>
+            <div class="metric-ring score-ring" style="--progress:40%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>4.0</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>71%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:71%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>71%</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -2583,13 +2721,17 @@ h1 {
           <div><span class="old-price">€410,00</span><span class="arrow">→</span><span class="price">€405,00</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>64</strong>
+            <div class="metric-ring score-ring" style="--progress:64%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>6.4</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>59%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:59%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>59%</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -2641,13 +2783,17 @@ h1 {
           <div><span class="old-price">€500,00</span><span class="arrow">→</span><span class="price">€450,00</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>48</strong>
+            <div class="metric-ring score-ring" style="--progress:48%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>4.8</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>59%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:59%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>59%</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -2699,13 +2845,17 @@ h1 {
           <div><span class="price">€320,00</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>75</strong>
+            <div class="metric-ring score-ring" style="--progress:75%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>7.5</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>59%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:59%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>59%</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -2754,16 +2904,20 @@ h1 {
         <div class="location">Didam</div>
 
         <div class="headline">
-          <div><span class="price">—</span></div>
+          <div><span class="price offer-price">OFFER</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>0</strong>
+            <div class="metric-ring score-ring" style="--progress:0%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>0.0</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>71%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:71%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>71%</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -2815,13 +2969,17 @@ h1 {
           <div><span class="price">€525,00</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>44</strong>
+            <div class="metric-ring score-ring" style="--progress:44%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>4.4</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>71%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:71%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>71%</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -2873,13 +3031,17 @@ h1 {
           <div><span class="price">€150,00</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>83</strong>
+            <div class="metric-ring score-ring" style="--progress:83%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>8.3</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>47%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:47%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>47%</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -2931,13 +3093,17 @@ h1 {
           <div><span class="price">€150,00</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>75</strong>
+            <div class="metric-ring score-ring" style="--progress:75%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>7.5</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>59%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:59%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>59%</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -2989,13 +3155,17 @@ h1 {
           <div><span class="old-price">€600,00</span><span class="arrow">→</span><span class="price">€500,00</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>40</strong>
+            <div class="metric-ring score-ring" style="--progress:40%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>4.0</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>47%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:47%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>47%</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -3044,16 +3214,20 @@ h1 {
         <div class="location">Drunen</div>
 
         <div class="headline">
-          <div><span class="price">—</span></div>
+          <div><span class="price offer-price">OFFER</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>0</strong>
+            <div class="metric-ring score-ring" style="--progress:0%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>0.0</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>71%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:71%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>71%</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -3105,13 +3279,17 @@ h1 {
           <div><span class="price">€100,00</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>81</strong>
+            <div class="metric-ring score-ring" style="--progress:81%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>8.1</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>59%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:59%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>59%</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -3163,13 +3341,17 @@ h1 {
           <div><span class="price">€450,00</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>40</strong>
+            <div class="metric-ring score-ring" style="--progress:40%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>4.0</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>47%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:47%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>47%</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -3218,16 +3400,20 @@ h1 {
         <div class="location">Veldhoven</div>
 
         <div class="headline">
-          <div><span class="price">—</span></div>
+          <div><span class="price offer-price">OFFER</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>0</strong>
+            <div class="metric-ring score-ring" style="--progress:0%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>0.0</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>47%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:47%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>47%</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -3279,13 +3465,17 @@ h1 {
           <div><span class="price">€300,00</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>87</strong>
+            <div class="metric-ring score-ring" style="--progress:87%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>8.7</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>71%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:71%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>71%</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -3334,16 +3524,20 @@ h1 {
         <div class="location">Ommen</div>
 
         <div class="headline">
-          <div><span class="price">—</span></div>
+          <div><span class="price offer-price">OFFER</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>0</strong>
+            <div class="metric-ring score-ring" style="--progress:0%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>0.0</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>47%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:47%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>47%</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -3395,13 +3589,17 @@ h1 {
           <div><span class="price">€200,00</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>75</strong>
+            <div class="metric-ring score-ring" style="--progress:75%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>7.5</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>47%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:47%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>47%</strong>
+              </div>
             </div>
           </div>
         </div>
@@ -3453,13 +3651,17 @@ h1 {
           <div><span class="price">€600,00</span></div>
 
           <div class="headline-metrics">
-            <div>
-              <span>EAGLE SCORE</span>
-              <strong>40</strong>
+            <div class="metric-ring score-ring" style="--progress:40%">
+              <div class="metric-ring-inner">
+                <span>EAGLE SCORE</span>
+                <strong>4.0</strong>
+              </div>
             </div>
-            <div>
-              <span>CONFIDENCE</span>
-              <strong>47%</strong>
+            <div class="metric-ring confidence-ring" style="--progress:47%">
+              <div class="metric-ring-inner">
+                <span>CONFIDENCE</span>
+                <strong>47%</strong>
+              </div>
             </div>
           </div>
         </div>
