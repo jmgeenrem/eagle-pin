@@ -1428,6 +1428,270 @@ h1 {
 }
 </style>
 
+
+<style>
+/* ============================================================
+   EAGLE ALERTS — VISUAL CLEANUP 2026-09-17
+   Restrained graphite / minimal glow language.
+   ============================================================ */
+
+/* Main alert container */
+.alert-card,
+.alert-card.intercept {
+  background: #0d141b;
+  border-color: rgba(255,255,255,.085);
+  box-shadow: 0 18px 46px rgba(0,0,0,.26);
+}
+
+.alert-card::before,
+.alert-card.intercept::before {
+  background: linear-gradient(
+    to bottom,
+    rgba(101,216,255,.80),
+    rgba(201,170,106,.55)
+  );
+  box-shadow: none;
+}
+
+/* Image bay */
+.alert-media {
+  background: #090e13;
+  border-color: rgba(255,255,255,.065);
+}
+
+.alert-media::after {
+  border-color: rgba(255,255,255,.055);
+  box-shadow: none;
+}
+
+/* Hero price panel */
+.headline {
+  background: #101820;
+  border-color: rgba(255,255,255,.08);
+  box-shadow: none;
+}
+
+.headline::before {
+  display: none;
+}
+
+.price {
+  color: #f4f6f8;
+  text-shadow: none;
+}
+
+/* Score / confidence */
+.headline-metrics > div,
+.headline-metrics > div:first-child,
+.headline-metrics > div:last-child {
+  background: #0b1117;
+  border-color: rgba(255,255,255,.075);
+  box-shadow: none;
+}
+
+.headline-metrics > div:first-child strong,
+.headline-metrics > div:last-child strong {
+  color: #f1f4f6;
+}
+
+/* Device + Deal information */
+.detail-item,
+.device-grid .detail-item,
+.deal-grid .detail-item:nth-child(1),
+.deal-grid .detail-item:nth-child(2),
+.deal-grid .detail-item:nth-child(3),
+.deal-grid .detail-item:nth-child(4) {
+  background: #0b1218;
+  border-color: rgba(255,255,255,.075);
+  box-shadow: none;
+}
+
+/* One restrained EAGLE rail instead of alternating neon */
+.device-grid .detail-item:nth-child(odd)::after,
+.device-grid .detail-item:nth-child(even)::after,
+.deal-grid .detail-item:nth-child(odd)::after,
+.deal-grid .detail-item:nth-child(even)::after {
+  background: rgba(101,216,255,.52);
+  box-shadow: none;
+}
+
+.detail-item strong,
+.detail-item.gold strong {
+  color: #edf1f4;
+}
+
+/* Semantic profit/loss only */
+.detail-item.positive {
+  background: #0b1713 !important;
+  border-color: rgba(46,229,140,.18) !important;
+  box-shadow: none !important;
+}
+
+.detail-item.positive::after {
+  background: var(--green) !important;
+  box-shadow: none !important;
+}
+
+.detail-item.negative {
+  background: #171014 !important;
+  border-color: rgba(255,95,101,.20) !important;
+  box-shadow: none !important;
+}
+
+.detail-item.negative::after {
+  background: var(--red) !important;
+  box-shadow: none !important;
+}
+
+/* Labels */
+.detail-title {
+  color: #aeb8c1;
+  text-shadow: none;
+}
+
+/* Warning chips */
+.signal.warning {
+  color: #d9dee3;
+  background: #10161c;
+  border-color: rgba(201,170,106,.18);
+  box-shadow: none;
+}
+
+/* Badges */
+.badge.label,
+.alert-card:not(.intercept) .badge.label {
+  color: #dfe3e6;
+  background: #11171d;
+  border-color: rgba(255,255,255,.09);
+  box-shadow: none;
+}
+
+.alert-card.intercept .badge.label {
+  color: #eef4f6;
+  background: #101a20;
+  border-color: rgba(101,216,255,.22);
+  box-shadow: none;
+}
+
+.badge.kind {
+  color: #b6c0c8;
+  background: #10161c;
+  border-color: rgba(255,255,255,.08);
+  box-shadow: none;
+}
+
+/* CTA */
+.open-button,
+.open-button:hover {
+  color: #f2f4f5;
+  background: #111920;
+  border-color: rgba(201,170,106,.22);
+  box-shadow: none;
+}
+
+.open-button:hover {
+  border-color: rgba(201,170,106,.38);
+}
+
+/* Footer */
+.alert-footer {
+  border-top-color: rgba(255,255,255,.065);
+}
+
+/* Overview cards */
+.card.kpi {
+  background: #0d141b;
+  border-color: rgba(255,255,255,.075);
+  box-shadow: none;
+}
+</style>
+
+
+<style>
+/* ============================================================
+   EAGLE ALERTS — MOBILE TYPOGRAPHY 2026-09-17
+   Improve readability without changing structure.
+   ============================================================ */
+
+@media (max-width: 760px) {
+  .section-label {
+    font-size: 12px;
+    letter-spacing: 1.5px;
+  }
+
+  .badge {
+    font-size: 10px;
+    padding: 7px 11px;
+  }
+
+  .alert-time {
+    font-size: 11px;
+  }
+
+  .alert-title {
+    font-size: 22px;
+    line-height: 1.2;
+  }
+
+  .location {
+    font-size: 13px;
+  }
+
+  .price {
+    font-size: 34px;
+  }
+
+  .old-price {
+    font-size: 14px;
+  }
+
+  .headline-metrics span {
+    font-size: 10px;
+    letter-spacing: 1.3px;
+  }
+
+  .headline-metrics strong {
+    font-size: 22px;
+  }
+
+  .detail-title {
+    font-size: 12px;
+    letter-spacing: 1.8px;
+    margin-bottom: 13px;
+  }
+
+  .detail-item span {
+    font-size: 10px;
+    letter-spacing: 1.25px;
+    line-height: 1.3;
+  }
+
+  .detail-item strong {
+    font-size: 16px;
+    line-height: 1.35;
+  }
+
+  .signal {
+    font-size: 12px;
+    line-height: 1.35;
+    padding: 8px 11px;
+  }
+
+  .open-button {
+    font-size: 11px;
+    letter-spacing: 1.2px;
+  }
+
+  .kpi-label {
+    font-size: 11px;
+  }
+
+  .kpi-value {
+    font-size: 27px;
+  }
+}
+</style>
+
 </head>
 
 <body>
@@ -1488,7 +1752,7 @@ h1 {
     
     <article class="alert-card">
       <div class="alert-media">
-        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b3ec2df9-81fb-427e-bb49-e1f799255d68?rule=ecg_mp_eps$_83.jpg" alt="iPhone 14 Pro Max - Schadevrij" loading="lazy">
+        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b3ec2df9-81fb-427e-bb49-e1f799255d68?rule=ecg_mp_eps$_85.jpg" alt="iPhone 14 Pro Max - Schadevrij" loading="lazy">
       </div>
 
       <div class="alert-content">
@@ -1546,7 +1810,7 @@ h1 {
 
     <article class="alert-card">
       <div class="alert-media">
-        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/19ebb423-deb3-49af-b8f8-86a0541fab60?rule=ecg_mp_eps$_83.jpg" alt="Iphone 15 Pro | 88% batterij 128gb" loading="lazy">
+        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/19ebb423-deb3-49af-b8f8-86a0541fab60?rule=ecg_mp_eps$_85.jpg" alt="Iphone 15 Pro | 88% batterij 128gb" loading="lazy">
       </div>
 
       <div class="alert-content">
@@ -1604,7 +1868,7 @@ h1 {
 
     <article class="alert-card">
       <div class="alert-media">
-        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2e893f70-f5eb-4f3e-bb09-fdcc1c188bed?rule=ecg_mp_eps$_83.jpg" alt="Apple iPhone 15 Pro 128 GB - Titanium - Goede staat" loading="lazy">
+        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2e893f70-f5eb-4f3e-bb09-fdcc1c188bed?rule=ecg_mp_eps$_85.jpg" alt="Apple iPhone 15 Pro 128 GB - Titanium - Goede staat" loading="lazy">
       </div>
 
       <div class="alert-content">
@@ -1662,7 +1926,7 @@ h1 {
 
     <article class="alert-card">
       <div class="alert-media">
-        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6a3a594e-cbc5-49d7-8051-c2c3c74542a7?rule=ecg_mp_eps$_83.jpg" alt="iPhone 15 Pro 128GB - 88% batterijconditie" loading="lazy">
+        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6a3a594e-cbc5-49d7-8051-c2c3c74542a7?rule=ecg_mp_eps$_85.jpg" alt="iPhone 15 Pro 128GB - 88% batterijconditie" loading="lazy">
       </div>
 
       <div class="alert-content">
@@ -1720,7 +1984,7 @@ h1 {
 
     <article class="alert-card intercept">
       <div class="alert-media">
-        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d385ca2c-1d00-4c00-adb6-2632b6a94dc0?rule=ecg_mp_eps$_83.jpg" alt="iPhone 15 Pro 128GB Zwart - Lichte Gebruikerssporen 82%" loading="lazy">
+        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d385ca2c-1d00-4c00-adb6-2632b6a94dc0?rule=ecg_mp_eps$_85.jpg" alt="iPhone 15 Pro 128GB Zwart - Lichte Gebruikerssporen 82%" loading="lazy">
       </div>
 
       <div class="alert-content">
@@ -1778,7 +2042,7 @@ h1 {
 
     <article class="alert-card">
       <div class="alert-media">
-        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fd8848b6-38ab-4d0b-96c2-6716053866cb?rule=ecg_mp_eps$_83.jpg" alt="iPhone15 Pro 128 Gebarste achterkant Frontcamera werkt niet" loading="lazy">
+        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fd8848b6-38ab-4d0b-96c2-6716053866cb?rule=ecg_mp_eps$_85.jpg" alt="iPhone15 Pro 128 Gebarste achterkant Frontcamera werkt niet" loading="lazy">
       </div>
 
       <div class="alert-content">
@@ -1836,7 +2100,7 @@ h1 {
 
     <article class="alert-card">
       <div class="alert-media">
-        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a3f494d1-f949-4f66-aa2e-a4c9eea6193d?rule=ecg_mp_eps$_83.jpg" alt="Apple iPhone 15 Pro 256GB – Natural Titanium" loading="lazy">
+        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a3f494d1-f949-4f66-aa2e-a4c9eea6193d?rule=ecg_mp_eps$_85.jpg" alt="Apple iPhone 15 Pro 256GB – Natural Titanium" loading="lazy">
       </div>
 
       <div class="alert-content">
@@ -1894,7 +2158,7 @@ h1 {
 
     <article class="alert-card">
       <div class="alert-media">
-        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8d31dff2-d6fa-4365-9247-61d1b9aaedfe?rule=ecg_mp_eps$_83.jpg" alt="iPhone 15 Pro met gebroken scherm" loading="lazy">
+        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8d31dff2-d6fa-4365-9247-61d1b9aaedfe?rule=ecg_mp_eps$_85.jpg" alt="iPhone 15 Pro met gebroken scherm" loading="lazy">
       </div>
 
       <div class="alert-content">
@@ -1952,7 +2216,7 @@ h1 {
 
     <article class="alert-card intercept">
       <div class="alert-media">
-        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/635ab70c-d171-4ecc-9110-657a45db8cee?rule=ecg_mp_eps$_83.jpg" alt="Iphone 15 pro 128 GB" loading="lazy">
+        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/635ab70c-d171-4ecc-9110-657a45db8cee?rule=ecg_mp_eps$_85.jpg" alt="Iphone 15 pro 128 GB" loading="lazy">
       </div>
 
       <div class="alert-content">
@@ -2010,7 +2274,7 @@ h1 {
 
     <article class="alert-card">
       <div class="alert-media">
-        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3263e21f-d714-45e8-8986-edcb06ff526b?rule=ecg_mp_eps$_83.jpg" alt="iPhone 15 Pro" loading="lazy">
+        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3263e21f-d714-45e8-8986-edcb06ff526b?rule=ecg_mp_eps$_85.jpg" alt="iPhone 15 Pro" loading="lazy">
       </div>
 
       <div class="alert-content">
@@ -2068,7 +2332,7 @@ h1 {
 
     <article class="alert-card">
       <div class="alert-media">
-        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3c1329b8-e598-4b7b-a31e-f4b262b5389f?rule=ecg_mp_eps$_83.jpg" alt="Iphone 15 pro 128GB natural titanium selfiecsmera defect +" loading="lazy">
+        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3c1329b8-e598-4b7b-a31e-f4b262b5389f?rule=ecg_mp_eps$_85.jpg" alt="Iphone 15 pro 128GB natural titanium selfiecsmera defect +" loading="lazy">
       </div>
 
       <div class="alert-content">
@@ -2126,7 +2390,7 @@ h1 {
 
     <article class="alert-card intercept">
       <div class="alert-media">
-        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8ec60e34-824a-4e62-b2a8-3c18cf4e6e6a?rule=ecg_mp_eps$_83.jpg" alt="Gebruikte iPhone 14 Pro Max - 128 GB - Zwart" loading="lazy">
+        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8ec60e34-824a-4e62-b2a8-3c18cf4e6e6a?rule=ecg_mp_eps$_85.jpg" alt="Gebruikte iPhone 14 Pro Max - 128 GB - Zwart" loading="lazy">
       </div>
 
       <div class="alert-content">
@@ -2184,7 +2448,7 @@ h1 {
 
     <article class="alert-card">
       <div class="alert-media">
-        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6b611ded-83a6-44e0-ae64-650a3b9b9ddc?rule=ecg_mp_eps$_83.jpg" alt="Iphone 15 pro 128GB" loading="lazy">
+        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6b611ded-83a6-44e0-ae64-650a3b9b9ddc?rule=ecg_mp_eps$_85.jpg" alt="Iphone 15 pro 128GB" loading="lazy">
       </div>
 
       <div class="alert-content">
@@ -2242,7 +2506,7 @@ h1 {
 
     <article class="alert-card">
       <div class="alert-media">
-        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2910e1d9-96a4-4c74-9ce8-b6322902f837?rule=ecg_mp_eps$_83.jpg" alt="iPhone 15 Pro 128 GB - Achterkant Gebarsten" loading="lazy">
+        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2910e1d9-96a4-4c74-9ce8-b6322902f837?rule=ecg_mp_eps$_85.jpg" alt="iPhone 15 Pro 128 GB - Achterkant Gebarsten" loading="lazy">
       </div>
 
       <div class="alert-content">
@@ -2300,7 +2564,7 @@ h1 {
 
     <article class="alert-card intercept">
       <div class="alert-media">
-        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/73b416a1-4a70-48f4-ad5b-5b567289e808?rule=ecg_mp_eps$_83.jpg" alt="Apple iPhone 14 Pro Max 256GB Zwart - Batterij 76%" loading="lazy">
+        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/73b416a1-4a70-48f4-ad5b-5b567289e808?rule=ecg_mp_eps$_85.jpg" alt="Apple iPhone 14 Pro Max 256GB Zwart - Batterij 76%" loading="lazy">
       </div>
 
       <div class="alert-content">
@@ -2358,7 +2622,7 @@ h1 {
 
     <article class="alert-card">
       <div class="alert-media">
-        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/01f344e5-62ec-49f8-86f4-7d80f33d4fc9?rule=ecg_mp_eps$_83.jpg" alt="iPhone 15 Pro blauw" loading="lazy">
+        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/01f344e5-62ec-49f8-86f4-7d80f33d4fc9?rule=ecg_mp_eps$_85.jpg" alt="iPhone 15 Pro blauw" loading="lazy">
       </div>
 
       <div class="alert-content">
@@ -2416,7 +2680,7 @@ h1 {
 
     <article class="alert-card">
       <div class="alert-media">
-        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/059122f3-6f51-4ecb-97d6-8192fe857bf0?rule=ecg_mp_eps$_83.jpg" alt="*VASTE PRIJS!* Iphone 14 pro max 256GB" loading="lazy">
+        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/059122f3-6f51-4ecb-97d6-8192fe857bf0?rule=ecg_mp_eps$_85.jpg" alt="*VASTE PRIJS!* Iphone 14 pro max 256GB" loading="lazy">
       </div>
 
       <div class="alert-content">
@@ -2474,7 +2738,7 @@ h1 {
 
     <article class="alert-card">
       <div class="alert-media">
-        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3263e21f-d714-45e8-8986-edcb06ff526b?rule=ecg_mp_eps$_83.jpg" alt="iPhone 15 Pro - Defect scherm, voor onderdelen" loading="lazy">
+        <img class="alert-image" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3263e21f-d714-45e8-8986-edcb06ff526b?rule=ecg_mp_eps$_85.jpg" alt="iPhone 15 Pro - Defect scherm, voor onderdelen" loading="lazy">
       </div>
 
       <div class="alert-content">
