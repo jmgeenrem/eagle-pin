@@ -1,0 +1,2378 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EAGLE PIN · CHAT</title>
+
+<style>
+:root {
+  --bg:#080d12;
+  --panel:#0d141b;
+  --panel2:#111a22;
+  --border:rgba(255,255,255,.08);
+  --cyan:#65d8ff;
+  --gold:#c9aa6a;
+  --text:#edf2f5;
+  --muted:#7f8b96;
+}
+
+* { box-sizing:border-box; }
+
+html {
+  scrollbar-color:#2a3540 #090d12;
+  scrollbar-width:thin;
+}
+
+.conversations,
+.messages,
+.intel-panel,
+.renivo-chat {
+  scrollbar-color:#2c3944 #090d12;
+  scrollbar-width:thin;
+}
+
+.conversations::-webkit-scrollbar,
+.messages::-webkit-scrollbar,
+.intel-panel::-webkit-scrollbar,
+.renivo-chat::-webkit-scrollbar {
+  width:8px;
+  height:8px;
+}
+
+.conversations::-webkit-scrollbar-track,
+.messages::-webkit-scrollbar-track,
+.intel-panel::-webkit-scrollbar-track,
+.renivo-chat::-webkit-scrollbar-track {
+  background:#090d12;
+}
+
+.conversations::-webkit-scrollbar-thumb,
+.messages::-webkit-scrollbar-thumb,
+.intel-panel::-webkit-scrollbar-thumb,
+.renivo-chat::-webkit-scrollbar-thumb {
+  border:2px solid #090d12;
+  border-radius:999px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(101,216,255,.18),
+      rgba(201,170,106,.14)
+    ),
+    #26323b;
+}
+
+.conversations::-webkit-scrollbar-thumb:hover,
+.messages::-webkit-scrollbar-thumb:hover,
+.intel-panel::-webkit-scrollbar-thumb:hover,
+.renivo-chat::-webkit-scrollbar-thumb:hover {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(101,216,255,.26),
+      rgba(201,170,106,.22)
+    ),
+    #33414c;
+}
+
+body {
+  margin:0;
+  background:
+    radial-gradient(circle at 50% -20%,rgba(101,216,255,.07),transparent 32%),
+    #080d12;
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  height:100vh;
+  overflow:hidden;
+}
+
+.topbar {
+  min-height:108px;
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  justify-content:center;
+  gap:16px;
+  padding:18px 28px 0;
+  border-bottom:1px solid var(--border);
+  background:
+    linear-gradient(180deg,rgba(12,18,24,.97),rgba(8,13,18,.94));
+}
+
+.topbar-row {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+}
+
+.eagle-nav {
+  display:flex;
+  align-items:center;
+  gap:26px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  white-space:nowrap;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+
+.eagle-nav::-webkit-scrollbar {
+  display:none;
+}
+
+.nav-link {
+  flex: 0 0 auto;
+  position:relative;
+  padding:0 0 13px;
+  color:var(--muted);
+  text-decoration:none;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:1px;
+  transition:color .18s ease;
+}
+
+.nav-link:hover {
+  color:#d9e2e8;
+}
+
+.nav-link.active {
+  color:#f1f5f7;
+}
+
+.nav-link.active::after {
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-1px;
+  height:2px;
+  background:linear-gradient(90deg,var(--cyan),var(--gold));
+  box-shadow:0 0 14px rgba(101,216,255,.22);
+}
+
+.brand {
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo {
+  width:58px;
+  height:58px;
+  border-radius:14px;
+  object-fit:cover;
+  display:block;
+  box-shadow:
+    0 0 0 1px rgba(216,170,91,.22),
+    0 6px 18px rgba(0,0,0,.35),
+    0 0 18px rgba(216,170,91,.10);
+}
+
+.topbar h1 {
+  margin:0;
+  font-size:30px;
+  line-height:1;
+  letter-spacing:-.8px;
+}
+
+.subtitle {
+  color:var(--muted);
+  margin-top:5px;
+  font-size:14px;
+}
+
+.status {
+  text-align:right;
+  line-height:1.7;
+}
+
+.live {
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  color:#35d07f;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.8px;
+}
+
+.live-dot {
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#35d07f;
+  box-shadow:0 0 10px rgba(53,208,127,.55);
+}
+
+.brand-mark {
+  width:38px;
+  height:38px;
+  border-radius:10px;
+  border:1px solid rgba(201,170,106,.28);
+  display:grid;
+  place-items:center;
+  color:var(--gold);
+  font-weight:900;
+  box-shadow:0 0 24px rgba(201,170,106,.06);
+}
+
+.brand-title {
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:1.4px;
+}
+
+.brand-sub {
+  color:var(--muted);
+  font-size:10px;
+  margin-top:3px;
+}
+
+.status {
+  color:#aab5be;
+  font-size:10px;
+  letter-spacing:1px;
+}
+
+.shell {
+  display:grid;
+  grid-template-columns:330px minmax(440px,1fr) 365px;
+  height:calc(100vh - 108px);
+}
+
+.sidebar,
+.thread-panel,
+.intel-panel {
+  min-height:0;
+}
+
+.composer {
+  flex-shrink:0;
+  border-top:1px solid var(--border);
+  padding:14px 18px;
+  background:#0a1016;
+}
+
+.composer-row {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:10px;
+  align-items:end;
+}
+
+.composer textarea {
+  width:100%;
+  min-height:52px;
+  max-height:150px;
+  resize:vertical;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:11px;
+  outline:none;
+  padding:11px 12px;
+  background:#101820;
+  color:var(--text);
+  font:inherit;
+  font-size:12px;
+  line-height:1.4;
+}
+
+.composer textarea:focus {
+  border-color:rgba(101,216,255,.34);
+}
+
+.composer textarea:disabled {
+  opacity:.45;
+}
+
+.send-button {
+  height:52px;
+  min-width:92px;
+  padding:0 17px;
+  border-radius:11px;
+  border:1px solid rgba(101,216,255,.25);
+  background:
+    linear-gradient(135deg,rgba(101,216,255,.16),rgba(201,170,106,.08)),
+    #13202a;
+  color:#eaf7fc;
+  font-size:10px;
+  font-weight:850;
+  letter-spacing:1.1px;
+  cursor:pointer;
+}
+
+.send-button:hover:not(:disabled) {
+  border-color:rgba(101,216,255,.52);
+}
+
+.send-button:disabled {
+  opacity:.38;
+  cursor:not-allowed;
+}
+
+.composer-meta {
+  min-height:15px;
+  margin-top:7px;
+  color:#74818c;
+  font-size:9px;
+}
+
+.composer-meta.error {
+  color:#ff9a9a;
+}
+
+.composer-meta.success {
+  color:#8eddb6;
+}
+
+.intel-panel {
+  min-height:0;
+}
+
+.sidebar {
+  border-right:1px solid var(--border);
+  background:rgba(10,15,21,.78);
+  display:flex;
+  flex-direction:column;
+}
+
+.sidebar-head,
+.intel-head {
+  padding:18px;
+  border-bottom:1px solid var(--border);
+}
+
+.eyebrow {
+  color:#8c98a3;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:1.6px;
+}
+
+.sidebar h2,
+.intel-panel h2 {
+  font-size:16px;
+  margin:7px 0 0;
+}
+
+.conversations {
+  overflow:auto;
+  flex:1;
+}
+
+.conversation {
+  display:grid;
+  grid-template-columns:50px minmax(0,1fr);
+  gap:11px;
+  padding:13px 14px;
+  border-bottom:1px solid rgba(255,255,255,.045);
+  cursor:pointer;
+  transition:.12s ease;
+}
+
+.conversation:hover {
+  background:rgba(101,216,255,.035);
+}
+
+.conversation.active {
+  background:
+    linear-gradient(90deg,rgba(101,216,255,.075),rgba(201,170,106,.025));
+  box-shadow:inset 2px 0 0 var(--cyan);
+}
+
+.conversation.pinned {
+  background:
+    linear-gradient(90deg,rgba(201,170,106,.07),rgba(201,170,106,.012));
+  box-shadow:inset 2px 0 0 rgba(201,170,106,.72);
+}
+
+.conversation.pinned.active {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(101,216,255,.075),
+      rgba(201,170,106,.055)
+    );
+  box-shadow:
+    inset 2px 0 0 var(--cyan),
+    inset 0 1px 0 rgba(201,170,106,.04);
+}
+
+.conv-actions {
+  display:flex;
+  align-items:center;
+  gap:6px;
+  flex-shrink:0;
+}
+
+.pin-button {
+  width:22px;
+  height:22px;
+  display:grid;
+  place-items:center;
+  padding:0;
+  border:0;
+  border-radius:6px;
+  background:transparent;
+  color:#586570;
+  font-size:14px;
+  line-height:1;
+  cursor:pointer;
+  transition:
+    color .15s ease,
+    background .15s ease,
+    transform .15s ease;
+}
+
+.pin-button:hover {
+  color:#d5bc83;
+  background:rgba(201,170,106,.08);
+}
+
+.pin-button.pinned {
+  color:var(--gold);
+  text-shadow:0 0 12px rgba(201,170,106,.25);
+}
+
+.pin-button:active {
+  transform:scale(.9);
+}
+
+.thumb {
+  width:50px;
+  height:50px;
+  border-radius:10px;
+  object-fit:cover;
+  background:#111820;
+  border:1px solid var(--border);
+}
+
+.conv-title {
+  font-size:12px;
+  font-weight:750;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.conv-meta {
+  color:#8995a0;
+  font-size:10px;
+  margin-top:4px;
+}
+
+.conv-preview {
+  color:#aeb7bf;
+  font-size:10px;
+  margin-top:5px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.conv-row {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+
+.unread {
+  min-width:18px;
+  height:18px;
+  padding:0 5px;
+  border-radius:9px;
+  display:grid;
+  place-items:center;
+  font-size:9px;
+  font-weight:850;
+  background:var(--cyan);
+  color:#061015;
+}
+
+.thread-panel {
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+}
+
+.thread-head {
+  min-height:76px;
+  padding:15px 21px;
+  border-bottom:1px solid var(--border);
+  background:
+    linear-gradient(110deg,rgba(101,216,255,.035),rgba(201,170,106,.025));
+}
+
+.thread-title {
+  font-size:15px;
+  font-weight:800;
+}
+
+.thread-person {
+  color:#8f9aa4;
+  font-size:10px;
+  margin-top:5px;
+}
+
+.messages {
+  flex:1;
+  min-height:0;
+  overflow:auto;
+  padding:24px 28px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.message {
+  max-width:72%;
+}
+
+.message.me {
+  align-self:flex-end;
+}
+
+.message.otherParticipant,
+.message.system {
+  align-self:flex-start;
+}
+
+.bubble {
+  padding:10px 13px;
+  border-radius:13px;
+  font-size:12px;
+  line-height:1.45;
+  white-space:pre-wrap;
+  border:1px solid var(--border);
+}
+
+.me .bubble {
+  background:
+    linear-gradient(135deg,rgba(101,216,255,.11),rgba(201,170,106,.055)),
+    #13202a;
+  border-color:rgba(101,216,255,.14);
+}
+
+.otherParticipant .bubble {
+  background:#111820;
+}
+
+.system .bubble {
+  color:#a8b1b9;
+  background:rgba(255,255,255,.025);
+  font-size:10px;
+}
+
+.message-meta {
+  margin-top:4px;
+  color:#707c87;
+  font-size:9px;
+}
+
+.me .message-meta {
+  text-align:right;
+}
+
+.intel-panel {
+  border-left:1px solid var(--border);
+  background:rgba(9,14,19,.82);
+  overflow:auto;
+}
+
+.intel-body {
+  padding:16px 18px;
+}
+
+.ad-image {
+  width:100%;
+  height:205px;
+  object-fit:contain;
+  border-radius:12px;
+  background:#080d12;
+  border:1px solid var(--border);
+}
+
+.ad-title {
+  font-size:16px;
+  line-height:1.3;
+  font-weight:800;
+  margin-top:12px;
+}
+
+.seller {
+  color:#a5b0b9;
+  font-size:11px;
+  margin-top:5px;
+}
+
+.metrics {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:14px;
+}
+
+.metric {
+  min-height:60px;
+  padding:10px 11px;
+  border-radius:10px;
+  border:1px solid rgba(101,216,255,.09);
+  background:
+    linear-gradient(145deg,rgba(101,216,255,.03),rgba(201,170,106,.018)),
+    #0d141b;
+}
+
+.metric span {
+  color:#91a0ab;
+  display:block;
+  font-size:8px;
+  font-weight:850;
+  letter-spacing:1.05px;
+}
+
+.metric strong {
+  display:block;
+  color:#f0f4f6;
+  font-size:13px;
+  margin-top:6px;
+}
+
+.renivo-section {
+  margin-top:18px;
+  padding-top:18px;
+  border-top:1px solid var(--border);
+}
+
+.renivo-intel-head {
+  min-height:76px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:
+    radial-gradient(circle at 100% 0,rgba(101,216,255,.08),transparent 52%),
+    linear-gradient(135deg,rgba(201,170,106,.035),transparent 55%);
+}
+
+.renivo-intel-head h2 {
+  font-size:20px;
+  letter-spacing:.8px;
+}
+
+.renivo-live-badge {
+  padding:6px 8px;
+  border:1px solid rgba(101,216,255,.18);
+  border-radius:999px;
+  color:#8edff9;
+  background:rgba(101,216,255,.055);
+  font-size:7px;
+  font-weight:850;
+  letter-spacing:1px;
+}
+
+.listing-context {
+  padding-bottom:14px;
+  border-bottom:1px solid var(--border);
+}
+
+.renivo-workspace {
+  padding-top:0;
+}
+
+.renivo-primary-section,
+.renivo-chat-section {
+  padding:15px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.renivo-primary-section {
+  padding-top:16px;
+}
+
+.renivo-section-title > div {
+  min-width:0;
+}
+
+.renivo-section-title small,
+.renivo-extra small {
+  display:block;
+  margin-top:4px;
+  color:#8b99a4;
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:1.1px;
+}
+
+.renivo-generate-button {
+  border-color:rgba(201,170,106,.30);
+  color:#e2c990;
+  background:
+    linear-gradient(135deg,rgba(201,170,106,.10),rgba(101,216,255,.035)),
+    #111920;
+}
+
+.renivo-generate-button:hover:not(:disabled) {
+  border-color:rgba(201,170,106,.55);
+}
+
+.renivo-primary-section .renivo-suggestions {
+  margin-top:14px;
+}
+
+.renivo-chat-section .renivo-chat {
+  margin-top:13px;
+}
+
+.renivo-extra {
+  margin-top:0;
+  border-bottom:1px solid var(--border);
+}
+
+.renivo-extra summary {
+  list-style:none;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:17px 0;
+  cursor:pointer;
+  user-select:none;
+}
+
+.renivo-extra summary::-webkit-details-marker {
+  display:none;
+}
+
+.renivo-extra summary strong {
+  font-size:9px;
+  letter-spacing:1.15px;
+  color:#b3bdc5;
+}
+
+.renivo-extra-chevron {
+  color:#6e7c87;
+  font-size:15px;
+  transition:transform .18s ease;
+}
+
+.renivo-extra[open] .renivo-extra-chevron {
+  transform:rotate(180deg);
+}
+
+.renivo-extra-body {
+  padding:0 0 18px;
+}
+
+.renivo-notice {
+  margin:0 18px 18px;
+  border:1px solid rgba(255,255,255,.065);
+  border-radius:10px;
+  background:rgba(255,255,255,.02);
+  color:#929da6;
+  font-size:9px;
+  line-height:1.5;
+}
+
+
+.renivo-section-title {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:9px;
+}
+
+.renivo-section-title strong {
+  color:#eef3f6;
+  font-size:11px;
+  letter-spacing:1.15px;
+}
+
+.renivo-section-title span {
+  color:#8d9aa4;
+  font-size:9px;
+}
+
+.renivo-notes {
+  width:100%;
+  min-height:78px;
+  resize:vertical;
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:10px;
+  outline:none;
+  padding:10px;
+  background:#0b1218;
+  color:var(--text);
+  font:inherit;
+  font-size:10px;
+  line-height:1.45;
+}
+
+.renivo-notes:focus {
+  border-color:rgba(101,216,255,.28);
+}
+
+.renivo-memory-actions {
+  display:flex;
+  justify-content:flex-end;
+  margin-top:7px;
+}
+
+.renivo-mini-button {
+  border:1px solid rgba(101,216,255,.18);
+  border-radius:8px;
+  padding:7px 10px;
+  background:#101820;
+  color:#d8e7ee;
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:.9px;
+  cursor:pointer;
+}
+
+.renivo-mini-button:disabled {
+  opacity:.4;
+  cursor:not-allowed;
+}
+
+.renivo-suggestions {
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  margin-top:9px;
+}
+
+.renivo-suggestion {
+  padding:10px;
+  border:1px solid rgba(101,216,255,.10);
+  border-radius:10px;
+  background:#0b1218;
+  cursor:pointer;
+  transition:border-color .15s ease, background .15s ease;
+}
+
+.renivo-suggestion:hover {
+  border-color:rgba(101,216,255,.30);
+  background:#0e171f;
+}
+
+.renivo-suggestion-label {
+  color:#65d8ff;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:1.1px;
+}
+
+.renivo-suggestion-message {
+  margin-top:6px;
+  color:#eef4f7;
+  font-size:10px;
+  line-height:1.5;
+}
+
+.renivo-suggestion-reason {
+  margin-top:6px;
+  color:#778691;
+  font-size:8px;
+  line-height:1.4;
+}
+
+.renivo-analysis {
+  margin-top:9px;
+  color:#a4afb7;
+  font-size:9px;
+  line-height:1.5;
+}
+
+.renivo-chat {
+  max-height:220px;
+  overflow:auto;
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+  margin-bottom:9px;
+}
+
+.renivo-chat-message {
+  padding:8px 9px;
+  border-radius:9px;
+  font-size:9px;
+  line-height:1.45;
+  border:1px solid var(--border);
+}
+
+.renivo-chat-message.user {
+  background:rgba(101,216,255,.05);
+  border-color:rgba(101,216,255,.10);
+}
+
+.renivo-chat-message.assistant {
+  background:rgba(201,170,106,.05);
+  border-color:rgba(201,170,106,.12);
+}
+
+.renivo-chat-role {
+  color:#71808b;
+  font-size:7px;
+  font-weight:850;
+  letter-spacing:1px;
+  margin-bottom:4px;
+}
+
+.renivo-chat-empty {
+  color:#929ea8;
+  font-size:10px;
+  line-height:1.5;
+  padding:7px 0;
+}
+
+.renivo-chat-input {
+  width:100%;
+  min-height:58px;
+  resize:vertical;
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:10px;
+  outline:none;
+  padding:10px;
+  background:#0b1218;
+  color:var(--text);
+  font:inherit;
+  font-size:10px;
+  line-height:1.45;
+}
+
+.renivo-chat-input:focus {
+  border-color:rgba(101,216,255,.28);
+}
+
+.renivo-context-status {
+  min-height:14px;
+  margin-top:6px;
+  color:#71808b;
+  font-size:8px;
+}
+
+.renivo-context-status.error {
+  color:#ff9a9a;
+}
+
+.renivo-context-status.success {
+  color:#8eddb6;
+}
+
+.notice {
+  margin:20px 18px;
+  padding:12px;
+  color:#b8c1c9;
+  font-size:10px;
+  line-height:1.5;
+  border:1px solid rgba(201,170,106,.14);
+  background:rgba(201,170,106,.035);
+  border-radius:10px;
+}
+
+.empty {
+  margin:auto;
+  color:#74818c;
+  font-size:12px;
+}
+
+@media (max-width:1050px) and (min-width:761px) {
+  .shell {
+    grid-template-columns:280px minmax(0,1fr) 320px;
+  }
+}
+
+@media (max-width:760px) {
+  body {
+    height:auto;
+    min-height:100vh;
+    overflow:auto;
+  }
+
+  .topbar {
+    min-height:0;
+    gap:14px;
+    padding:16px 14px 0;
+  }
+
+  .topbar-row {
+    align-items:flex-start;
+  }
+
+  .logo {
+    width:48px;
+    height:48px;
+    border-radius:12px;
+  }
+
+  .topbar h1 {
+    font-size:24px;
+  }
+
+  .subtitle {
+    font-size:11px;
+  }
+
+  .status {
+    display:none;
+  }
+
+  .eagle-nav {
+    gap:22px;
+    overflow-x:auto;
+    overflow-y:hidden;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  .eagle-nav::-webkit-scrollbar {
+    display:none;
+  }
+
+  .nav-link {
+    flex:0 0 auto;
+    min-height:34px;
+    white-space:nowrap;
+  }
+
+  .shell {
+    display:block;
+    height:auto;
+  }
+
+  .sidebar {
+    height:calc(100vh - 108px);
+    min-height:0;
+    border-right:0;
+    border-bottom:0;
+  }
+
+  body.mobile-thread-open .sidebar {
+    display:none;
+  }
+
+  body:not(.mobile-thread-open) .thread-panel,
+  body:not(.mobile-thread-open) .intel-panel {
+    display:none;
+  }
+
+  body.mobile-thread-open .thread-panel {
+    display:flex;
+  }
+
+  body.mobile-thread-open .intel-panel {
+    display:none;
+  }
+
+  body.mobile-thread-open .topbar {
+    display:none;
+  }
+
+  body.mobile-thread-open {
+    height:100dvh;
+    min-height:100dvh;
+    overflow:hidden;
+  }
+
+  body.mobile-thread-open .shell {
+    height:100dvh;
+  }
+
+  body.mobile-thread-open .thread-panel {
+    height:100dvh;
+    min-height:0;
+    border-bottom:0;
+  }
+
+  /* Mobile messenger presentation */
+  body.mobile-thread-open .thread-head {
+    flex-shrink:0;
+    min-height:72px;
+    padding:11px 14px 10px;
+    background:rgba(10,16,22,.98);
+    border-bottom:1px solid rgba(255,255,255,.07);
+  }
+
+  body.mobile-thread-open .mobile-back-button {
+    margin:0 0 6px;
+    color:#65d8ff;
+    font-size:10px;
+    letter-spacing:.5px;
+  }
+
+  body.mobile-thread-open .thread-title {
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    font-size:15px;
+    line-height:1.25;
+  }
+
+  body.mobile-thread-open .thread-person {
+    margin-top:3px;
+    font-size:10px;
+  }
+
+  body.mobile-thread-open .messages {
+    flex:1;
+    min-height:0;
+    padding:18px 12px;
+    gap:8px;
+    background:
+      radial-gradient(
+        circle at 50% 0%,
+        rgba(101,216,255,.025),
+        transparent 35%
+      ),
+      #080d12;
+  }
+
+  body.mobile-thread-open .message {
+    max-width:84%;
+  }
+
+  body.mobile-thread-open .bubble {
+    border-radius:17px;
+    padding:10px 13px;
+    font-size:14px;
+    line-height:1.4;
+  }
+
+  body.mobile-thread-open .message.me .bubble {
+    border-bottom-right-radius:5px;
+  }
+
+  body.mobile-thread-open .message:not(.me) .bubble {
+    border-bottom-left-radius:5px;
+  }
+
+  body.mobile-thread-open .message-meta {
+    margin-top:4px;
+    font-size:8px;
+  }
+
+  body.mobile-thread-open .composer {
+    flex-shrink:0;
+    padding:9px 10px calc(9px + env(safe-area-inset-bottom));
+    background:rgba(10,16,22,.98);
+    border-top:1px solid rgba(255,255,255,.07);
+  }
+
+  body.mobile-thread-open .composer-row {
+    grid-template-columns:minmax(0,1fr) 52px;
+    gap:8px;
+    align-items:end;
+  }
+
+  body.mobile-thread-open .composer textarea {
+    min-height:46px;
+    max-height:110px;
+    resize:none;
+    padding:12px 14px;
+    border-radius:23px;
+    background:#111a22;
+    font-size:16px;
+    line-height:1.3;
+  }
+
+  body.mobile-thread-open .send-button {
+    width:52px;
+    min-width:52px;
+    height:46px;
+    padding:0;
+    border-radius:23px;
+    font-size:9px;
+    letter-spacing:.7px;
+  }
+
+  body.mobile-thread-open .composer-meta {
+    min-height:0;
+    margin:5px 5px 0;
+    font-size:8px;
+  }
+
+  .mobile-assistant-button {
+    display:none;
+  }
+
+  .mobile-assistant-overlay {
+    display:none;
+  }
+
+  @media (max-width:760px) {
+    body.mobile-thread-open .thread-head {
+      position:relative;
+      padding-right:58px;
+    }
+
+    body.mobile-thread-open .mobile-assistant-button {
+      position:absolute;
+      top:14px;
+      right:14px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:36px;
+      height:36px;
+      border:1px solid rgba(101,216,255,.22);
+      border-radius:50%;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(101,216,255,.10),
+          rgba(201,170,106,.08)
+        ),
+        #111a22;
+      color:#8edff9;
+      font-size:16px;
+      cursor:pointer;
+      box-shadow:0 8px 24px rgba(0,0,0,.18);
+    }
+
+    .mobile-assistant-overlay {
+      position:fixed;
+      inset:0;
+      z-index:1000;
+      display:none;
+      align-items:flex-end;
+      justify-content:center;
+    }
+
+    .mobile-assistant-overlay.open {
+      display:flex;
+    }
+
+    .mobile-assistant-backdrop {
+      position:absolute;
+      inset:0;
+      border:0;
+      background:rgba(2,6,10,.62);
+      backdrop-filter:blur(8px);
+      -webkit-backdrop-filter:blur(8px);
+    }
+
+    .mobile-assistant-sheet {
+      position:relative;
+      z-index:1;
+      width:100%;
+      max-height:82dvh;
+      display:flex;
+      flex-direction:column;
+      border:1px solid rgba(255,255,255,.08);
+      border-bottom:0;
+      border-radius:24px 24px 0 0;
+      background:
+        linear-gradient(
+          180deg,
+          rgba(17,25,32,.99),
+          rgba(8,13,18,.995)
+        );
+      box-shadow:0 -18px 60px rgba(0,0,0,.42);
+      overflow:hidden;
+      padding-bottom:env(safe-area-inset-bottom);
+    }
+
+    .mobile-assistant-handle {
+      width:42px;
+      height:4px;
+      margin:9px auto 2px;
+      border-radius:999px;
+      background:rgba(255,255,255,.18);
+    }
+
+    .mobile-assistant-head {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:16px 20px 15px;
+      border-bottom:1px solid rgba(255,255,255,.07);
+    }
+
+    .mobile-assistant-head strong {
+      display:block;
+      color:#f1f5f7;
+      font-size:16px;
+      letter-spacing:.8px;
+    }
+
+    .mobile-assistant-head small {
+      display:block;
+      margin-top:3px;
+      color:#7f8d98;
+      font-size:8px;
+      font-weight:800;
+      letter-spacing:1px;
+    }
+
+    .mobile-assistant-close {
+      width:42px;
+      height:42px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:50%;
+      background:#111920;
+      color:#aab6bf;
+      font-size:20px;
+      line-height:1;
+      cursor:pointer;
+    }
+
+    .mobile-assistant-content {
+      min-height:0;
+      overflow:auto;
+      padding:0 20px 22px;
+    }
+
+    .mobile-assistant-content > .renivo-workspace {
+      padding:0;
+    }
+
+    .mobile-assistant-content .renivo-primary-section,
+    .mobile-assistant-content .renivo-chat-section {
+      padding:14px 0;
+    }
+
+    .mobile-assistant-head small,
+    .mobile-assistant-content .renivo-section-title small,
+    .mobile-assistant-content .renivo-extra small {
+      font-size:11px;
+      line-height:1.4;
+    }
+
+    .mobile-assistant-content .renivo-section-title strong,
+    .mobile-assistant-content .renivo-extra summary strong {
+      font-size:15px;
+    }
+
+    .mobile-assistant-content .renivo-chat-empty,
+    .mobile-assistant-content .renivo-analysis,
+    .mobile-assistant-content .renivo-context-status {
+      font-size:12px;
+      line-height:1.55;
+    }
+
+    .mobile-assistant-content .renivo-suggestion-label {
+      font-size:10px;
+    }
+
+    .mobile-assistant-content .renivo-suggestion-message {
+      font-size:12px;
+    }
+
+    .mobile-assistant-content .renivo-suggestion-reason {
+      font-size:9px;
+    }
+
+    .mobile-assistant-content .renivo-chat-role {
+      font-size:9px;
+    }
+
+    .mobile-assistant-content .renivo-chat-message {
+      font-size:11px;
+    }
+
+    .mobile-assistant-content .renivo-chat-input {
+      min-height:82px;
+      max-height:128px;
+      font-size:16px;
+      line-height:1.4;
+    }
+
+    .mobile-assistant-content .renivo-mini-button {
+      min-height:46px;
+      padding:11px 16px;
+      border-radius:12px;
+      font-size:11px;
+      letter-spacing:1px;
+    }
+
+    body.mobile-thread-open .composer-meta {
+      display:none;
+    }
+  }
+
+  .mobile-back-button {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    align-self:flex-start;
+    margin-bottom:8px;
+    padding:0;
+    border:0;
+    background:transparent;
+    color:#9ba8b2;
+    font:inherit;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:.7px;
+    cursor:pointer;
+  }
+
+  .sidebar-head,
+  .intel-head {
+    padding:14px;
+  }
+
+  .conversation {
+    padding:12px 14px;
+  }
+
+  .pin-button {
+    width:34px;
+    height:34px;
+    font-size:17px;
+  }
+
+  .thread-panel {
+    height:68vh;
+    min-height:520px;
+    border-bottom:1px solid var(--border);
+  }
+
+  .thread-head {
+    min-height:68px;
+    padding:13px 15px;
+  }
+
+  .messages {
+    padding:18px 14px;
+  }
+
+  .message {
+    max-width:88%;
+  }
+
+  .bubble {
+    font-size:13px;
+  }
+
+  .composer {
+    padding:12px 14px;
+  }
+
+  .composer-row {
+    gap:8px;
+  }
+
+  .composer textarea,
+  .renivo-chat-input,
+  .renivo-notes {
+    font-size:16px;
+  }
+
+  .send-button {
+    min-width:78px;
+    padding:0 13px;
+  }
+
+  .intel-panel {
+    display:block;
+    border-left:0;
+    overflow:visible;
+  }
+
+  .intel-body {
+    padding:14px;
+  }
+
+  .ad-image {
+    height:190px;
+  }
+
+  .metrics {
+    gap:7px;
+  }
+
+  .metric {
+    min-height:58px;
+  }
+
+  .renivo-primary-section,
+  .renivo-chat-section {
+    padding:16px 0;
+  }
+
+  .renivo-chat {
+    max-height:300px;
+  }
+
+  .renivo-notice {
+    margin:0 14px 20px;
+  }
+
+  button {
+    touch-action:manipulation;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="topbar">
+  <div class="topbar-row">
+    <div class="brand">
+      <img class="logo" src="eagle-pin-icon.jpg" alt="Eagle PIN">
+      <div>
+        <h1>EAGLE PIN</h1>
+        <div class="subtitle">iPhone Resale Market Intelligence</div>
+      </div>
+    </div>
+
+    <div class="status">
+      <div class="live"><span class="live-dot"></span> CHAT LIVE</div>
+      <div>Marktplaats · Manual send</div>
+    </div>
+  </div>
+
+  <nav class="eagle-nav" aria-label="EAGLE navigation">
+    <a class="nav-link" href="https://jmgeenrem.github.io/eagle-pin/">MARKET</a>
+    <a class="nav-link" href="https://jmgeenrem.github.io/eagle-pin/deal-calculator.html">DEAL CALCULATOR</a>
+    <a class="nav-link" href="https://jmgeenrem.github.io/eagle-pin/parts-hub.html">PARTS HUB</a>
+    <a class="nav-link" href="https://jmgeenrem.github.io/eagle-pin/repair-hub.html">REPAIR HUB</a>
+    <a class="nav-link" href="https://jmgeenrem.github.io/eagle-pin/finance.html">FINANCE</a>
+    <a class="nav-link" href="https://jmgeenrem.github.io/eagle-pin/alerts.html">ALERTS</a>
+    <a class="nav-link active" href="chat.html">CHAT</a>
+  </nav>
+</div>
+
+<div class="shell">
+  <aside class="sidebar">
+    <div class="sidebar-head">
+      <div class="eyebrow">MARKTPLAATS</div>
+      <h2>Conversations</h2>
+    </div>
+    <div id="conversations" class="conversations"></div>
+  </aside>
+
+  <main class="thread-panel">
+    <div id="threadHead" class="thread-head">
+      <button
+        id="mobileBackButton"
+        class="mobile-back-button"
+        type="button"
+      >‹ CONVERSATIONS</button>
+      <div class="thread-title">Selecteer een gesprek</div>
+      <div class="thread-person">EAGLE PIN Chat</div>
+
+      <button
+        id="mobileAssistantButton"
+        class="mobile-assistant-button"
+        type="button"
+        aria-label="Open EAGLE Assistant"
+      >✦</button>
+    </div>
+    <div id="messages" class="messages">
+      <div class="empty">Selecteer links een conversation.</div>
+    </div>
+
+    <div class="composer">
+      <div class="composer-row">
+        <textarea
+          id="messageInput"
+          maxlength="4000"
+          placeholder="Schrijf je bericht…"
+          disabled
+        ></textarea>
+
+        <button
+          id="sendButton"
+          class="send-button"
+          type="button"
+          disabled
+        >SEND</button>
+      </div>
+
+      <div id="composerMeta" class="composer-meta">
+        Selecteer eerst een gesprek.
+      </div>
+    </div>
+  </main>
+
+  <aside class="intel-panel">
+    <div class="intel-head renivo-intel-head">
+      <div>
+        <div class="eyebrow">NEGOTIATION INTELLIGENCE</div>
+        <h2>CHAT</h2>
+      </div>
+      <div class="renivo-live-badge">MANUAL SEND</div>
+    </div>
+
+    <div id="intelBody" class="intel-body listing-context">
+      <div class="empty">Geen gesprek geselecteerd.</div>
+    </div>
+
+    <div id="renivoWorkspace" class="intel-body renivo-workspace">
+
+      <section class="renivo-primary-section">
+        <div class="renivo-section-title">
+          <div>
+            <strong>TACTICAL SUGGESTIONS</strong>
+            <small>AI · 3 OPTIONS</small>
+          </div>
+
+          <button
+            id="generateSuggestionsButton"
+            class="renivo-mini-button renivo-generate-button"
+            type="button"
+            disabled
+          >GENERATE</button>
+        </div>
+
+        <div id="renivoSuggestions" class="renivo-suggestions">
+          <div class="renivo-chat-empty">
+            Selecteer een gesprek en genereer tactische opties.
+          </div>
+        </div>
+
+        <div id="renivoAnalysis" class="renivo-analysis"></div>
+        <div id="renivoSuggestionsStatus" class="renivo-context-status"></div>
+      </section>
+
+      <section class="renivo-chat-section">
+        <div class="renivo-section-title">
+          <div>
+            <strong>CHAT ASSISTANT</strong>
+            <small>DEAL INTELLIGENCE</small>
+          </div>
+        </div>
+
+        <div id="renivoChat" class="renivo-chat">
+          <div class="renivo-chat-empty">
+            Vraag de Chat Assistant iets over deze deal.
+          </div>
+        </div>
+
+        <textarea
+          id="renivoInput"
+          class="renivo-chat-input"
+          maxlength="4000"
+          placeholder="Bijv. wat is hier mijn leverage?"
+          disabled
+        ></textarea>
+
+        <div class="renivo-memory-actions">
+          <button
+            id="tellRenivoButton"
+            class="renivo-mini-button"
+            type="button"
+            disabled
+          >ADD TO CONTEXT</button>
+        </div>
+
+        <div id="renivoContextStatus" class="renivo-context-status"></div>
+      </section>
+
+      <details class="renivo-extra">
+        <summary>
+          <span>
+            <strong>EXTRA CONTEXT</strong>
+            <small>OPTIONAL · PER CONVERSATION</small>
+          </span>
+          <span class="renivo-extra-chevron">⌄</span>
+        </summary>
+
+        <div class="renivo-extra-body">
+          <textarea
+            id="renivoNotes"
+            class="renivo-notes"
+            maxlength="8000"
+            placeholder="Bijv. mijn absolute max is €300, alleen ophalen…"
+            disabled
+          ></textarea>
+
+          <div class="renivo-memory-actions">
+            <button
+              id="saveRenivoNotes"
+              class="renivo-mini-button"
+              type="button"
+              disabled
+            >SAVE CONTEXT</button>
+          </div>
+        </div>
+      </details>
+
+    </div>
+
+    <div class="notice renivo-notice">
+      Chat gebruikt automatisch de advertentie en volledige conversation.
+      Alleen SEND kan een Marktplaats-bericht versturen.
+    </div>
+  </aside>
+</div>
+
+<div
+  id="mobileAssistantOverlay"
+  class="mobile-assistant-overlay"
+  aria-hidden="true"
+>
+  <button
+    id="mobileAssistantBackdrop"
+    class="mobile-assistant-backdrop"
+    type="button"
+    aria-label="Close EAGLE Assistant"
+  ></button>
+
+  <section
+    class="mobile-assistant-sheet"
+    role="dialog"
+    aria-modal="true"
+    aria-label="EAGLE Assistant"
+  >
+    <div class="mobile-assistant-handle"></div>
+
+    <div class="mobile-assistant-head">
+      <div>
+        <strong>EAGLE ASSISTANT</strong>
+        <small>DEAL INTELLIGENCE</small>
+      </div>
+
+      <button
+        id="mobileAssistantClose"
+        class="mobile-assistant-close"
+        type="button"
+        aria-label="Close EAGLE Assistant"
+      >×</button>
+    </div>
+
+    <div
+      id="mobileAssistantContent"
+      class="mobile-assistant-content"
+    ></div>
+  </section>
+</div>
+
+<script>
+const conversationsEl = document.getElementById("conversations");
+const messagesEl = document.getElementById("messages");
+const threadHeadEl = document.getElementById("threadHead");
+const mobileBackButtonEl = document.getElementById("mobileBackButton");
+const mobileAssistantButtonEl =
+  document.getElementById("mobileAssistantButton");
+const mobileAssistantOverlayEl =
+  document.getElementById("mobileAssistantOverlay");
+const mobileAssistantBackdropEl =
+  document.getElementById("mobileAssistantBackdrop");
+const mobileAssistantCloseEl =
+  document.getElementById("mobileAssistantClose");
+const mobileAssistantContentEl =
+  document.getElementById("mobileAssistantContent");
+const renivoWorkspaceEl =
+  document.getElementById("renivoWorkspace");
+const intelBodyEl = document.getElementById("intelBody");
+const messageInputEl = document.getElementById("messageInput");
+const sendButtonEl = document.getElementById("sendButton");
+const composerMetaEl = document.getElementById("composerMeta");
+const renivoNotesEl = document.getElementById("renivoNotes");
+const saveRenivoNotesEl = document.getElementById("saveRenivoNotes");
+const renivoChatEl = document.getElementById("renivoChat");
+const renivoInputEl = document.getElementById("renivoInput");
+const tellRenivoButtonEl = document.getElementById("tellRenivoButton");
+const renivoContextStatusEl = document.getElementById("renivoContextStatus");
+const generateSuggestionsButtonEl =
+  document.getElementById("generateSuggestionsButton");
+const renivoSuggestionsEl =
+  document.getElementById("renivoSuggestions");
+const renivoAnalysisEl =
+  document.getElementById("renivoAnalysis");
+const renivoSuggestionsStatusEl =
+  document.getElementById("renivoSuggestionsStatus");
+
+let conversations = [];
+let activeId = null;
+
+function esc(value) {
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;");
+}
+
+function time(value) {
+  if (!value) return "";
+  const d = new Date(value);
+  return new Intl.DateTimeFormat("nl-NL", {
+    hour:"2-digit",
+    minute:"2-digit"
+  }).format(d);
+}
+
+function money(cents) {
+  if (typeof cents !== "number") return "—";
+  return new Intl.NumberFormat("nl-NL", {
+    style:"currency",
+    currency:"EUR"
+  }).format(cents / 100);
+}
+
+const RENIVO_API_BASE =
+  "https://macbook-pro-van-jeremiah.local:8766";
+
+async function api(path, options = {}) {
+  const response = await fetch(`${RENIVO_API_BASE}${path}`, {
+    cache:"no-store",
+    ...options
+  });
+
+  const data = await response.json();
+
+  if (!response.ok || data.ok === false) {
+    throw new Error(data.error || `HTTP ${response.status}`);
+  }
+
+  return data;
+}
+
+function sortConversations() {
+  conversations.sort((a, b) =>
+    Number(Boolean(b.pinned)) - Number(Boolean(a.pinned))
+  );
+}
+
+function renderConversations() {
+  sortConversations();
+
+  conversationsEl.innerHTML = conversations.map(c => {
+    const other = c.otherParticipant || {};
+    const latest = c.latestMessage || {};
+    const unread = Number(c.unreadMessagesCount || 0);
+
+    return `
+      <div class="conversation ${c.conversationId === activeId ? "active" : ""} ${c.pinned ? "pinned" : ""}"
+           data-id="${esc(c.conversationId)}">
+        ${c.imageUrl
+          ? `<img class="thumb" src="${esc(c.imageUrl)}">`
+          : `<div class="thumb"></div>`}
+        <div>
+          <div class="conv-row">
+            <div class="conv-title">${esc(c.title)}</div>
+            <div class="conv-actions">
+              ${unread > 0 ? `<div class="unread">${unread}</div>` : ""}
+              <button
+                class="pin-button ${c.pinned ? "pinned" : ""}"
+                type="button"
+                data-pin-id="${esc(c.conversationId)}"
+                aria-label="${c.pinned ? "Unpin conversation" : "Pin conversation"}"
+                title="${c.pinned ? "Unpin" : "Pin als interessant"}"
+              >${c.pinned ? "★" : "☆"}</button>
+            </div>
+          </div>
+          <div class="conv-meta">${esc(other.name || "Onbekend")} · ${time(c.latestReceivedDate)}</div>
+          <div class="conv-preview">${esc(latest.text || "")}</div>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  document.querySelectorAll(".conversation").forEach(el => {
+    el.addEventListener("click", () => openConversation(el.dataset.id));
+  });
+
+  document.querySelectorAll(".pin-button").forEach(button => {
+    button.addEventListener("click", async event => {
+      event.stopPropagation();
+
+      const id = button.dataset.pinId;
+      const conversation = conversations.find(
+        item => item.conversationId === id
+      );
+
+      if (!conversation) return;
+
+      const nextPinned = !Boolean(conversation.pinned);
+      button.disabled = true;
+
+      try {
+        const result = await api(
+          `/api/conversations/${encodeURIComponent(id)}/pin`,
+          {
+            method:"POST",
+            headers:{
+              "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+              pinned:nextPinned
+            })
+          }
+        );
+
+        conversation.pinned = Boolean(result.pinned);
+        renderConversations();
+      } catch (error) {
+        console.error("Chat pin update failed:", error);
+        button.disabled = false;
+      }
+    });
+  });
+}
+
+function renderMessages(messages) {
+  messagesEl.innerHTML = messages.map(m => `
+    <div class="message ${esc(m.from || "system")}">
+      <div class="bubble">${esc(m.text || "")}</div>
+      <div class="message-meta">
+        ${time(m.receivedDate)}
+        ${m.from === "me" ? ` · ${m.isRead ? "GELEZEN" : "VERZONDEN"}` : ""}
+      </div>
+    </div>
+  `).join("");
+
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
+function renderAdvertisement(payload) {
+  const data = payload.data || {};
+  const ad = data.advertisement || {};
+  const participant = data.otherParticipant || {};
+  const price = ad.priceModel || {};
+
+  intelBodyEl.innerHTML = `
+    ${ad.image ? `<img class="ad-image" src="${esc(ad.image)}">` : ""}
+    <div class="ad-title">${esc(ad.title || "Onbekende advertentie")}</div>
+    <div class="seller">${esc(participant.name || "")} · ${esc(ad.location?.cityName || "")}</div>
+
+    <div class="metrics">
+      <div class="metric">
+        <span>ITEM ID</span>
+        <strong>${esc(ad.itemId || "—")}</strong>
+      </div>
+
+      <div class="metric">
+        <span>STATUS</span>
+        <strong>${ad.isActive ? "ACTIEF" : "INACTIEF"}</strong>
+      </div>
+
+      <div class="metric">
+        <span>PRICE MODEL</span>
+        <strong>${esc(price.modelType || "—")}</strong>
+      </div>
+
+      <div class="metric">
+        <span>MIN BID</span>
+        <strong>${money(price.minimalBid)}</strong>
+      </div>
+    </div>
+  `;
+}
+
+function setRenivoStatus(message, kind = "") {
+  renivoContextStatusEl.textContent = message;
+  renivoContextStatusEl.className =
+    `renivo-context-status${kind ? ` ${kind}` : ""}`;
+}
+
+function renderRenivoMessages(messages) {
+  if (!messages.length) {
+    renivoChatEl.innerHTML = `
+      <div class="renivo-chat-empty">
+        Nog geen extra Chat-context voor dit gesprek.
+      </div>
+    `;
+    return;
+  }
+
+  renivoChatEl.innerHTML = messages.map(message => `
+    <div class="renivo-chat-message ${esc(message.role)}">
+      <div class="renivo-chat-role">
+        ${message.role === "assistant" ? "CHAT" : "YOU"}
+      </div>
+      ${esc(message.content)}
+    </div>
+  `).join("");
+
+  renivoChatEl.scrollTop = renivoChatEl.scrollHeight;
+}
+
+async function loadRenivoContext(id) {
+  const data = await api(
+    `/api/conversations/${encodeURIComponent(id)}/renivo-context`
+  );
+
+  if (activeId !== id) return;
+
+  renivoNotesEl.value = data.notes || "";
+  renderRenivoMessages(data.messages || []);
+}
+
+async function saveRenivoNotes() {
+  if (!activeId) return;
+
+  const idAtClick = activeId;
+  saveRenivoNotesEl.disabled = true;
+  setRenivoStatus("Memory opslaan…");
+
+  try {
+    await api(
+      `/api/conversations/${encodeURIComponent(idAtClick)}/renivo-notes`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          notes: renivoNotesEl.value
+        })
+      }
+    );
+
+    setRenivoStatus("MEMORY SAVED", "success");
+  } catch (error) {
+    setRenivoStatus(`MISLUKT · ${error.message}`, "error");
+  } finally {
+    if (activeId === idAtClick) {
+      saveRenivoNotesEl.disabled = false;
+    }
+  }
+}
+
+async function tellRenivo() {
+  if (!activeId) return;
+
+  const content = renivoInputEl.value.trim();
+
+  if (!content) {
+    setRenivoStatus("Context is leeg.", "error");
+    return;
+  }
+
+  const idAtClick = activeId;
+
+  tellRenivoButtonEl.disabled = true;
+  renivoInputEl.disabled = true;
+  setRenivoStatus("Context opslaan…");
+
+  try {
+    await api(
+      `/api/conversations/${encodeURIComponent(idAtClick)}/renivo-message`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({content})
+      }
+    );
+
+    renivoInputEl.value = "";
+    await loadRenivoContext(idAtClick);
+
+    setRenivoStatus(
+      "CONTEXT SAVED · AI RESPONSE NEXT STEP",
+      "success"
+    );
+  } catch (error) {
+    setRenivoStatus(`MISLUKT · ${error.message}`, "error");
+  } finally {
+    if (activeId === idAtClick) {
+      renivoInputEl.disabled = false;
+      tellRenivoButtonEl.disabled = false;
+      renivoInputEl.focus();
+    }
+  }
+}
+
+saveRenivoNotesEl.addEventListener("click", saveRenivoNotes);
+tellRenivoButtonEl.addEventListener("click", tellRenivo);
+
+function setSuggestionsStatus(message, kind = "") {
+  renivoSuggestionsStatusEl.textContent = message;
+  renivoSuggestionsStatusEl.className =
+    `renivo-context-status${kind ? ` ${kind}` : ""}`;
+}
+
+function renderRenivoSuggestions(suggestions) {
+  if (!suggestions.length) {
+    renivoSuggestionsEl.innerHTML = `
+      <div class="renivo-chat-empty">
+        Geen suggesties beschikbaar.
+      </div>
+    `;
+    return;
+  }
+
+  renivoSuggestionsEl.innerHTML = suggestions.map((suggestion, index) => `
+    <div
+      class="renivo-suggestion"
+      data-suggestion-index="${index}"
+    >
+      <div class="renivo-suggestion-label">
+        ${esc(suggestion.label)}
+      </div>
+      <div class="renivo-suggestion-message">
+        ${suggestion.message
+          ? esc(suggestion.message)
+          : "<em>Niets sturen</em>"}
+      </div>
+      <div class="renivo-suggestion-reason">
+        ${esc(suggestion.reason)}
+      </div>
+    </div>
+  `).join("");
+
+  document.querySelectorAll(".renivo-suggestion").forEach(card => {
+    card.addEventListener("click", () => {
+      const suggestion = suggestions[
+        Number(card.dataset.suggestionIndex)
+      ];
+
+      if (!suggestion || !suggestion.message) {
+        setRenivoStatus(
+          "Chat adviseert hier stilte.",
+          "success"
+        );
+        return;
+      }
+
+      messageInputEl.value = suggestion.message;
+      messageInputEl.focus();
+
+      setComposerStatus(
+        "Chat-suggestie geladen. Alleen SEND verzendt.",
+        "success"
+      );
+    });
+  });
+}
+
+async function generateRenivoSuggestions() {
+  if (!activeId) return;
+
+  const idAtClick = activeId;
+
+  generateSuggestionsButtonEl.disabled = true;
+  generateSuggestionsButtonEl.textContent = "ANALYSEREN";
+  renivoAnalysisEl.textContent = "";
+  setSuggestionsStatus("");
+
+  renivoSuggestionsEl.innerHTML = `
+    <div class="renivo-chat-empty">
+      Chat analyseert listing en conversation…
+    </div>
+  `;
+
+  try {
+    const data = await api(
+      `/api/conversations/${encodeURIComponent(idAtClick)}/suggestions`,
+      {
+        method: "POST"
+      }
+    );
+
+    if (activeId !== idAtClick) return;
+
+    renderRenivoSuggestions(data.suggestions || []);
+    renivoAnalysisEl.textContent = data.analysis || "";
+
+    setSuggestionsStatus(
+      `3 SUGGESTIONS · ${data.model || "AI"}`,
+      "success"
+    );
+  } catch (error) {
+    if (activeId !== idAtClick) return;
+
+    renivoSuggestionsEl.innerHTML = `
+      <div class="renivo-chat-empty">
+        AI tijdelijk niet beschikbaar.
+      </div>
+    `;
+
+    setSuggestionsStatus(
+      `AI UNAVAILABLE · ${error.message}`,
+      "error"
+    );
+  } finally {
+    if (activeId === idAtClick) {
+      generateSuggestionsButtonEl.disabled = false;
+      generateSuggestionsButtonEl.textContent = "GENERATE";
+    }
+  }
+}
+
+generateSuggestionsButtonEl.addEventListener(
+  "click",
+  generateRenivoSuggestions
+);
+
+function setComposerStatus(message, kind = "") {
+  composerMetaEl.textContent = message;
+  composerMetaEl.className = `composer-meta${kind ? ` ${kind}` : ""}`;
+}
+
+async function refreshConversationMessages(id) {
+  const encoded = encodeURIComponent(id);
+  const messages = await api(`/api/conversations/${encoded}/messages`);
+  renderMessages(messages.messages || []);
+}
+
+async function sendCurrentMessage() {
+  if (!activeId || sendButtonEl.disabled) return;
+
+  const text = messageInputEl.value.trim();
+  if (!text) {
+    setComposerStatus("Bericht is leeg.", "error");
+    return;
+  }
+
+  const idAtClick = activeId;
+
+  sendButtonEl.disabled = true;
+  messageInputEl.disabled = true;
+  sendButtonEl.textContent = "VERZENDEN";
+  setComposerStatus("Bericht wordt verzonden…");
+
+  try {
+    await api(`/api/conversations/${encodeURIComponent(idAtClick)}/send`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({text})
+    });
+
+    messageInputEl.value = "";
+    setComposerStatus("VERZONDEN", "success");
+
+    await refreshConversationMessages(idAtClick);
+
+    const inbox = await api("/api/conversations?limit=100");
+    conversations = inbox.conversations || conversations;
+    renderConversations();
+
+  } catch (error) {
+    setComposerStatus(`MISLUKT · ${error.message}`, "error");
+  } finally {
+    if (activeId === idAtClick) {
+      messageInputEl.disabled = false;
+      sendButtonEl.disabled = false;
+      sendButtonEl.textContent = "SEND";
+      messageInputEl.focus();
+    }
+  }
+}
+
+sendButtonEl.addEventListener("click", sendCurrentMessage);
+
+async function openConversation(id) {
+  activeId = id;
+
+  if (window.innerWidth <= 760) {
+    document.body.classList.add("mobile-thread-open");
+  }
+
+  renderConversations();
+
+  messageInputEl.disabled = false;
+  sendButtonEl.disabled = false;
+  renivoNotesEl.disabled = false;
+  saveRenivoNotesEl.disabled = false;
+  renivoInputEl.disabled = false;
+  tellRenivoButtonEl.disabled = false;
+  generateSuggestionsButtonEl.disabled = false;
+
+  renivoSuggestionsEl.innerHTML = `
+    <div class="renivo-chat-empty">
+      Genereer 3 tactische replies voor dit gesprek.
+    </div>
+  `;
+  renivoAnalysisEl.textContent = "";
+  setSuggestionsStatus("");
+
+  setComposerStatus("Alleen klikken op SEND verzendt dit bericht.");
+  setRenivoStatus("");
+
+  renivoNotesEl.value = "";
+  renivoChatEl.innerHTML = `
+    <div class="renivo-chat-empty">Chat-context laden…</div>
+  `;
+
+  const c = conversations.find(x => x.conversationId === id);
+  const other = c?.otherParticipant || {};
+
+  threadHeadEl.querySelector(".thread-title").textContent = c?.title || "";
+  threadHeadEl.querySelector(".thread-person").textContent = other.name || "";
+
+  messagesEl.innerHTML = `<div class="empty">Conversation laden…</div>`;
+  intelBodyEl.innerHTML = `<div class="empty">Listing laden…</div>`;
+
+  try {
+    const encoded = encodeURIComponent(id);
+
+    const [messages, advertisement, renivoContext] = await Promise.all([
+      api(`/api/conversations/${encoded}/messages`),
+      api(`/api/conversations/${encoded}/advertisement`),
+      api(`/api/conversations/${encoded}/renivo-context`)
+    ]);
+
+    renderMessages(messages.messages || []);
+    renderAdvertisement(advertisement);
+
+    renivoNotesEl.value = renivoContext.notes || "";
+    renderRenivoMessages(renivoContext.messages || []);
+
+    try {
+      await api(`/api/conversations/${encoded}/read`, {
+        method: "POST"
+      });
+
+      if (c) {
+        c.unreadMessagesCount = 0;
+        renderConversations();
+      }
+    } catch (readError) {
+      console.warn("Marktplaats markAsRead unavailable:", readError);
+    }
+  } catch (error) {
+    messagesEl.innerHTML = `<div class="empty">${esc(error.message)}</div>`;
+  }
+}
+
+function openMobileAssistant() {
+  if (window.innerWidth > 760 || !activeId) return;
+
+  mobileAssistantContentEl.appendChild(renivoWorkspaceEl);
+
+  mobileAssistantOverlayEl.classList.add("open");
+  mobileAssistantOverlayEl.setAttribute("aria-hidden", "false");
+}
+
+function closeMobileAssistant() {
+  mobileAssistantOverlayEl.classList.remove("open");
+  mobileAssistantOverlayEl.setAttribute("aria-hidden", "true");
+
+  if (renivoWorkspaceEl.parentElement === mobileAssistantContentEl) {
+    intelBodyEl.insertAdjacentElement("afterend", renivoWorkspaceEl);
+  }
+}
+
+mobileAssistantButtonEl.addEventListener("click", openMobileAssistant);
+mobileAssistantBackdropEl.addEventListener("click", closeMobileAssistant);
+mobileAssistantCloseEl.addEventListener("click", closeMobileAssistant);
+
+mobileBackButtonEl.addEventListener("click", () => {
+  if (window.innerWidth > 760) return;
+
+  closeMobileAssistant();
+  document.body.classList.remove("mobile-thread-open");
+  activeId = null;
+  renderConversations();
+  window.scrollTo(0, 0);
+});
+
+async function init() {
+  try {
+    const data = await api("/api/conversations?limit=100");
+    conversations = data.conversations || [];
+    renderConversations();
+
+    if (conversations.length && window.innerWidth > 760) {
+      openConversation(conversations[0].conversationId);
+    }
+  } catch (error) {
+    conversationsEl.innerHTML = `<div class="notice">${esc(error.message)}</div>`;
+  }
+}
+
+init();
+</script>
+</body>
+</html>
