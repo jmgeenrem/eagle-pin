@@ -963,10 +963,20 @@ loadRepairs();
     if (event.touches.length !== 1) return;
     if (!pageAtTop()) return;
     if (nestedScrollerAboveTop(event.target)) return;
-    if (event.target.closest(".eagle-nav")) return;
 
-    startX = event.touches[0].clientX;
-    startY = event.touches[0].clientY;
+    const touch = event.touches[0];
+    const nav = document.querySelector(".eagle-nav");
+
+    if (nav) {
+      const rect = nav.getBoundingClientRect();
+      if (
+        touch.clientY >= rect.top - 35 &&
+        touch.clientY <= rect.bottom + 35
+      ) return;
+    }
+
+    startX = touch.clientX;
+    startY = touch.clientY;
     distance = 0;
     pulling = true;
     gestureLocked = false;
@@ -980,12 +990,21 @@ loadRepairs();
     const rawDistance = event.touches[0].clientY - startY;
 
     if (!gestureLocked) {
-      if (Math.abs(deltaX) > Math.abs(rawDistance) && Math.abs(deltaX) > 8) {
+      if (
+        Math.abs(deltaX) > 12 &&
+        Math.abs(deltaX) >= Math.abs(rawDistance) * 0.8
+      ) {
         pulling = false;
         return;
       }
 
-      if (rawDistance < 10) return;
+      if (rawDistance < 30) return;
+
+      if (rawDistance < Math.abs(deltaX) * 1.35) {
+        pulling = false;
+        return;
+      }
+
       gestureLocked = true;
     }
 
