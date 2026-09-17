@@ -1041,10 +1041,371 @@ body {
   }
 
   .sidebar {
-    height:38vh;
-    min-height:280px;
+    height:calc(100vh - 108px);
+    min-height:0;
     border-right:0;
-    border-bottom:1px solid var(--border);
+    border-bottom:0;
+  }
+
+  body.mobile-thread-open .sidebar {
+    display:none;
+  }
+
+  body:not(.mobile-thread-open) .thread-panel,
+  body:not(.mobile-thread-open) .intel-panel {
+    display:none;
+  }
+
+  body.mobile-thread-open .thread-panel {
+    display:flex;
+  }
+
+  body.mobile-thread-open .intel-panel {
+    display:none;
+  }
+
+  body.mobile-thread-open .topbar {
+    display:none;
+  }
+
+  body.mobile-thread-open {
+    height:100dvh;
+    min-height:100dvh;
+    overflow:hidden;
+  }
+
+  body.mobile-thread-open .shell {
+    height:100dvh;
+  }
+
+  body.mobile-thread-open .thread-panel {
+    height:100dvh;
+    min-height:0;
+    border-bottom:0;
+  }
+
+  /* Mobile messenger presentation */
+  body.mobile-thread-open .thread-head {
+    flex-shrink:0;
+    min-height:72px;
+    padding:11px 14px 10px;
+    background:rgba(10,16,22,.98);
+    border-bottom:1px solid rgba(255,255,255,.07);
+  }
+
+  body.mobile-thread-open .mobile-back-button {
+    margin:0 0 6px;
+    color:#65d8ff;
+    font-size:10px;
+    letter-spacing:.5px;
+  }
+
+  body.mobile-thread-open .thread-title {
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    font-size:15px;
+    line-height:1.25;
+  }
+
+  body.mobile-thread-open .thread-person {
+    margin-top:3px;
+    font-size:10px;
+  }
+
+  body.mobile-thread-open .messages {
+    flex:1;
+    min-height:0;
+    padding:18px 12px;
+    gap:8px;
+    background:
+      radial-gradient(
+        circle at 50% 0%,
+        rgba(101,216,255,.025),
+        transparent 35%
+      ),
+      #080d12;
+  }
+
+  body.mobile-thread-open .message {
+    max-width:84%;
+  }
+
+  body.mobile-thread-open .bubble {
+    border-radius:17px;
+    padding:10px 13px;
+    font-size:14px;
+    line-height:1.4;
+  }
+
+  body.mobile-thread-open .message.me .bubble {
+    border-bottom-right-radius:5px;
+  }
+
+  body.mobile-thread-open .message:not(.me) .bubble {
+    border-bottom-left-radius:5px;
+  }
+
+  body.mobile-thread-open .message-meta {
+    margin-top:4px;
+    font-size:8px;
+  }
+
+  body.mobile-thread-open .composer {
+    flex-shrink:0;
+    padding:9px 10px calc(9px + env(safe-area-inset-bottom));
+    background:rgba(10,16,22,.98);
+    border-top:1px solid rgba(255,255,255,.07);
+  }
+
+  body.mobile-thread-open .composer-row {
+    grid-template-columns:minmax(0,1fr) 52px;
+    gap:8px;
+    align-items:end;
+  }
+
+  body.mobile-thread-open .composer textarea {
+    min-height:46px;
+    max-height:110px;
+    resize:none;
+    padding:12px 14px;
+    border-radius:23px;
+    background:#111a22;
+    font-size:16px;
+    line-height:1.3;
+  }
+
+  body.mobile-thread-open .send-button {
+    width:52px;
+    min-width:52px;
+    height:46px;
+    padding:0;
+    border-radius:23px;
+    font-size:9px;
+    letter-spacing:.7px;
+  }
+
+  body.mobile-thread-open .composer-meta {
+    min-height:0;
+    margin:5px 5px 0;
+    font-size:8px;
+  }
+
+  .mobile-assistant-button {
+    display:none;
+  }
+
+  .mobile-assistant-overlay {
+    display:none;
+  }
+
+  @media (max-width:760px) {
+    body.mobile-thread-open .thread-head {
+      position:relative;
+      padding-right:58px;
+    }
+
+    body.mobile-thread-open .mobile-assistant-button {
+      position:absolute;
+      top:14px;
+      right:14px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:36px;
+      height:36px;
+      border:1px solid rgba(101,216,255,.22);
+      border-radius:50%;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(101,216,255,.10),
+          rgba(201,170,106,.08)
+        ),
+        #111a22;
+      color:#8edff9;
+      font-size:16px;
+      cursor:pointer;
+      box-shadow:0 8px 24px rgba(0,0,0,.18);
+    }
+
+    .mobile-assistant-overlay {
+      position:fixed;
+      inset:0;
+      z-index:1000;
+      display:none;
+      align-items:flex-end;
+      justify-content:center;
+    }
+
+    .mobile-assistant-overlay.open {
+      display:flex;
+    }
+
+    .mobile-assistant-backdrop {
+      position:absolute;
+      inset:0;
+      border:0;
+      background:rgba(2,6,10,.62);
+      backdrop-filter:blur(8px);
+      -webkit-backdrop-filter:blur(8px);
+    }
+
+    .mobile-assistant-sheet {
+      position:relative;
+      z-index:1;
+      width:100%;
+      max-height:82dvh;
+      display:flex;
+      flex-direction:column;
+      border:1px solid rgba(255,255,255,.08);
+      border-bottom:0;
+      border-radius:24px 24px 0 0;
+      background:
+        linear-gradient(
+          180deg,
+          rgba(17,25,32,.99),
+          rgba(8,13,18,.995)
+        );
+      box-shadow:0 -18px 60px rgba(0,0,0,.42);
+      overflow:hidden;
+      padding-bottom:env(safe-area-inset-bottom);
+    }
+
+    .mobile-assistant-handle {
+      width:42px;
+      height:4px;
+      margin:9px auto 2px;
+      border-radius:999px;
+      background:rgba(255,255,255,.18);
+    }
+
+    .mobile-assistant-head {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:16px 20px 15px;
+      border-bottom:1px solid rgba(255,255,255,.07);
+    }
+
+    .mobile-assistant-head strong {
+      display:block;
+      color:#f1f5f7;
+      font-size:16px;
+      letter-spacing:.8px;
+    }
+
+    .mobile-assistant-head small {
+      display:block;
+      margin-top:3px;
+      color:#7f8d98;
+      font-size:8px;
+      font-weight:800;
+      letter-spacing:1px;
+    }
+
+    .mobile-assistant-close {
+      width:42px;
+      height:42px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:50%;
+      background:#111920;
+      color:#aab6bf;
+      font-size:20px;
+      line-height:1;
+      cursor:pointer;
+    }
+
+    .mobile-assistant-content {
+      min-height:0;
+      overflow:auto;
+      padding:0 20px 22px;
+    }
+
+    .mobile-assistant-content > .renivo-workspace {
+      padding:0;
+    }
+
+    .mobile-assistant-content .renivo-primary-section,
+    .mobile-assistant-content .renivo-chat-section {
+      padding:14px 0;
+    }
+
+    .mobile-assistant-head small,
+    .mobile-assistant-content .renivo-section-title small,
+    .mobile-assistant-content .renivo-extra small {
+      font-size:11px;
+      line-height:1.4;
+    }
+
+    .mobile-assistant-content .renivo-section-title strong,
+    .mobile-assistant-content .renivo-extra summary strong {
+      font-size:15px;
+    }
+
+    .mobile-assistant-content .renivo-chat-empty,
+    .mobile-assistant-content .renivo-analysis,
+    .mobile-assistant-content .renivo-context-status {
+      font-size:12px;
+      line-height:1.55;
+    }
+
+    .mobile-assistant-content .renivo-suggestion-label {
+      font-size:10px;
+    }
+
+    .mobile-assistant-content .renivo-suggestion-message {
+      font-size:12px;
+    }
+
+    .mobile-assistant-content .renivo-suggestion-reason {
+      font-size:9px;
+    }
+
+    .mobile-assistant-content .renivo-chat-role {
+      font-size:9px;
+    }
+
+    .mobile-assistant-content .renivo-chat-message {
+      font-size:11px;
+    }
+
+    .mobile-assistant-content .renivo-chat-input {
+      min-height:82px;
+      max-height:128px;
+      font-size:16px;
+      line-height:1.4;
+    }
+
+    .mobile-assistant-content .renivo-mini-button {
+      min-height:46px;
+      padding:11px 16px;
+      border-radius:12px;
+      font-size:11px;
+      letter-spacing:1px;
+    }
+
+    body.mobile-thread-open .composer-meta {
+      display:none;
+    }
+  }
+
+  .mobile-back-button {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    align-self:flex-start;
+    margin-bottom:8px;
+    padding:0;
+    border:0;
+    background:transparent;
+    color:#9ba8b2;
+    font:inherit;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:.7px;
+    cursor:pointer;
   }
 
   .sidebar-head,
@@ -1185,8 +1546,20 @@ body {
 
   <main class="thread-panel">
     <div id="threadHead" class="thread-head">
+      <button
+        id="mobileBackButton"
+        class="mobile-back-button"
+        type="button"
+      >‹ CONVERSATIONS</button>
       <div class="thread-title">Selecteer een gesprek</div>
       <div class="thread-person">EAGLE PIN Chat</div>
+
+      <button
+        id="mobileAssistantButton"
+        class="mobile-assistant-button"
+        type="button"
+        aria-label="Open EAGLE Assistant"
+      >✦</button>
     </div>
     <div id="messages" class="messages">
       <div class="empty">Selecteer links een conversation.</div>
@@ -1228,7 +1601,7 @@ body {
       <div class="empty">Geen gesprek geselecteerd.</div>
     </div>
 
-    <div class="intel-body renivo-workspace">
+    <div id="renivoWorkspace" class="intel-body renivo-workspace">
 
       <section class="renivo-primary-section">
         <div class="renivo-section-title">
@@ -1327,10 +1700,64 @@ body {
   </aside>
 </div>
 
+<div
+  id="mobileAssistantOverlay"
+  class="mobile-assistant-overlay"
+  aria-hidden="true"
+>
+  <button
+    id="mobileAssistantBackdrop"
+    class="mobile-assistant-backdrop"
+    type="button"
+    aria-label="Close EAGLE Assistant"
+  ></button>
+
+  <section
+    class="mobile-assistant-sheet"
+    role="dialog"
+    aria-modal="true"
+    aria-label="EAGLE Assistant"
+  >
+    <div class="mobile-assistant-handle"></div>
+
+    <div class="mobile-assistant-head">
+      <div>
+        <strong>EAGLE ASSISTANT</strong>
+        <small>DEAL INTELLIGENCE</small>
+      </div>
+
+      <button
+        id="mobileAssistantClose"
+        class="mobile-assistant-close"
+        type="button"
+        aria-label="Close EAGLE Assistant"
+      >×</button>
+    </div>
+
+    <div
+      id="mobileAssistantContent"
+      class="mobile-assistant-content"
+    ></div>
+  </section>
+</div>
+
 <script>
 const conversationsEl = document.getElementById("conversations");
 const messagesEl = document.getElementById("messages");
 const threadHeadEl = document.getElementById("threadHead");
+const mobileBackButtonEl = document.getElementById("mobileBackButton");
+const mobileAssistantButtonEl =
+  document.getElementById("mobileAssistantButton");
+const mobileAssistantOverlayEl =
+  document.getElementById("mobileAssistantOverlay");
+const mobileAssistantBackdropEl =
+  document.getElementById("mobileAssistantBackdrop");
+const mobileAssistantCloseEl =
+  document.getElementById("mobileAssistantClose");
+const mobileAssistantContentEl =
+  document.getElementById("mobileAssistantContent");
+const renivoWorkspaceEl =
+  document.getElementById("renivoWorkspace");
 const intelBodyEl = document.getElementById("intelBody");
 const messageInputEl = document.getElementById("messageInput");
 const sendButtonEl = document.getElementById("sendButton");
@@ -1827,6 +2254,11 @@ sendButtonEl.addEventListener("click", sendCurrentMessage);
 
 async function openConversation(id) {
   activeId = id;
+
+  if (window.innerWidth <= 760) {
+    document.body.classList.add("mobile-thread-open");
+  }
+
   renderConversations();
 
   messageInputEl.disabled = false;
@@ -1856,10 +2288,8 @@ async function openConversation(id) {
   const c = conversations.find(x => x.conversationId === id);
   const other = c?.otherParticipant || {};
 
-  threadHeadEl.innerHTML = `
-    <div class="thread-title">${esc(c?.title || "")}</div>
-    <div class="thread-person">${esc(other.name || "")}</div>
-  `;
+  threadHeadEl.querySelector(".thread-title").textContent = c?.title || "";
+  threadHeadEl.querySelector(".thread-person").textContent = other.name || "";
 
   messagesEl.innerHTML = `<div class="empty">Conversation laden…</div>`;
   intelBodyEl.innerHTML = `<div class="empty">Listing laden…</div>`;
@@ -1896,13 +2326,45 @@ async function openConversation(id) {
   }
 }
 
+function openMobileAssistant() {
+  if (window.innerWidth > 760 || !activeId) return;
+
+  mobileAssistantContentEl.appendChild(renivoWorkspaceEl);
+
+  mobileAssistantOverlayEl.classList.add("open");
+  mobileAssistantOverlayEl.setAttribute("aria-hidden", "false");
+}
+
+function closeMobileAssistant() {
+  mobileAssistantOverlayEl.classList.remove("open");
+  mobileAssistantOverlayEl.setAttribute("aria-hidden", "true");
+
+  if (renivoWorkspaceEl.parentElement === mobileAssistantContentEl) {
+    intelBodyEl.insertAdjacentElement("afterend", renivoWorkspaceEl);
+  }
+}
+
+mobileAssistantButtonEl.addEventListener("click", openMobileAssistant);
+mobileAssistantBackdropEl.addEventListener("click", closeMobileAssistant);
+mobileAssistantCloseEl.addEventListener("click", closeMobileAssistant);
+
+mobileBackButtonEl.addEventListener("click", () => {
+  if (window.innerWidth > 760) return;
+
+  closeMobileAssistant();
+  document.body.classList.remove("mobile-thread-open");
+  activeId = null;
+  renderConversations();
+  window.scrollTo(0, 0);
+});
+
 async function init() {
   try {
     const data = await api("/api/conversations?limit=100");
     conversations = data.conversations || [];
     renderConversations();
 
-    if (conversations.length) {
+    if (conversations.length && window.innerWidth > 760) {
       openConversation(conversations[0].conversationId);
     }
   } catch (error) {
