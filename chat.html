@@ -471,6 +471,22 @@ body {
   text-overflow:ellipsis;
 }
 
+.conv-message-status {
+  display:inline-block;
+  margin-right:5px;
+  color:#7f8b94;
+  font-family:Arial,sans-serif;
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:-3px;
+  line-height:1;
+  vertical-align:-1px;
+}
+
+.conv-message-status.read {
+  color:#65d8ff;
+}
+
 .conv-row {
   display:flex;
   align-items:center;
@@ -569,6 +585,22 @@ body {
   margin-top:4px;
   color:#707c87;
   font-size:9px;
+}
+
+.message-status {
+  display:inline-block;
+  margin-left:5px;
+  color:#7f8b94;
+  font-family:Arial,sans-serif;
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:-3px;
+  line-height:1;
+  vertical-align:-1px;
+}
+
+.message-status.read {
+  color:#65d8ff;
 }
 
 .me .message-meta {
@@ -1414,13 +1446,47 @@ body {
   }
 
   .conversation {
-    padding:12px 14px;
+    padding:15px 14px;
+    min-height:88px;
+  }
+
+  .conversation .thumb {
+    width:56px;
+    height:56px;
+    border-radius:12px;
+  }
+
+  .conversation .conv-title {
+    font-size:15px;
+    line-height:1.25;
+    font-weight:750;
+  }
+
+  .conversation .conv-meta {
+    margin-top:6px;
+    font-size:12px;
+    line-height:1.3;
+  }
+
+  .conversation .conv-preview {
+    margin-top:5px;
+    font-size:12px;
+    line-height:1.35;
+  }
+
+  .conversation .unread {
+    min-width:22px;
+    height:22px;
+    padding:0 6px;
+    border-radius:11px;
+    font-size:11px;
+    font-weight:800;
   }
 
   .pin-button {
-    width:34px;
-    height:34px;
-    font-size:17px;
+    width:38px;
+    height:38px;
+    font-size:19px;
   }
 
   .thread-panel {
@@ -1858,7 +1924,15 @@ function renderConversations() {
             </div>
           </div>
           <div class="conv-meta">${esc(other.name || "Onbekend")} · ${time(c.latestReceivedDate)}</div>
-          <div class="conv-preview">${esc(latest.text || "")}</div>
+          <div class="conv-preview">
+            ${latest.from === "me"
+              ? `<span
+                   class="conv-message-status ${latest.isRead ? "read" : "sent"}"
+                   aria-label="${latest.isRead ? "Gelezen" : "Verzonden"}"
+                 >${latest.isRead ? "✓✓" : "✓"}</span>`
+              : ""}
+            ${esc(latest.text || "")}
+          </div>
         </div>
       </div>
     `;
@@ -1912,7 +1986,13 @@ function renderMessages(messages) {
       <div class="bubble">${esc(m.text || "")}</div>
       <div class="message-meta">
         ${time(m.receivedDate)}
-        ${m.from === "me" ? ` · ${m.isRead ? "GELEZEN" : "VERZONDEN"}` : ""}
+        ${m.from === "me"
+          ? `<span
+               class="message-status ${m.isRead ? "read" : "sent"}"
+               aria-label="${m.isRead ? "Gelezen" : "Verzonden"}"
+               title="${m.isRead ? "Gelezen" : "Verzonden"}"
+             >${m.isRead ? "✓✓" : "✓"}</span>`
+          : ""}
       </div>
     </div>
   `).join("");
