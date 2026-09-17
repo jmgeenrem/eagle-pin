@@ -814,7 +814,7 @@ canvas {
 
     <div class="status">
       <div class="live" id="eagle-status"><span class="live-dot"></span> <span id="eagle-status-text">LIVE</span></div>
-      <div>Updated 2026-09-17 16:15</div>
+      <div>Updated 2026-09-17 16:20</div>
     </div>
   </div>
 
@@ -2547,7 +2547,7 @@ window.addEventListener("resize", renderTrend);
 // vanuit dezelfde ACTIVE FLIPS-context.
 applyMarketFilter("active");
 
-const eagleUpdatedAt = new Date("2026-09-17T16:15");
+const eagleUpdatedAt = new Date("2026-09-17T16:20");
 
 function updateEagleStatus() {
   const status = document.getElementById("eagle-status");
@@ -2580,6 +2580,22 @@ setInterval(updateEagleStatus, 60000);
   document.documentElement.style.overscrollBehaviorY = "none";
   document.body.style.overscrollBehaviorY = "none";
 
+  const pullZone = document.createElement("div");
+  pullZone.id = "eagle-pull-zone";
+  pullZone.style.cssText = `
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    height:28px;
+    z-index:100000;
+    background:transparent;
+    touch-action:none;
+    -webkit-user-select:none;
+    user-select:none;
+  `;
+  document.body.appendChild(pullZone);
+
   const indicator = document.createElement("div");
   indicator.id = "eagle-pull-refresh";
   indicator.style.cssText = `
@@ -2587,7 +2603,7 @@ setInterval(updateEagleStatus, 60000);
     top:12px;
     left:50%;
     transform:translate(-50%,-70px);
-    z-index:99999;
+    z-index:100001;
     padding:9px 14px;
     border:1px solid rgba(255,255,255,.12);
     border-radius:999px;
@@ -2607,44 +2623,36 @@ setInterval(updateEagleStatus, 60000);
   let startY = 0;
   let pulling = false;
   let distance = 0;
-  const trigger = 78;
+  const trigger = 72;
 
   function pageAtTop() {
-    return window.scrollY <= 0 &&
-      document.documentElement.scrollTop <= 0 &&
-      document.body.scrollTop <= 0;
+    return window.scrollY <= 1 &&
+      document.documentElement.scrollTop <= 1 &&
+      document.body.scrollTop <= 1;
   }
 
-  document.addEventListener("touchstart", event => {
+  pullZone.addEventListener("touchstart", event => {
     if (!pageAtTop() || event.touches.length !== 1) return;
 
     startY = event.touches[0].clientY;
     distance = 0;
     pulling = true;
-  }, { passive:true });
+
+    indicator.style.opacity = "1";
+    indicator.style.transform = "translate(-50%,-34px)";
+    event.preventDefault();
+  }, { passive:false });
 
   document.addEventListener("touchmove", event => {
     if (!pulling || event.touches.length !== 1) return;
 
-    distance = event.touches[0].clientY - startY;
-
-    if (distance <= 0) {
-      indicator.style.opacity = "0";
-      indicator.style.transform = "translate(-50%,-70px)";
-      return;
-    }
-
-    if (!pageAtTop()) {
-      pulling = false;
-      return;
-    }
-
+    distance = Math.max(0, event.touches[0].clientY - startY);
     event.preventDefault();
 
-    const visibleDistance = Math.min(distance * 0.5, 64);
+    const visibleDistance = Math.min(distance * 0.55, 72);
     indicator.style.opacity = "1";
     indicator.style.transform =
-      `translate(-50%,${Math.max(-58 + visibleDistance, 12)}px)`;
+      `translate(-50%,${Math.max(-34 + visibleDistance, 12)}px)`;
 
     indicator.textContent =
       distance >= trigger
@@ -2661,7 +2669,6 @@ setInterval(updateEagleStatus, 60000);
       indicator.textContent = "↻ REFRESHING";
       indicator.style.opacity = "1";
       indicator.style.transform = "translate(-50%,12px)";
-
       window.location.reload();
       return;
     }
@@ -2676,6 +2683,7 @@ setInterval(updateEagleStatus, 60000);
     indicator.style.transform = "translate(-50%,-70px)";
   });
 })();
+
 
 </script>
 </body>
