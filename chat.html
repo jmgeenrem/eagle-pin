@@ -3003,8 +3003,18 @@ async function init() {
     conversations = data.conversations || [];
     renderConversations();
 
-    if (conversations.length && window.innerWidth > 760) {
-      openConversation(conversations[0].conversationId);
+    const requestedConversationId =
+      new URLSearchParams(window.location.search).get("conversation");
+
+    if (
+      requestedConversationId &&
+      conversations.some(
+        item => item.conversationId === requestedConversationId
+      )
+    ) {
+      await openConversation(requestedConversationId);
+    } else if (conversations.length && window.innerWidth > 760) {
+      await openConversation(conversations[0].conversationId);
     }
   } catch (error) {
     conversationsEl.innerHTML = `<div class="notice">${esc(error.message)}</div>`;
