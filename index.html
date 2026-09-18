@@ -4,7 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Eagle PIN</title>
-<link rel="apple-touch-icon" sizes="192x192" href="eagle-pin-icon-192.png">
+<meta name="theme-color" content="#090d12">
+<link rel="manifest" href="market.webmanifest">
+<link rel="apple-touch-icon" href="eagle-pin-icon-192.png">
 
 <style>
 * {
@@ -1056,7 +1058,7 @@ canvas {
         <h1>iPhone Resale Intelligence</h1>
         <div class="status">
           <div class="live" id="eagle-status"><span class="live-dot"></span> <span id="eagle-status-text">LIVE</span></div>
-          <div>Updated 2026-09-18 13:04</div>
+          <div>Updated 2026-09-18 13:11</div>
         </div>
       </div>
     </div>
@@ -2867,7 +2869,7 @@ window.addEventListener("resize", renderTrend);
 // vanuit dezelfde ACTIVE FLIPS-context.
 applyMarketFilter("active");
 
-const eagleUpdatedAt = new Date("2026-09-18T13:04");
+const eagleUpdatedAt = new Date("2026-09-18T13:11");
 
 function updateEagleStatus() {
   const status = document.getElementById("eagle-status");
