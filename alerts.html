@@ -6358,16 +6358,26 @@ if ("serviceWorker" in navigator) {
     const alert = document.getElementById(hash.slice(1));
     if (!alert) return;
 
-    alert.scrollIntoView({
-      behavior: "smooth",
-      block: "center"
-    });
+    const focus = () => {
+      const rect = alert.getBoundingClientRect();
+      const targetY =
+        window.scrollY + rect.top - (window.innerHeight - rect.height) / 2;
 
-    alert.classList.add("push-target");
+      window.scrollTo({
+        top: Math.max(0, targetY),
+        behavior: "instant"
+      });
 
-    window.setTimeout(() => {
-      alert.classList.remove("push-target");
-    }, 2500);
+      alert.classList.add("push-target");
+
+      window.setTimeout(() => {
+        alert.classList.remove("push-target");
+      }, 2500);
+    };
+
+    focus();
+    window.setTimeout(focus, 150);
+    window.setTimeout(focus, 500);
   }
 
   window.addEventListener("load", focusAlertFromHash);
