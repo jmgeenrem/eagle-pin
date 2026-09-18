@@ -925,6 +925,15 @@ canvas {
 
   .topbar {
     flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  h1 {
+    font-size: 24px;
+    line-height: 1.1;
+    letter-spacing: -.5px;
+    white-space: nowrap;
   }
 
   .status {
@@ -1011,14 +1020,13 @@ canvas {
     <div class="brand">
       <img class="logo" id="eagle-mobile-menu-trigger" src="eagle-pin-icon.jpg" alt="Eagle PIN" role="button" tabindex="0" aria-label="Open navigation menu" aria-expanded="false">
       <div>
-        <h1>EAGLE PIN</h1>
-        <div class="subtitle">iPhone Resale Market Intelligence</div>
+        <h1>iPhone Resale Market Intelligence</h1>
       </div>
     </div>
 
     <div class="status">
       <div class="live" id="eagle-status"><span class="live-dot"></span> <span id="eagle-status-text">LIVE</span></div>
-      <div>Updated 2026-09-18 05:13</div>
+      <div>Updated 2026-09-18 05:20</div>
     </div>
   </div>
 
@@ -1038,13 +1046,13 @@ canvas {
   </div>
 
   <nav class="eagle-mobile-menu-nav">
-    <a class="active" href="./?v=v20260915-1"><span>MARKET</span><span>›</span></a>
-    <a href="deal-calculator.html?v=v20260915-1"><span>DEAL CALCULATOR</span><span>›</span></a>
-    <a href="parts-hub.html?v=v20260915-1"><span>PARTS HUB</span><span>›</span></a>
-    <a href="repair-hub.html?v=v20260916-1"><span>REPAIR HUB</span><span>›</span></a>
-    <a href="finance.html?v=v20260916-1"><span>FINANCE</span><span>›</span></a>
-    <a href="alerts.html?v=v20260917-1"><span>ALERTS</span><span>›</span></a>
-    <a href="chat.html?v=20260917-4"><span>CHAT</span><span>›</span></a>
+    <a class="active" href="./?v=v20260918-1"><span>MARKET</span><span>›</span></a>
+    <a href="deal-calculator.html?v=v20260918-1"><span>DEAL CALCULATOR</span><span>›</span></a>
+    <a href="parts-hub.html?v=v20260918-1"><span>PARTS HUB</span><span>›</span></a>
+    <a href="repair-hub.html?v=v20260918-1"><span>REPAIR HUB</span><span>›</span></a>
+    <a href="finance.html?v=v20260918-1"><span>FINANCE</span><span>›</span></a>
+    <a href="alerts.html?v=v20260918-1"><span>ALERTS</span><span>›</span></a>
+    <a href="chat.html?v=v20260918-1"><span>CHAT</span><span>›</span></a>
   </nav>
 
   <div class="eagle-mobile-menu-footer">
@@ -1054,13 +1062,13 @@ canvas {
 </aside>
 
 <nav class="eagle-nav">
-  <a class="nav-link active" href="./?v=v20260915-1">MARKET</a>
-  <a class="nav-link" href="deal-calculator.html?v=v20260915-1">DEAL CALCULATOR</a>
-  <a class="nav-link" href="parts-hub.html?v=v20260915-1">PARTS HUB</a>
-  <a class="nav-link" href="repair-hub.html?v=v20260916-1">REPAIR HUB</a>
-  <a class="nav-link" href="finance.html?v=v20260916-1">FINANCE</a>
-  <a class="nav-link" href="alerts.html?v=v20260917-1">ALERTS</a>
-  <a class="nav-link" href="chat.html?v=20260917-4">CHAT</a>
+  <a class="nav-link active" href="./?v=v20260918-1">MARKET</a>
+  <a class="nav-link" href="deal-calculator.html?v=v20260918-1">DEAL CALCULATOR</a>
+  <a class="nav-link" href="parts-hub.html?v=v20260918-1">PARTS HUB</a>
+  <a class="nav-link" href="repair-hub.html?v=v20260918-1">REPAIR HUB</a>
+  <a class="nav-link" href="finance.html?v=v20260918-1">FINANCE</a>
+  <a class="nav-link" href="alerts.html?v=v20260918-1">ALERTS</a>
+  <a class="nav-link" href="chat.html?v=v20260918-1">CHAT</a>
 </nav> 
 
  <div class="section-label">MARKET SNAPSHOT</div>
@@ -2797,7 +2805,7 @@ window.addEventListener("resize", renderTrend);
 // vanuit dezelfde ACTIVE FLIPS-context.
 applyMarketFilter("active");
 
-const eagleUpdatedAt = new Date("2026-09-18T05:13");
+const eagleUpdatedAt = new Date("2026-09-18T05:20");
 
 function updateEagleStatus() {
   const status = document.getElementById("eagle-status");
