@@ -39,7 +39,9 @@ body {
 .topbar {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  gap: 18px;
+  align-items: flex-start;
+  margin-bottom: 30px;
 }
 
 .brand {
@@ -315,6 +317,15 @@ input[type="number"] {
 
   .topbar {
     flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  h1 {
+    font-size: 24px;
+    line-height: 1.1;
+    letter-spacing: -.5px;
+    white-space: nowrap;
   }
 
   .status {
@@ -814,14 +825,8 @@ input {
     <div class="brand">
       <img class="logo" id="eagle-mobile-menu-trigger" src="eagle-pin-icon.jpg" alt="Eagle PIN" role="button" tabindex="0" aria-label="Open navigation menu" aria-expanded="false">
       <div>
-        <h1>EAGLE PIN</h1>
-        <div class="subtitle">iPhone Resale Market Intelligence</div>
+        <h1>Parts Sourcing Database</h1>
       </div>
-    </div>
-
-    <div class="status">
-      <div class="live">● LIVE</div>
-      <div>Parts sourcing database</div>
     </div>
   </div>
 
