@@ -1704,13 +1704,32 @@ h1 {
   border-color: rgba(201,170,106,.18) !important;
 }
 
-/* INTERCEPT — cold cyan, still integrated into the card */
+/* INTERCEPT — premium high-priority signal */
 .alert-card.intercept .badge.label,
 .badge-intercept {
-  color: #82dcf5;
-  background: rgba(101,216,255,.055);
-  border-color: rgba(101,216,255,.29);
-  box-shadow: none;
+  color: #baffd9;
+  background:
+    linear-gradient(135deg,
+      rgba(46,229,140,.30),
+      rgba(24,142,88,.16));
+  border-color: rgba(104,255,180,.72);
+  box-shadow:
+    0 0 8px rgba(46,229,140,.30),
+    0 0 22px rgba(46,229,140,.17),
+    inset 0 1px 0 rgba(220,255,235,.12);
+  padding-left: 11px;
+  padding-right: 12px;
+}
+
+.badge-intercept .badge-icon {
+  width: 14px;
+  height: 14px;
+  flex-basis: 14px;
+  color: #c2ffdd;
+  stroke-width: 2.2;
+  filter:
+    drop-shadow(0 0 2px rgba(180,255,215,.90))
+    drop-shadow(0 0 5px rgba(46,229,140,.65));
 }
 
 /* NEW — subtle cold cyan */
@@ -2685,8 +2704,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">BEOORDELEN</span>
-            <span class="badge kind">NEW</span>
+            <span class="badge label badge-beoordelen">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>BEOORDELEN</span>
+            </span>
+            <span class="badge kind badge-new">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"></path><path d="M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2"></path></svg>
+              <span>NEW</span>
+            </span>
           </div>
           <div class="alert-time">18-09-2026 · 13:47</div>
         </div>
@@ -2751,8 +2780,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">PASS</span>
-            <span class="badge kind">NEW</span>
+            <span class="badge label badge-pass">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>PASS</span>
+            </span>
+            <span class="badge kind badge-new">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"></path><path d="M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2"></path></svg>
+              <span>NEW</span>
+            </span>
           </div>
           <div class="alert-time">18-09-2026 · 12:22</div>
         </div>
@@ -2817,8 +2856,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">BEOORDELEN</span>
-            <span class="badge kind">NEW</span>
+            <span class="badge label badge-beoordelen">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>BEOORDELEN</span>
+            </span>
+            <span class="badge kind badge-new">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"></path><path d="M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2"></path></svg>
+              <span>NEW</span>
+            </span>
           </div>
           <div class="alert-time">18-09-2026 · 12:13</div>
         </div>
@@ -2883,8 +2932,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">BEOORDELEN</span>
-            <span class="badge kind">NEW</span>
+            <span class="badge label badge-beoordelen">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>BEOORDELEN</span>
+            </span>
+            <span class="badge kind badge-new">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"></path><path d="M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2"></path></svg>
+              <span>NEW</span>
+            </span>
           </div>
           <div class="alert-time">18-09-2026 · 10:46</div>
         </div>
@@ -2949,8 +3008,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">PASS</span>
-            <span class="badge kind">NEW</span>
+            <span class="badge label badge-pass">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>PASS</span>
+            </span>
+            <span class="badge kind badge-new">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"></path><path d="M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2"></path></svg>
+              <span>NEW</span>
+            </span>
           </div>
           <div class="alert-time">18-09-2026 · 07:44</div>
         </div>
@@ -3015,8 +3084,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">BEOORDELEN</span>
-            <span class="badge kind">PRICE DROP</span>
+            <span class="badge label badge-beoordelen">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>BEOORDELEN</span>
+            </span>
+            <span class="badge kind badge-price-drop">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7l5 5 4-4 5 5"></path><path d="M19 8v5h-5"></path></svg>
+              <span>PRICE DROP</span>
+            </span>
           </div>
           <div class="alert-time">18-09-2026 · 07:41</div>
         </div>
@@ -3081,8 +3160,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">BEOORDELEN</span>
-            <span class="badge kind">NEW</span>
+            <span class="badge label badge-beoordelen">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>BEOORDELEN</span>
+            </span>
+            <span class="badge kind badge-new">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"></path><path d="M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2"></path></svg>
+              <span>NEW</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 22:44</div>
         </div>
@@ -3147,8 +3236,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">BEOORDELEN</span>
-            <span class="badge kind">NEW</span>
+            <span class="badge label badge-beoordelen">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>BEOORDELEN</span>
+            </span>
+            <span class="badge kind badge-new">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"></path><path d="M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2"></path></svg>
+              <span>NEW</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 21:45</div>
         </div>
@@ -3213,8 +3312,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">BEOORDELEN</span>
-            <span class="badge kind">NEW</span>
+            <span class="badge label badge-beoordelen">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>BEOORDELEN</span>
+            </span>
+            <span class="badge kind badge-new">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"></path><path d="M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2"></path></svg>
+              <span>NEW</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 21:37</div>
         </div>
@@ -3279,8 +3388,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">BEOORDELEN</span>
-            <span class="badge kind">NEW</span>
+            <span class="badge label badge-beoordelen">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>BEOORDELEN</span>
+            </span>
+            <span class="badge kind badge-new">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"></path><path d="M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2"></path></svg>
+              <span>NEW</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 21:30</div>
         </div>
@@ -3345,8 +3464,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">PASS</span>
-            <span class="badge kind">PRICE DROP</span>
+            <span class="badge label badge-pass">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>PASS</span>
+            </span>
+            <span class="badge kind badge-price-drop">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7l5 5 4-4 5 5"></path><path d="M19 8v5h-5"></path></svg>
+              <span>PRICE DROP</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 20:22</div>
         </div>
@@ -3411,8 +3540,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">BEOORDELEN</span>
-            <span class="badge kind">NEW</span>
+            <span class="badge label badge-beoordelen">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>BEOORDELEN</span>
+            </span>
+            <span class="badge kind badge-new">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"></path><path d="M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2"></path></svg>
+              <span>NEW</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 20:04</div>
         </div>
@@ -3477,8 +3616,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">PASS</span>
-            <span class="badge kind">PRICE DROP</span>
+            <span class="badge label badge-pass">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>PASS</span>
+            </span>
+            <span class="badge kind badge-price-drop">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7l5 5 4-4 5 5"></path><path d="M19 8v5h-5"></path></svg>
+              <span>PRICE DROP</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 20:03</div>
         </div>
@@ -3543,8 +3692,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">BEOORDELEN</span>
-            <span class="badge kind">NEW</span>
+            <span class="badge label badge-beoordelen">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>BEOORDELEN</span>
+            </span>
+            <span class="badge kind badge-new">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"></path><path d="M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2"></path></svg>
+              <span>NEW</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 19:24</div>
         </div>
@@ -3609,8 +3768,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">INTERCEPT</span>
-            <span class="badge kind">NEW</span>
+            <span class="badge label badge-intercept">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>INTERCEPT</span>
+            </span>
+            <span class="badge kind badge-new">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"></path><path d="M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2"></path></svg>
+              <span>NEW</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 18:21</div>
         </div>
@@ -3675,8 +3844,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">BEOORDELEN</span>
-            <span class="badge kind">NEW</span>
+            <span class="badge label badge-beoordelen">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>BEOORDELEN</span>
+            </span>
+            <span class="badge kind badge-new">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"></path><path d="M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2"></path></svg>
+              <span>NEW</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 18:12</div>
         </div>
@@ -3741,8 +3920,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">BEOORDELEN</span>
-            <span class="badge kind">NEW</span>
+            <span class="badge label badge-beoordelen">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>BEOORDELEN</span>
+            </span>
+            <span class="badge kind badge-new">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"></path><path d="M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2"></path></svg>
+              <span>NEW</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 17:55</div>
         </div>
@@ -3807,8 +3996,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">BEOORDELEN</span>
-            <span class="badge kind">NEW</span>
+            <span class="badge label badge-beoordelen">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>BEOORDELEN</span>
+            </span>
+            <span class="badge kind badge-new">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"></path><path d="M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2"></path></svg>
+              <span>NEW</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 17:50</div>
         </div>
@@ -3873,8 +4072,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">BEOORDELEN</span>
-            <span class="badge kind">PRICE DROP</span>
+            <span class="badge label badge-beoordelen">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>BEOORDELEN</span>
+            </span>
+            <span class="badge kind badge-price-drop">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7l5 5 4-4 5 5"></path><path d="M19 8v5h-5"></path></svg>
+              <span>PRICE DROP</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 17:30</div>
         </div>
@@ -3939,8 +4148,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">PASS</span>
-            <span class="badge kind">NEW</span>
+            <span class="badge label badge-pass">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>PASS</span>
+            </span>
+            <span class="badge kind badge-new">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"></path><path d="M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2"></path></svg>
+              <span>NEW</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 16:17</div>
         </div>
@@ -4005,8 +4224,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">BEOORDELEN</span>
-            <span class="badge kind">PRICE DROP</span>
+            <span class="badge label badge-beoordelen">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>BEOORDELEN</span>
+            </span>
+            <span class="badge kind badge-price-drop">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7l5 5 4-4 5 5"></path><path d="M19 8v5h-5"></path></svg>
+              <span>PRICE DROP</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 16:10</div>
         </div>
@@ -4071,8 +4300,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">PASS</span>
-            <span class="badge kind">PRICE DROP</span>
+            <span class="badge label badge-pass">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>PASS</span>
+            </span>
+            <span class="badge kind badge-price-drop">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7l5 5 4-4 5 5"></path><path d="M19 8v5h-5"></path></svg>
+              <span>PRICE DROP</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 15:41</div>
         </div>
@@ -4137,8 +4376,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">BEOORDELEN</span>
-            <span class="badge kind">NEW</span>
+            <span class="badge label badge-beoordelen">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>BEOORDELEN</span>
+            </span>
+            <span class="badge kind badge-new">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"></path><path d="M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2"></path></svg>
+              <span>NEW</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 15:18</div>
         </div>
@@ -4203,8 +4452,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">BEOORDELEN</span>
-            <span class="badge kind">NEW</span>
+            <span class="badge label badge-beoordelen">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>BEOORDELEN</span>
+            </span>
+            <span class="badge kind badge-new">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"></path><path d="M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2"></path></svg>
+              <span>NEW</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 15:10</div>
         </div>
@@ -4269,8 +4528,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">PASS</span>
-            <span class="badge kind">NEW</span>
+            <span class="badge label badge-pass">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>PASS</span>
+            </span>
+            <span class="badge kind badge-new">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"></path><path d="M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2"></path></svg>
+              <span>NEW</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 13:08</div>
         </div>
@@ -4335,8 +4604,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">BEOORDELEN</span>
-            <span class="badge kind">NEW</span>
+            <span class="badge label badge-beoordelen">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>BEOORDELEN</span>
+            </span>
+            <span class="badge kind badge-new">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"></path><path d="M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2"></path></svg>
+              <span>NEW</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 12:50</div>
         </div>
@@ -4401,8 +4680,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">BEOORDELEN</span>
-            <span class="badge kind">NEW</span>
+            <span class="badge label badge-beoordelen">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>BEOORDELEN</span>
+            </span>
+            <span class="badge kind badge-new">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"></path><path d="M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2"></path></svg>
+              <span>NEW</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 12:22</div>
         </div>
@@ -4467,8 +4756,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">PASS</span>
-            <span class="badge kind">PRICE DROP</span>
+            <span class="badge label badge-pass">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>PASS</span>
+            </span>
+            <span class="badge kind badge-price-drop">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7l5 5 4-4 5 5"></path><path d="M19 8v5h-5"></path></svg>
+              <span>PRICE DROP</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 11:47</div>
         </div>
@@ -4533,8 +4832,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">BEOORDELEN</span>
-            <span class="badge kind">NEW</span>
+            <span class="badge label badge-beoordelen">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>BEOORDELEN</span>
+            </span>
+            <span class="badge kind badge-new">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"></path><path d="M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2"></path></svg>
+              <span>NEW</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 10:20</div>
         </div>
@@ -4599,8 +4908,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">INTERCEPT</span>
-            <span class="badge kind">NEW</span>
+            <span class="badge label badge-intercept">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>INTERCEPT</span>
+            </span>
+            <span class="badge kind badge-new">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"></path><path d="M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2"></path></svg>
+              <span>NEW</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 10:03</div>
         </div>
@@ -4665,8 +4984,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">PASS</span>
-            <span class="badge kind">NEW</span>
+            <span class="badge label badge-pass">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>PASS</span>
+            </span>
+            <span class="badge kind badge-new">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"></path><path d="M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2"></path></svg>
+              <span>NEW</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 10:02</div>
         </div>
@@ -4731,8 +5060,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">BEOORDELEN</span>
-            <span class="badge kind">NEW</span>
+            <span class="badge label badge-beoordelen">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>BEOORDELEN</span>
+            </span>
+            <span class="badge kind badge-new">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"></path><path d="M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2"></path></svg>
+              <span>NEW</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 09:44</div>
         </div>
@@ -4797,8 +5136,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">INTERCEPT</span>
-            <span class="badge kind">NEW</span>
+            <span class="badge label badge-intercept">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>INTERCEPT</span>
+            </span>
+            <span class="badge kind badge-new">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"></path><path d="M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2"></path></svg>
+              <span>NEW</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 09:26</div>
         </div>
@@ -4863,8 +5212,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">BEOORDELEN</span>
-            <span class="badge kind">NEW</span>
+            <span class="badge label badge-beoordelen">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>BEOORDELEN</span>
+            </span>
+            <span class="badge kind badge-new">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"></path><path d="M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2"></path></svg>
+              <span>NEW</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 08:05</div>
         </div>
@@ -4929,8 +5288,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">BEOORDELEN</span>
-            <span class="badge kind">NEW</span>
+            <span class="badge label badge-beoordelen">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>BEOORDELEN</span>
+            </span>
+            <span class="badge kind badge-new">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"></path><path d="M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2"></path></svg>
+              <span>NEW</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 07:41</div>
         </div>
@@ -4995,8 +5364,18 @@ h1 {
       <div class="alert-content">
         <div class="alert-top">
           <div class="badges">
-            <span class="badge label">PASS</span>
-            <span class="badge kind">NEW</span>
+            <span class="badge label badge-pass">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
+              </svg>
+              <span>PASS</span>
+            </span>
+            <span class="badge kind badge-new">
+              <svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"></path><path d="M7.5 7.5l2 2M14.5 14.5l2 2M16.5 7.5l-2 2M9.5 14.5l-2 2"></path></svg>
+              <span>NEW</span>
+            </span>
           </div>
           <div class="alert-time">17-09-2026 · 00:45</div>
         </div>
