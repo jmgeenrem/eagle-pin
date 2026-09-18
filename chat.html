@@ -1893,7 +1893,7 @@ body {
     display: block;
     position: fixed;
     inset: 0;
-    z-index: 998;
+    z-index: 10000;
     background: rgba(3, 5, 8, .66);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
@@ -1911,7 +1911,7 @@ body {
     top: 0;
     bottom: 0;
     left: 0;
-    z-index: 999;
+    z-index: 10001;
     width: min(84vw, 350px);
     padding:
       calc(20px + env(safe-area-inset-top))
@@ -2091,7 +2091,20 @@ body {
     </div>
   </div>
 
-  <div class="eagle-mobile-menu-overlay" id="eagle-mobile-menu-overlay"></div>
+
+
+<nav class="eagle-nav" aria-label="EAGLE navigation">
+    <a class="nav-link" href="https://jmgeenrem.github.io/eagle-pin/">MARKET</a>
+    <a class="nav-link" href="https://jmgeenrem.github.io/eagle-pin/deal-calculator.html">DEAL CALCULATOR</a>
+    <a class="nav-link" href="https://jmgeenrem.github.io/eagle-pin/parts-hub.html">PARTS HUB</a>
+    <a class="nav-link" href="https://jmgeenrem.github.io/eagle-pin/repair-hub.html">REPAIR HUB</a>
+    <a class="nav-link" href="https://jmgeenrem.github.io/eagle-pin/finance.html">FINANCE</a>
+    <a class="nav-link" href="https://jmgeenrem.github.io/eagle-pin/alerts.html">ALERTS</a>
+    <a class="nav-link active" href="chat.html?v=20260917-4">CHAT</a>
+  </nav>
+</div>
+
+<div class="eagle-mobile-menu-overlay" id="eagle-mobile-menu-overlay"></div>
 
 <aside class="eagle-mobile-menu" id="eagle-mobile-menu" aria-hidden="true">
   <div class="eagle-mobile-menu-head">
@@ -2121,17 +2134,6 @@ body {
     LIVE
   </div>
 </aside>
-
-<nav class="eagle-nav" aria-label="EAGLE navigation">
-    <a class="nav-link" href="https://jmgeenrem.github.io/eagle-pin/">MARKET</a>
-    <a class="nav-link" href="https://jmgeenrem.github.io/eagle-pin/deal-calculator.html">DEAL CALCULATOR</a>
-    <a class="nav-link" href="https://jmgeenrem.github.io/eagle-pin/parts-hub.html">PARTS HUB</a>
-    <a class="nav-link" href="https://jmgeenrem.github.io/eagle-pin/repair-hub.html">REPAIR HUB</a>
-    <a class="nav-link" href="https://jmgeenrem.github.io/eagle-pin/finance.html">FINANCE</a>
-    <a class="nav-link" href="https://jmgeenrem.github.io/eagle-pin/alerts.html">ALERTS</a>
-    <a class="nav-link active" href="chat.html?v=20260917-4">CHAT</a>
-  </nav>
-</div>
 
 <div class="shell">
   <aside class="sidebar">
