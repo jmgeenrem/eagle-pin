@@ -2324,6 +2324,137 @@ h1 {
 
 </style>
 
+
+<style>
+/* ============================================================
+   EAGLE ALERTS — STRONGER CONFIRMED OFF-MARKET STATE
+   ============================================================ */
+
+.alert-card.off-market,
+.alert-card.off-market.intercept {
+  position: relative;
+  background: #090d11;
+  border-color: rgba(145,153,161,.16);
+  box-shadow:
+    0 14px 30px rgba(0,0,0,.28),
+    inset 0 0 0 1px rgba(255,255,255,.015);
+}
+
+/* Soft inactive wash across the whole card */
+.alert-card.off-market::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(120,128,136,.055),
+      transparent 36%,
+      rgba(0,0,0,.10) 68%,
+      rgba(120,128,136,.035)
+    );
+}
+
+/* Kill active accent */
+.alert-card.off-market::before,
+.alert-card.off-market.intercept::before {
+  background: rgba(108,118,127,.50);
+  box-shadow: none;
+}
+
+/* Image should read immediately as inactive */
+.alert-card.off-market .alert-media {
+  background: #070a0d;
+  border-color: rgba(255,255,255,.035);
+}
+
+.alert-card.off-market .alert-image {
+  filter:
+    grayscale(1)
+    brightness(.46)
+    contrast(.92)
+    saturate(0);
+  opacity: .72;
+}
+
+.alert-card.off-market .image-placeholder {
+  opacity: .38;
+}
+
+/* Listing content clearly archived */
+.alert-card.off-market .alert-top,
+.alert-card.off-market .alert-title,
+.alert-card.off-market .location,
+.alert-card.off-market .detail-section,
+.alert-card.off-market .signals {
+  opacity: .34;
+}
+
+.alert-card.off-market .headline {
+  position: relative;
+  z-index: 10;
+  background: #0b1014;
+  border-color: rgba(150,158,166,.13);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.01);
+}
+
+/* SOLD becomes the visual anchor */
+.alert-card.off-market .sold-price {
+  color: #d5d9dd;
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: 2.3px;
+  text-shadow:
+    0 0 18px rgba(210,216,222,.08);
+}
+
+/* Historical intelligence stays readable */
+.alert-card.off-market .headline-metrics {
+  opacity: .82;
+  filter: grayscale(.25) saturate(.40);
+}
+
+.alert-card.off-market .metric-ring {
+  box-shadow: none;
+}
+
+/* Clear inactive status */
+.alert-card.off-market .off-market-button {
+  min-width: 150px;
+  justify-content: center;
+  cursor: default;
+  pointer-events: none;
+  color: #c3c9ce;
+  background: rgba(120,128,136,.085);
+  border-color: rgba(150,158,166,.16);
+  box-shadow: none;
+  letter-spacing: 1.35px;
+}
+
+.alert-card.off-market .alert-footer {
+  position: relative;
+  z-index: 10;
+  border-top-color: rgba(255,255,255,.035);
+}
+
+@media (max-width: 760px) {
+  .alert-card.off-market .alert-image {
+    filter:
+      grayscale(1)
+      brightness(.42)
+      contrast(.92)
+      saturate(0);
+    opacity: .68;
+  }
+
+  .alert-card.off-market .sold-price {
+    font-size: 38px;
+  }
+}
+</style>
+
 </head>
 
 <body>
@@ -2521,10 +2652,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Batterij 89% — redelijk</span><span class="signal warning">⚠ Face ID niet bevestigd</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443807602-iphone-15-pro-256gb-zwart"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443807602-iphone-15-pro-256gb-zwart" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
@@ -2590,10 +2718,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Batterijconditie onbekend</span><span class="signal warning">⚠ Face ID niet bevestigd</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443795479-apple-iphone-14-pro-max-256gb"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443795479-apple-iphone-14-pro-max-256gb" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
@@ -2659,10 +2784,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Face ID niet bevestigd</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443794089-iphone-15-pro-128gb-lees-de-tekst"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443794089-iphone-15-pro-128gb-lees-de-tekst" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
@@ -2728,10 +2850,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Batterij 88% — redelijk</span><span class="signal warning">⚠ Face ID niet bevestigd</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443792010-iphone-15-pro-128gb-88-batterij"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443792010-iphone-15-pro-128gb-88-batterij" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
@@ -2797,10 +2916,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Batterij 88% — redelijk</span><span class="signal warning">⚠ Functionele werking niet bevestigd — handmatige verificatie nodig</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443687374-iphone-15-pro-128gb-88-batterij"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443687374-iphone-15-pro-128gb-88-batterij" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
@@ -2866,10 +2982,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Batterij 86% — redelijk</span><span class="signal warning">⚠ Face ID niet bevestigd</span><span class="signal warning">⚠ Functionele werking niet bevestigd — handmatige verificatie nodig</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443759588-iphone-15-pro-128gb-zwart-met-gebruiksporen"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443759588-iphone-15-pro-128gb-zwart-met-gebruiksporen" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
@@ -2935,10 +3048,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Batterij 88% — redelijk</span><span class="signal warning">⚠ Functionele werking niet bevestigd — handmatige verificatie nodig</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443687374-iphone-15-pro-128gb-88-batterij"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443687374-iphone-15-pro-128gb-88-batterij" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
@@ -3004,10 +3114,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Batterijconditie onbekend</span><span class="signal warning">⚠ Face ID niet bevestigd</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443750644-apple-iphone-15pro-128gb-grijs"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443750644-apple-iphone-15pro-128gb-grijs" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
@@ -3073,10 +3180,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Face ID niet bevestigd</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443733125-iphone-15-pro-128gb-titanium-blauw"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443733125-iphone-15-pro-128gb-titanium-blauw" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
@@ -3142,10 +3246,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443730528-iphone-15-pro-kapot-scherm-achterkant"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443730528-iphone-15-pro-kapot-scherm-achterkant" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
@@ -3211,10 +3312,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Batterij 89% — redelijk</span><span class="signal warning">⚠ Face ID niet bevestigd</span><span class="signal warning">⚠ Functionele werking niet bevestigd — handmatige verificatie nodig</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443725312-apple-iphone-15-pro-256gb-89-batterijconditie"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443725312-apple-iphone-15-pro-256gb-89-batterijconditie" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
@@ -3280,10 +3378,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Batterijconditie onbekend</span><span class="signal warning">⚠ Face ID niet bevestigd</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443724048-iphone-15-pro-256-gb"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443724048-iphone-15-pro-256-gb" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
@@ -3349,10 +3444,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Batterijconditie onbekend</span><span class="signal warning">⚠ Face ID niet bevestigd</span><span class="signal warning">⚠ Functionele werking niet bevestigd — handmatige verificatie nodig</span><span class="signal warning">⚠ Herstel/restore vereist — oorzaak nog onbekend</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2420081924-iphone-14-pro-max-schadevrij"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2420081924-iphone-14-pro-max-schadevrij" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
@@ -3418,10 +3510,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Batterij 88% — redelijk</span><span class="signal warning">⚠ Functionele werking niet bevestigd — handmatige verificatie nodig</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443687374-iphone-15-pro-88-batterij-128gb"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443687374-iphone-15-pro-88-batterij-128gb" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
@@ -3487,10 +3576,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Batterij 88% — redelijk</span><span class="signal warning">⚠ Face ID niet bevestigd</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2442542741-apple-iphone-15-pro-128-gb-titanium-goede-staat"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2442542741-apple-iphone-15-pro-128-gb-titanium-goede-staat" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
@@ -3556,10 +3642,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Batterij 88% — redelijk</span><span class="signal warning">⚠ Face ID niet bevestigd</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443058733-iphone-15-pro-128gb-88-batterijconditie"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443058733-iphone-15-pro-128gb-88-batterijconditie" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
@@ -3625,10 +3708,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Face ID niet bevestigd</span><span class="signal warning">⚠ Functionele werking niet bevestigd — handmatige verificatie nodig</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443663156-iphone-15-pro-128gb-zwart-lichte-gebruikerssporen-82"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443663156-iphone-15-pro-128gb-zwart-lichte-gebruikerssporen-82" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
@@ -3694,10 +3774,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Functionele werking niet bevestigd — handmatige verificatie nodig</span><span class="signal warning">⚠ Cameraprobleem genoemd</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443659435-iphone15-pro-128-gebarste-achterkant-frontcamera-werkt-niet"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443659435-iphone15-pro-128-gebarste-achterkant-frontcamera-werkt-niet" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
@@ -3763,10 +3840,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Face ID niet bevestigd</span><span class="signal warning">⚠ Functionele werking niet bevestigd — handmatige verificatie nodig</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443611645-apple-iphone-15-pro-256gb-natural-titanium"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443611645-apple-iphone-15-pro-256gb-natural-titanium" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
@@ -3832,10 +3906,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Batterijconditie onbekend</span><span class="signal warning">⚠ Face ID niet bevestigd</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443601089-iphone-15-pro-met-gebroken-scherm"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443601089-iphone-15-pro-met-gebroken-scherm" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
@@ -3901,10 +3972,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Batterij 89% — redelijk</span><span class="signal warning">⚠ Face ID niet bevestigd</span><span class="signal warning">⚠ Functionele werking niet bevestigd — handmatige verificatie nodig</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443594981-iphone-15-pro-128-gb"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443594981-iphone-15-pro-128-gb" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
@@ -3970,10 +4038,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Batterijconditie onbekend</span><span class="signal warning">⚠ Face ID niet bevestigd</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443486490-iphone-15-pro"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443486490-iphone-15-pro" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
@@ -4039,10 +4104,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Batterij 87% — redelijk</span><span class="signal warning">⚠ Functionele werking niet bevestigd — handmatige verificatie nodig</span><span class="signal warning">⚠ Cameraprobleem genoemd</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443550225-iphone-15-pro-128gb-natural-titanium-selfiecsmera-defect"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443550225-iphone-15-pro-128gb-natural-titanium-selfiecsmera-defect" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
@@ -4108,10 +4170,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Batterijconditie onbekend</span><span class="signal warning">⚠ Face ID niet bevestigd</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443544531-gebruikte-iphone-14-pro-max-128-gb-zwart"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443544531-gebruikte-iphone-14-pro-max-128-gb-zwart" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
@@ -4177,10 +4236,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Batterijconditie onbekend</span><span class="signal warning">⚠ Face ID niet bevestigd</span><span class="signal warning">⚠ Functionele werking niet bevestigd — handmatige verificatie nodig</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443544102-iphone-15-pro-128gb"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443544102-iphone-15-pro-128gb" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
@@ -4246,10 +4302,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Batterijconditie onbekend</span><span class="signal warning">⚠ Face ID niet bevestigd</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443538699-iphone-15-pro-128-gb-achterkant-gebarsten"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443538699-iphone-15-pro-128-gb-achterkant-gebarsten" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
@@ -4315,10 +4368,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Face ID niet bevestigd</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443533338-apple-iphone-14-pro-max-256gb-zwart-batterij-76"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443533338-apple-iphone-14-pro-max-256gb-zwart-batterij-76" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
@@ -4384,10 +4434,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Batterij 85% — redelijk</span><span class="signal warning">⚠ Face ID niet bevestigd</span><span class="signal warning">⚠ Functionele werking niet bevestigd — handmatige verificatie nodig</span><span class="signal warning">⚠ Oplaadprobleem genoemd</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443515182-iphone-15-pro-blauw"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443515182-iphone-15-pro-blauw" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
@@ -4453,10 +4500,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Batterijconditie onbekend</span><span class="signal warning">⚠ Face ID niet bevestigd</span><span class="signal warning">⚠ Functionele werking niet bevestigd — handmatige verificatie nodig</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-hoesjes-en-frontjes-samsung/m2443512023-vaste-prijs-iphone-14-pro-max-256gb"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-hoesjes-en-frontjes-samsung/m2443512023-vaste-prijs-iphone-14-pro-max-256gb" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
@@ -4522,10 +4566,7 @@ h1 {
         <div class="signals"><span class="signal warning">⚠ Batterijconditie onbekend</span><span class="signal warning">⚠ Face ID niet bevestigd</span><span class="signal warning">⚠ Onderdelenhistorie onbekend</span></div>
 
         <div class="alert-footer">
-          <a class="open-button"
-             href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443486490-iphone-15-pro-defect-scherm-voor-onderdelen"
-             target="_blank"
-             rel="noopener noreferrer">OPEN LISTING ↗</a>
+          <a class="open-button" href="https://www.marktplaats.nl/v/telecommunicatie/mobiele-telefoons-apple-iphone/m2443486490-iphone-15-pro-defect-scherm-voor-onderdelen" target="_blank" rel="noopener noreferrer">OPEN LISTING ↗</a>
         </div>
       </div>
     </article>
