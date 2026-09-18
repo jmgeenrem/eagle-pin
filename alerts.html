@@ -704,6 +704,41 @@ h1 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* EAGLE PIN Web Push */
+.eagle-push-control {
+  margin-left: auto;
+  flex: 0 0 auto;
+  appearance: none;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.035);
+  color: var(--muted);
+  border-radius: 9px;
+  padding: 9px 12px;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  cursor: pointer;
+}
+
+.eagle-push-control.enabled {
+  color: var(--green);
+  border-color: rgba(46,229,140,.22);
+}
+
+.eagle-push-control:disabled {
+  opacity: .55;
+  cursor: default;
+}
+
+@media (max-width: 760px) {
+  .eagle-push-control {
+    padding: 8px 10px;
+    font-size: 9px;
+  }
+}
+
 </style>
 
 <style>
@@ -2470,6 +2505,12 @@ h1 {
         <h1>Alert Intelligence</h1>
       </div>
     </div>
+
+    <button
+      class="eagle-push-control"
+      id="eagle-push-control"
+      type="button"
+    >ENABLE ALERTS</button>
   </div>
 
   <div class="eagle-mobile-menu-overlay" id="eagle-mobile-menu-overlay"></div>
@@ -5445,6 +5486,120 @@ if ("serviceWorker" in navigator) {
     });
   });
 }
+</script>
+
+<script>
+(() => {
+  const button = document.getElementById("eagle-push-control");
+  if (!button) return;
+
+  const WORKER_URL =
+    "https://eagle-pin-push.jer-misiedjan.workers.dev";
+
+  const VAPID_PUBLIC_KEY =
+    "BN6An-Vn0GJ1DRSkbPR7_W3mYUruwqG6MebPUKXdqKaJo-G1H5iKyHEKlFOmZdqjrrbZpJj7_rTdHgAfJZVfqNU";
+
+  function urlBase64ToUint8Array(base64String) {
+    const padding = "=".repeat((4 - base64String.length % 4) % 4);
+    const base64 = (base64String + padding)
+      .replace(/-/g, "+")
+      .replace(/_/g, "/");
+
+    const rawData = atob(base64);
+
+    return Uint8Array.from(
+      [...rawData].map(character => character.charCodeAt(0))
+    );
+  }
+
+  function setEnabled() {
+    button.textContent = "ALERTS ON";
+    button.classList.add("enabled");
+    button.disabled = true;
+  }
+
+  async function getRegistration() {
+    const registration =
+      await navigator.serviceWorker.register("./service-worker.js");
+
+    await navigator.serviceWorker.ready;
+
+    return registration;
+  }
+
+  async function refreshState() {
+    if (
+      !("serviceWorker" in navigator) ||
+      !("PushManager" in window) ||
+      !("Notification" in window)
+    ) {
+      button.textContent = "NOT SUPPORTED";
+      button.disabled = true;
+      return;
+    }
+
+    try {
+      const registration = await getRegistration();
+      const existing =
+        await registration.pushManager.getSubscription();
+
+      if (existing) {
+        setEnabled();
+      }
+    } catch (error) {
+      console.error("EAGLE PIN push state check failed:", error);
+    }
+  }
+
+  button.addEventListener("click", async () => {
+    button.disabled = true;
+    button.textContent = "ENABLING...";
+
+    try {
+      const permission = await Notification.requestPermission();
+
+      if (permission !== "granted") {
+        button.textContent =
+          permission === "denied" ? "ALERTS BLOCKED" : "ENABLE ALERTS";
+        button.disabled = permission === "denied";
+        return;
+      }
+
+      const registration = await getRegistration();
+
+      let subscription =
+        await registration.pushManager.getSubscription();
+
+      if (!subscription) {
+        subscription = await registration.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey:
+            urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
+        });
+      }
+
+      const response = await fetch(WORKER_URL + "/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(subscription)
+      });
+
+      if (!response.ok) {
+        throw new Error("Subscription bridge returned " + response.status);
+      }
+
+      setEnabled();
+    } catch (error) {
+      console.error("EAGLE PIN push enable failed:", error);
+      button.textContent = "TRY AGAIN";
+      button.disabled = false;
+    }
+  });
+
+  refreshState();
+})();
 </script>
 
 </body>
