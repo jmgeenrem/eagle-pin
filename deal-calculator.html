@@ -248,14 +248,43 @@ input {
 
 .deal-status {
   display: inline-flex;
+  align-items: center;
+  gap: 5px;
   padding: 6px 10px;
   border-radius: 999px;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: .8px;
-  color: var(--green);
-  border: 1px solid rgba(46,229,140,.22);
-  background: rgba(46,229,140,.08);
+}
+
+.deal-status.intercept {
+  color: #baffd9;
+  background:
+    linear-gradient(135deg,
+      rgba(46,229,140,.30),
+      rgba(24,142,88,.16));
+  border: 1px solid rgba(104,255,180,.72);
+  box-shadow:
+    0 0 8px rgba(46,229,140,.30),
+    0 0 22px rgba(46,229,140,.17),
+    inset 0 1px 0 rgba(220,255,235,.12);
+  padding-left: 11px;
+  padding-right: 12px;
+}
+
+.deal-status-icon {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  color: #c2ffdd;
+  filter:
+    drop-shadow(0 0 2px rgba(180,255,215,.90))
+    drop-shadow(0 0 5px rgba(46,229,140,.65));
 }
 
 .summary-strip {
@@ -726,7 +755,7 @@ input {
   <div class="max-buy-card">
     <div class="max-buy-label">MAX BUY</div>
     <div class="max-buy">€317,15</div>
-    <div class="deal-status">INTERCEPT</div>
+    <div class="deal-status intercept"><svg class="deal-status-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><circle cx="12" cy="12" r="2.5"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path></svg><span>INTERCEPT</span></div>
 
 <div class="summary-strip">
   <div class="summary-item">
@@ -991,20 +1020,23 @@ function calculateDeal() {
   const negotiateLimit = maxBuy * 1.08;
 
   if (sellerAsk <= maxBuy) {
-    status.textContent = "INTERCEPT";
-    status.style.color = "var(--green)";
-    status.style.borderColor = "rgba(46,229,140,.22)";
-    status.style.background = "rgba(46,229,140,.08)";
+    status.removeAttribute("style");
+    status.className = "deal-status intercept";
+    status.innerHTML = '<svg class="deal-status-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><circle cx="12" cy="12" r="2.5"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path></svg><span>INTERCEPT</span>';
   } else if (sellerAsk <= negotiateLimit) {
+    status.className = "deal-status";
     status.textContent = "NEGOTIATE";
     status.style.color = "var(--amber)";
-    status.style.borderColor = "rgba(214,166,75,.25)";
+    status.style.border = "1px solid rgba(214,166,75,.25)";
     status.style.background = "rgba(214,166,75,.08)";
+    status.style.boxShadow = "none";
   } else {
+    status.className = "deal-status";
     status.textContent = "PASS";
     status.style.color = "var(--red)";
-    status.style.borderColor = "rgba(255,95,101,.25)";
+    status.style.border = "1px solid rgba(255,95,101,.25)";
     status.style.background = "rgba(255,95,101,.08)";
+    status.style.boxShadow = "none";
   }
 }
 
