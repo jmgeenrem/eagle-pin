@@ -1877,6 +1877,19 @@ body {
     overflow: hidden;
   }
 
+  body.eagle-mobile-menu-open .topbar {
+    pointer-events: none;
+  }
+
+  body.eagle-mobile-menu-open .shell {
+    display: none !important;
+    pointer-events: none;
+  }
+
+  body.eagle-mobile-menu-open #eagle-mobile-menu-trigger {
+    pointer-events: auto;
+  }
+
   #eagle-mobile-menu-trigger {
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
