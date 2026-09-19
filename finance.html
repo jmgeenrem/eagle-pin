@@ -1342,19 +1342,19 @@ body.flip-detail-open {
 
     <div class="card kpi">
       <div class="kpi-label">CAPITAL INVESTED</div>
-      <div class="kpi-value gold">€301,51</div>
+      <div class="kpi-value gold">€0,00</div>
       <div class="kpi-note">Active inventory</div>
     </div>
 
     <div class="card kpi">
       <div class="kpi-label">REALIZED PROFIT</div>
-      <div class="kpi-value positive">+€18,98</div>
+      <div class="kpi-value positive">+€117,47</div>
       <div class="kpi-note">Closed flips</div>
     </div>
 
     <div class="card kpi">
       <div class="kpi-label">TOTAL SALES</div>
-      <div class="kpi-value">€370,00</div>
+      <div class="kpi-value">€770,00</div>
       <div class="kpi-note">Closed flip revenue</div>
     </div>
   </div>
@@ -1376,11 +1376,11 @@ body.flip-detail-open {
         </div>
         <div class="chart-stat">
           <small>CURRENT</small>
-          <strong class="positive">+€18,98</strong>
+          <strong class="positive">+€117,47</strong>
         </div>
         <div class="chart-stat">
           <small>CLOSED FLIPS</small>
-          <strong>1</strong>
+          <strong>2</strong>
         </div>
       </div>
     </div>
@@ -1403,13 +1403,13 @@ body.flip-detail-open {
       </defs>
 
       <line class="grid-line" x1="55" y1="30.0" x2="870" y2="30.0"/><line class="grid-line" x1="55" y1="83.3" x2="870" y2="83.3"/><line class="grid-line" x1="55" y1="136.7" x2="870" y2="136.7"/><line class="grid-line" x1="55" y1="190.0" x2="870" y2="190.0"/>
-      <text class="axis-text" x="4" y="34.0">€28,98</text><text class="axis-text" x="4" y="87.3">€15,99</text><text class="axis-text" x="4" y="140.7">€2,99</text><text class="axis-text" x="4" y="194.0">€-10,00</text>
+      <text class="axis-text" x="4" y="34.0">€146,84</text><text class="axis-text" x="4" y="87.3">€88,10</text><text class="axis-text" x="4" y="140.7">€29,37</text><text class="axis-text" x="4" y="194.0">€-29,37</text>
 
-      <path class="capital-area" d="M55.0 149.0 L870.0 71.0 L870.0 190 L55.0 190 Z"/>
-      <path class="capital-line" d="M55.0 149.0 L870.0 71.0"/>
+      <path class="capital-area" d="M55.0 163.3 L462.5 146.1 L870.0 56.7 L870.0 190 L55.0 190 Z"/>
+      <path class="capital-line" d="M55.0 163.3 L462.5 146.1 L870.0 56.7"/>
 
-      <circle class="point" cx="55.0" cy="149.0" r="4"/><circle class="point" cx="870.0" cy="71.0" r="4"/>
-      <text class="axis-text" x="55.0" y="218" text-anchor="start">START</text><text class="axis-text" x="870.0" y="218" text-anchor="end">F001</text>
+      <circle class="point" cx="55.0" cy="163.3" r="4"/><circle class="point" cx="462.5" cy="146.1" r="4"/><circle class="point" cx="870.0" cy="56.7" r="4"/>
+      <text class="axis-text" x="55.0" y="218" text-anchor="start">START</text><text class="axis-text" x="462.5" y="218" text-anchor="middle">F001</text><text class="axis-text" x="870.0" y="218" text-anchor="end">F002</text>
     </svg>
   </div>
 
@@ -1418,22 +1418,22 @@ body.flip-detail-open {
   <div class="performance-grid">
     <div class="card performance">
       <small>CLOSED FLIPS</small>
-      <strong>1</strong>
+      <strong>2</strong>
     </div>
 
     <div class="card performance">
       <small>AVG. PROFIT</small>
-      <strong class="positive">+€18,98</strong>
+      <strong class="positive">+€58,73</strong>
     </div>
 
     <div class="card performance">
       <small>AVG. ROI</small>
-      <strong class="positive">+5,4%</strong>
+      <strong class="positive">+19,0%</strong>
     </div>
 
     <div class="card performance">
       <small>AVG. HOLD</small>
-      <strong>10 days</strong>
+      <strong>7.5 days</strong>
     </div>
   </div>
 
@@ -1455,17 +1455,10 @@ body.flip-detail-open {
       </thead>
       <tbody>
         
-        <tr class="flip-detail-row" data-flip-id="F002" role="button" tabindex="0" aria-label="Open F002 listing photos">
-          <td>F002</td>
-          <td>
-            <div class="model">iPhone 14 Pro Max 128GB</div>
+        <tr>
+          <td colspan="8" style="color:var(--muted);text-align:center;">
+            No active flips
           </td>
-          <td>14 Sep</td>
-          <td>€200,00</td>
-          <td>€101,51</td>
-          <td><strong>€301,51</strong></td>
-          <td>€405,00</td>
-          <td><span class="badge active">ACTIVE</span></td>
         </tr>
       </tbody>
     </table>
@@ -1491,6 +1484,21 @@ body.flip-detail-open {
       </thead>
       <tbody>
         
+        <tr>
+          <td>F002</td>
+          <td>
+            <div class="model">iPhone 14 Pro Max 128GB</div>
+          </td>
+          <td>14 Sep</td>
+          <td>19 Sep</td>
+          <td>€301,51</td>
+          <td>€400,00</td>
+          <td><strong class="positive">+€98,49</strong></td>
+          <td class="positive">+32,7%</td>
+          <td>5d</td>
+          <td><span class="badge sold">SOLD</span></td>
+        </tr>
+
         <tr>
           <td>F001</td>
           <td>
@@ -1524,7 +1532,7 @@ body.flip-detail-open {
                 <div class="flip-detail-kicker">F002</div>
                 <h2>iPhone 14 Pro Max 128GB</h2>
                 <div class="flip-detail-meta">
-                  Ingekocht · 9 listing photos
+                  Verkocht · 9 listing photos
                 </div>
               </div>
 
@@ -1644,19 +1652,19 @@ body.flip-detail-open {
 
                 <div class="flip-detail-metric">
                   <span>SOLD FOR</span>
-                  <strong>—</strong>
+                  <strong>€400,00</strong>
                 </div>
               </div>
 
-              <div class="flip-detail-result ">
+              <div class="flip-detail-result positive">
                 <div class="flip-detail-result-item">
                   <span>REALIZED P/L</span>
-                  <strong class="">—</strong>
+                  <strong class="positive">+€98,49</strong>
                 </div>
 
                 <div class="flip-detail-result-item">
                   <span>ROI</span>
-                  <strong class="">—</strong>
+                  <strong class="positive">+32,7%</strong>
                 </div>
               </div>
 
