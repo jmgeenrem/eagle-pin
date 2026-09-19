@@ -1045,6 +1045,7 @@ canvas {
     font-size: 34px;
   }
 }
+}
 
 /* EAGLE MARKET FLIP DETAIL */
 .flip-detail-view {
@@ -1389,6 +1390,32 @@ body.flip-detail-open {
   border-top: 1px solid rgba(255,255,255,.055);
 }
 
+.flip-detail-replaced-content {
+  margin-top: 0;
+}
+
+.flip-detail-replaced-list {
+  margin: 9px 0 0;
+  padding: 0;
+  list-style: none;
+  color: #dce2e7;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.7;
+}
+
+.flip-detail-replaced-list li {
+  position: relative;
+  padding-left: 15px;
+}
+
+.flip-detail-replaced-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #929ca8;
+}
+
 .flip-detail-replaced strong {
   display: block;
   margin-top: 8px;
@@ -1571,6 +1598,92 @@ body.flip-detail-open {
   }
 }
 
+
+/* EAGLE FINANCE FLIP DETAIL — REALIZED RESULT */
+.flip-detail-result {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 0;
+  border-top: 1px solid rgba(255,255,255,.065);
+  background: rgba(255,255,255,.012);
+  transition:
+    background .18s ease,
+    box-shadow .18s ease;
+}
+
+.flip-detail-result.positive {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(44,224,146,.055),
+      rgba(44,224,146,.018)
+    );
+  box-shadow: inset 0 1px 0 rgba(44,224,146,.035);
+}
+
+.flip-detail-result.negative {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,86,101,.055),
+      rgba(255,86,101,.018)
+    );
+  box-shadow: inset 0 1px 0 rgba(255,86,101,.035);
+}
+
+.flip-detail-result-item {
+  min-width: 0;
+  padding: 19px 20px 20px;
+  text-align: center;
+}
+
+.flip-detail-result-item + .flip-detail-result-item {
+  border-left: 1px solid rgba(255,255,255,.065);
+}
+
+.flip-detail-result-item span {
+  display: block;
+  color: #929ca8;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.25px;
+}
+
+.flip-detail-result-item strong {
+  display: block;
+  margin-top: 9px;
+  color: #f2f5f7;
+  font-size: 25px;
+  font-weight: 780;
+  line-height: 1;
+  letter-spacing: -.4px;
+}
+
+.flip-detail-result-item strong.positive {
+  color: var(--green);
+  text-shadow: 0 0 18px rgba(44,224,146,.10);
+}
+
+.flip-detail-result-item strong.negative {
+  color: var(--red);
+  text-shadow: 0 0 18px rgba(255,86,101,.10);
+}
+
+@media (max-width: 760px) {
+  .flip-detail-result-item {
+    padding: 17px 10px 18px;
+  }
+
+  .flip-detail-result-item span {
+    font-size: 10px;
+    letter-spacing: .9px;
+  }
+
+  .flip-detail-result-item strong {
+    font-size: 21px;
+  }
+}
+
 </style>
 </head>
 
@@ -1584,7 +1697,7 @@ body.flip-detail-open {
         <h1>iPhone Resale Intelligence</h1>
         <div class="status">
           <div class="live" id="eagle-status"><span class="live-dot"></span> <span id="eagle-status-text">LIVE</span></div>
-          <div>Updated 2026-09-20 00:55</div>
+          <div>Updated 2026-09-20 01:09</div>
         </div>
       </div>
     </div>
@@ -4096,7 +4209,7 @@ window.addEventListener("resize", renderTrend);
 // vanuit dezelfde ACTIVE FLIPS-context.
 applyMarketFilter("active");
 
-const eagleUpdatedAt = new Date("2026-09-20T00:55");
+const eagleUpdatedAt = new Date("2026-09-20T01:09");
 
 function updateEagleStatus() {
   const status = document.getElementById("eagle-status");
