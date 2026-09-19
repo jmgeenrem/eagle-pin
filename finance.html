@@ -398,6 +398,548 @@ tr:last-child td { border-bottom: 0; }
 }
 
 
+
+/* EAGLE FINANCE FLIP DETAIL */
+.flip-detail-row {
+  cursor: pointer;
+  transition:
+    background .16s ease,
+    box-shadow .16s ease;
+}
+
+.flip-detail-row:hover {
+  background: rgba(201,170,106,.045);
+}
+
+.flip-detail-row:focus-visible {
+  outline: 1px solid rgba(201,170,106,.55);
+  outline-offset: -1px;
+}
+
+.flip-detail-view {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100010;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(201,170,106,.08),
+      transparent 36%
+    ),
+    rgba(6,9,13,.985);
+  -webkit-overflow-scrolling: touch;
+}
+
+.flip-detail-view.is-open {
+  display: block;
+}
+
+body.flip-detail-open {
+  overflow: hidden;
+}
+
+.flip-detail-shell {
+  width: min(1040px, calc(100% - 32px));
+  margin: 0 auto;
+  padding:
+    calc(28px + env(safe-area-inset-top))
+    0
+    calc(44px + env(safe-area-inset-bottom));
+}
+
+.flip-detail-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.flip-detail-kicker {
+  color: var(--gold);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  margin-bottom: 7px;
+}
+
+.flip-detail-head h2 {
+  margin: 0;
+  color: var(--text);
+  font-size: 26px;
+  letter-spacing: -.6px;
+}
+
+.flip-detail-meta {
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.flip-detail-close {
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--panel);
+  color: var(--text);
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.flip-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 12px;
+}
+
+.flip-gallery-thumb {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  overflow: hidden;
+  background: var(--panel);
+  cursor: pointer;
+  aspect-ratio: 4 / 3;
+}
+
+.flip-gallery-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.flip-photo-viewer {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100020;
+  align-items: center;
+  justify-content: center;
+  padding:
+    calc(58px + env(safe-area-inset-top))
+    18px
+    calc(40px + env(safe-area-inset-bottom));
+  background: rgba(3,5,8,.97);
+}
+
+.flip-photo-viewer.is-open {
+  display: flex;
+}
+
+.flip-photo-viewer img {
+  display: block;
+  max-width: 100%;
+  max-height: calc(100dvh - 110px);
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.flip-photo-viewer-close {
+  position: fixed;
+  top: calc(14px + env(safe-area-inset-top));
+  right: 16px;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 50%;
+  background: rgba(17,23,30,.94);
+  color: var(--text);
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.flip-photo-counter {
+  position: fixed;
+  top: calc(25px + env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 760px) {
+  .flip-detail-shell {
+    width: calc(100% - 28px);
+    padding-top: calc(20px + env(safe-area-inset-top));
+  }
+
+  .flip-detail-head h2 {
+    font-size: 22px;
+  }
+
+  .flip-gallery-grid {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 8px;
+  }
+
+  .flip-gallery-thumb {
+    border-radius: 12px;
+  }
+}
+
+
+
+/* EAGLE FINANCE SINGLE-PHOTO GALLERY */
+.flip-gallery-sources {
+  display: none !important;
+}
+
+.flip-gallery-stage {
+  position: relative;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.flip-gallery-main {
+  display: flex;
+  width: 100%;
+  min-height: 520px;
+  max-height: calc(100vh - 210px);
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 16px;
+  background: #090d12;
+  cursor: zoom-in;
+}
+
+.flip-gallery-main-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: calc(100vh - 210px);
+  object-fit: contain;
+  object-position: center;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
+
+.flip-gallery-nav {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  width: 58px;
+  height: 110px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: rgba(255,255,255,.62);
+  font-size: 42px;
+  font-weight: 300;
+  line-height: 1;
+  transform: translateY(-50%);
+  cursor: pointer;
+  opacity: .55;
+  transition: opacity .16s ease, background .16s ease;
+}
+
+.flip-gallery-nav:hover {
+  opacity: 1;
+  background: rgba(0,0,0,.16);
+}
+
+.flip-gallery-prev {
+  left: 0;
+}
+
+.flip-gallery-next {
+  right: 0;
+}
+
+.flip-gallery-counter {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  padding: 6px 10px;
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 999px;
+  background: rgba(5,8,11,.72);
+  color: rgba(255,255,255,.78);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  pointer-events: none;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+@media (max-width: 760px) {
+  .flip-gallery-stage {
+    margin-top: 16px;
+  }
+
+  .flip-gallery-main {
+    min-height: 0;
+    height: min(62vh, 620px);
+    max-height: none;
+    border-radius: 14px;
+    touch-action: pan-y;
+  }
+
+  .flip-gallery-main-image {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    object-fit: contain;
+  }
+
+  .flip-gallery-nav {
+    display: none;
+  }
+
+  .flip-gallery-counter {
+    bottom: 10px;
+  }
+}
+
+
+/* EAGLE FINANCE FLIP PERFORMANCE */
+.flip-detail-performance {
+  margin-top: 22px;
+  padding: 22px 4px 4px;
+  border-top: 1px solid rgba(255,255,255,.07);
+}
+
+.flip-detail-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.flip-detail-metric {
+  min-width: 0;
+  text-align: center;
+}
+
+.flip-detail-metric span,
+.flip-detail-replaced span {
+  display: block;
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.25px;
+}
+
+.flip-detail-metric strong {
+  display: block;
+  margin-top: 8px;
+  color: var(--text);
+  font-size: 20px;
+  font-weight: 750;
+  letter-spacing: -.35px;
+}
+
+.flip-detail-metric strong.gold {
+  color: var(--gold);
+}
+
+.flip-detail-replaced {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255,255,255,.055);
+}
+
+.flip-detail-replaced strong {
+  display: block;
+  margin-top: 8px;
+  color: rgba(242,245,247,.88);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+@media (max-width: 760px) {
+  .flip-detail-performance {
+    margin-top: 18px;
+    padding: 18px 0 2px;
+  }
+
+  .flip-detail-metrics {
+    gap: 6px;
+  }
+
+  .flip-detail-metric span,
+  .flip-detail-replaced span {
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+
+  .flip-detail-metric strong {
+    margin-top: 7px;
+    font-size: 17px;
+  }
+
+  .flip-detail-replaced {
+    margin-top: 18px;
+    padding-top: 16px;
+  }
+
+  .flip-detail-replaced strong {
+    font-size: 13px;
+  }
+}
+
+
+
+/* EAGLE FINANCE FLIP DETAIL — READABILITY */
+.flip-detail-kicker {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+}
+
+.flip-detail-meta {
+  font-size: 13px;
+}
+
+.flip-gallery-counter {
+  font-size: 11px;
+  padding: 6px 11px;
+}
+
+@media (max-width: 760px) {
+  .flip-detail-kicker {
+    font-size: 10px;
+  }
+
+  .flip-detail-meta {
+    font-size: 12px;
+  }
+
+  .flip-gallery-counter {
+    font-size: 10px;
+  }
+}
+
+/* EAGLE FINANCE FLIP DETAIL — VISUAL REFINEMENT */
+@media (min-width: 761px) {
+  .flip-gallery-main {
+    min-height: 0;
+    height: min(56vh, 610px);
+    max-height: 610px;
+  }
+
+  .flip-gallery-main-image {
+    height: 100%;
+    max-height: 610px;
+  }
+}
+
+.flip-detail-performance {
+  margin-top: 18px;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(17,23,30,.96),
+      rgba(13,18,24,.96)
+    );
+}
+
+.flip-detail-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+
+.flip-detail-metric {
+  position: relative;
+  padding: 21px 18px 20px;
+  text-align: center;
+}
+
+.flip-detail-metric + .flip-detail-metric {
+  border-left: 1px solid rgba(255,255,255,.065);
+}
+
+.flip-detail-metric span,
+.flip-detail-replaced span {
+  color: #929ca8;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.25px;
+}
+
+.flip-detail-metric strong {
+  margin-top: 9px;
+  color: #f2f5f7;
+  font-size: 27px;
+  font-weight: 780;
+  line-height: 1;
+  letter-spacing: -.45px;
+}
+
+.flip-detail-metric strong.gold {
+  color: var(--gold);
+  text-shadow: 0 0 18px rgba(201,170,106,.10);
+}
+
+.flip-detail-replaced {
+  margin: 0;
+  padding: 17px 20px 19px;
+  border-top: 1px solid rgba(255,255,255,.065);
+}
+
+.flip-detail-replaced strong {
+  margin-top: 8px;
+  color: #dce2e7;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.55;
+}
+
+@media (max-width: 760px) {
+  .flip-detail-performance {
+    margin-top: 14px;
+    border-radius: 14px;
+  }
+
+  .flip-detail-metric {
+    padding: 17px 8px 16px;
+  }
+
+  .flip-detail-metric span,
+  .flip-detail-replaced span {
+    font-size: 10px;
+    letter-spacing: .9px;
+  }
+
+  .flip-detail-metric strong {
+    margin-top: 8px;
+    font-size: 22px;
+  }
+
+  .flip-detail-replaced {
+    padding: 15px 16px 17px;
+  }
+
+  .flip-detail-replaced strong {
+    margin-top: 7px;
+    font-size: 11px;
+  }
+}
+
 /* EAGLE MOBILE DRAWER — PROVEN MARKET IMPLEMENTATION */
 .eagle-mobile-menu,
 .eagle-mobile-menu-overlay {
@@ -602,6 +1144,92 @@ tr:last-child td { border-bottom: 0; }
     }
   }
 
+
+
+/* EAGLE FINANCE FLIP DETAIL — REALIZED RESULT */
+.flip-detail-result {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 0;
+  border-top: 1px solid rgba(255,255,255,.065);
+  background: rgba(255,255,255,.012);
+  transition:
+    background .18s ease,
+    box-shadow .18s ease;
+}
+
+.flip-detail-result.positive {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(44,224,146,.055),
+      rgba(44,224,146,.018)
+    );
+  box-shadow: inset 0 1px 0 rgba(44,224,146,.035);
+}
+
+.flip-detail-result.negative {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,86,101,.055),
+      rgba(255,86,101,.018)
+    );
+  box-shadow: inset 0 1px 0 rgba(255,86,101,.035);
+}
+
+.flip-detail-result-item {
+  min-width: 0;
+  padding: 19px 20px 20px;
+  text-align: center;
+}
+
+.flip-detail-result-item + .flip-detail-result-item {
+  border-left: 1px solid rgba(255,255,255,.065);
+}
+
+.flip-detail-result-item span {
+  display: block;
+  color: #929ca8;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.25px;
+}
+
+.flip-detail-result-item strong {
+  display: block;
+  margin-top: 9px;
+  color: #f2f5f7;
+  font-size: 25px;
+  font-weight: 780;
+  line-height: 1;
+  letter-spacing: -.4px;
+}
+
+.flip-detail-result-item strong.positive {
+  color: var(--green);
+  text-shadow: 0 0 18px rgba(44,224,146,.10);
+}
+
+.flip-detail-result-item strong.negative {
+  color: var(--red);
+  text-shadow: 0 0 18px rgba(255,86,101,.10);
+}
+
+@media (max-width: 760px) {
+  .flip-detail-result-item {
+    padding: 17px 10px 18px;
+  }
+
+  .flip-detail-result-item span {
+    font-size: 10px;
+    letter-spacing: .9px;
+  }
+
+  .flip-detail-result-item strong {
+    font-size: 21px;
+  }
+}
 </style>
 </head>
 
@@ -782,7 +1410,7 @@ tr:last-child td { border-bottom: 0; }
       </thead>
       <tbody>
         
-        <tr>
+        <tr class="flip-detail-row" data-flip-id="F002" role="button" tabindex="0" aria-label="Open F002 listing photos">
           <td>F002</td>
           <td>
             <div class="model">iPhone 14 Pro Max 128GB</div>
@@ -791,7 +1419,7 @@ tr:last-child td { border-bottom: 0; }
           <td>€200,00</td>
           <td>€101,51</td>
           <td><strong>€301,51</strong></td>
-          <td>—</td>
+          <td>€405,00</td>
           <td><span class="badge active">ACTIVE</span></td>
         </tr>
       </tbody>
@@ -837,6 +1465,398 @@ tr:last-child td { border-bottom: 0; }
   </div>
 
 </div>
+
+
+        <section
+          class="flip-detail-view"
+          data-flip-gallery="F002"
+          aria-hidden="true"
+          aria-label="F002 listing gallery"
+        >
+          <div class="flip-detail-shell">
+            <div class="flip-detail-head">
+              <div>
+                <div class="flip-detail-kicker">F002</div>
+                <h2>iPhone 14 Pro Max 128GB</h2>
+                <div class="flip-detail-meta">
+                  Ingekocht · 9 listing photos
+                </div>
+              </div>
+
+              <button
+                class="flip-detail-close"
+                type="button"
+                aria-label="Close flip details"
+              >×</button>
+            </div>
+
+            <div class="flip-gallery-stage">
+              <button
+                class="flip-gallery-nav flip-gallery-prev"
+                type="button"
+                aria-label="Previous photo"
+              >‹</button>
+
+              <button
+                class="flip-gallery-main"
+                type="button"
+                aria-label="Open photo fullscreen"
+              >
+                <img
+                  class="flip-gallery-main-image"
+                  src=""
+                  alt=""
+                >
+              </button>
+
+              <button
+                class="flip-gallery-nav flip-gallery-next"
+                type="button"
+                aria-label="Next photo"
+              >›</button>
+
+              <div class="flip-gallery-counter"></div>
+            </div>
+
+            <div class="flip-gallery-sources" hidden>
+              
+              <img
+                class="flip-gallery-source"
+                src="flip-assets/F002/listing/01.jpg"
+                alt="F002 listing photo 1"
+                data-gallery-index="0"
+                loading="lazy"
+              >
+              <img
+                class="flip-gallery-source"
+                src="flip-assets/F002/listing/02.jpg"
+                alt="F002 listing photo 2"
+                data-gallery-index="1"
+                loading="lazy"
+              >
+              <img
+                class="flip-gallery-source"
+                src="flip-assets/F002/listing/03.jpg"
+                alt="F002 listing photo 3"
+                data-gallery-index="2"
+                loading="lazy"
+              >
+              <img
+                class="flip-gallery-source"
+                src="flip-assets/F002/listing/04.jpg"
+                alt="F002 listing photo 4"
+                data-gallery-index="3"
+                loading="lazy"
+              >
+              <img
+                class="flip-gallery-source"
+                src="flip-assets/F002/listing/05.jpg"
+                alt="F002 listing photo 5"
+                data-gallery-index="4"
+                loading="lazy"
+              >
+              <img
+                class="flip-gallery-source"
+                src="flip-assets/F002/listing/06.jpg"
+                alt="F002 listing photo 6"
+                data-gallery-index="5"
+                loading="lazy"
+              >
+              <img
+                class="flip-gallery-source"
+                src="flip-assets/F002/listing/07.jpg"
+                alt="F002 listing photo 7"
+                data-gallery-index="6"
+                loading="lazy"
+              >
+              <img
+                class="flip-gallery-source"
+                src="flip-assets/F002/listing/08.jpg"
+                alt="F002 listing photo 8"
+                data-gallery-index="7"
+                loading="lazy"
+              >
+              <img
+                class="flip-gallery-source"
+                src="flip-assets/F002/listing/09.jpg"
+                alt="F002 listing photo 9"
+                data-gallery-index="8"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="flip-detail-performance">
+              <div class="flip-detail-metrics">
+                <div class="flip-detail-metric">
+                  <span>LISTED FOR</span>
+                  <strong>€415,00</strong>
+                </div>
+
+                <div class="flip-detail-metric">
+                  <span>EAGLE PIN</span>
+                  <strong class="gold">€405,00</strong>
+                </div>
+
+                <div class="flip-detail-metric">
+                  <span>SOLD FOR</span>
+                  <strong>—</strong>
+                </div>
+              </div>
+
+              <div class="flip-detail-result ">
+                <div class="flip-detail-result-item">
+                  <span>REALIZED P/L</span>
+                  <strong class="">—</strong>
+                </div>
+
+                <div class="flip-detail-result-item">
+                  <span>ROI</span>
+                  <strong class="">—</strong>
+                </div>
+              </div>
+
+              <div class="flip-detail-replaced">
+                <span>REPLACED</span>
+                <strong>Housing · Battery cell · Display adhesive</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+<div
+  class="flip-photo-viewer"
+  id="flip-photo-viewer"
+  aria-hidden="true"
+>
+  <div class="flip-photo-counter" id="flip-photo-counter"></div>
+  <button
+    class="flip-photo-viewer-close"
+    id="flip-photo-viewer-close"
+    type="button"
+    aria-label="Close photo"
+  >×</button>
+  <img id="flip-photo-viewer-image" src="" alt="">
+</div>
+
+<script>
+// EAGLE_FINANCE_FLIP_DETAIL
+(() => {
+  const rows = document.querySelectorAll(".flip-detail-row");
+  const galleries = document.querySelectorAll(".flip-detail-view");
+  const viewer = document.getElementById("flip-photo-viewer");
+  const viewerImage = document.getElementById("flip-photo-viewer-image");
+  const viewerClose = document.getElementById("flip-photo-viewer-close");
+  const viewerCounter = document.getElementById("flip-photo-counter");
+
+  if (!rows.length || !galleries.length || !viewer || !viewerImage) return;
+
+  let currentGallery = null;
+  let currentImages = [];
+  let currentIndex = 0;
+  let gallerySwipeStartX = 0;
+  let gallerySwipeStartY = 0;
+  let viewerSwipeStartX = 0;
+  let viewerSwipeStartY = 0;
+
+  function galleryFor(flipId) {
+    return Array.from(galleries).find(
+      gallery => gallery.dataset.flipGallery === flipId
+    );
+  }
+
+  function imagesFor(gallery) {
+    return Array.from(
+      gallery.querySelectorAll(".flip-gallery-source")
+    );
+  }
+
+  function renderGalleryPhoto(gallery, index) {
+    const images = imagesFor(gallery);
+    if (!images.length) return;
+
+    currentIndex = (index + images.length) % images.length;
+
+    const source = images[currentIndex];
+    const mainImage = gallery.querySelector(".flip-gallery-main-image");
+    const counter = gallery.querySelector(".flip-gallery-counter");
+
+    if (mainImage) {
+      mainImage.src = source.src;
+      mainImage.alt = source.alt || "";
+    }
+
+    if (counter) {
+      counter.textContent =
+        (currentIndex + 1) + " / " + images.length;
+    }
+  }
+
+  function openGallery(flipId) {
+    const gallery = galleryFor(flipId);
+    if (!gallery) return;
+
+    currentGallery = gallery;
+    currentImages = imagesFor(gallery);
+    currentIndex = 0;
+
+    renderGalleryPhoto(gallery, 0);
+
+    gallery.classList.add("is-open");
+    gallery.setAttribute("aria-hidden", "false");
+    document.body.classList.add("flip-detail-open");
+  }
+
+  function closeGallery() {
+    if (!currentGallery) return;
+
+    currentGallery.classList.remove("is-open");
+    currentGallery.setAttribute("aria-hidden", "true");
+    currentGallery = null;
+    currentImages = [];
+    currentIndex = 0;
+    document.body.classList.remove("flip-detail-open");
+  }
+
+  function stepGallery(delta) {
+    if (!currentGallery) return;
+    renderGalleryPhoto(currentGallery, currentIndex + delta);
+  }
+
+  function showViewerPhoto(index) {
+    if (!currentImages.length) return;
+
+    currentIndex =
+      (index + currentImages.length) % currentImages.length;
+
+    const image = currentImages[currentIndex];
+
+    viewerImage.src = image.src;
+    viewerImage.alt = image.alt || "";
+    viewerCounter.textContent =
+      (currentIndex + 1) + " / " + currentImages.length;
+
+    if (currentGallery) {
+      renderGalleryPhoto(currentGallery, currentIndex);
+    }
+  }
+
+  function openPhoto() {
+    if (!currentGallery) return;
+
+    currentImages = imagesFor(currentGallery);
+    showViewerPhoto(currentIndex);
+
+    viewer.classList.add("is-open");
+    viewer.setAttribute("aria-hidden", "false");
+  }
+
+  function closePhoto() {
+    viewer.classList.remove("is-open");
+    viewer.setAttribute("aria-hidden", "true");
+    viewerImage.removeAttribute("src");
+  }
+
+  rows.forEach(row => {
+    const activate = () => openGallery(row.dataset.flipId);
+
+    row.addEventListener("click", activate);
+    row.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        activate();
+      }
+    });
+  });
+
+  galleries.forEach(gallery => {
+    const close = gallery.querySelector(".flip-detail-close");
+    const main = gallery.querySelector(".flip-gallery-main");
+    const prev = gallery.querySelector(".flip-gallery-prev");
+    const next = gallery.querySelector(".flip-gallery-next");
+
+    if (close) {
+      close.addEventListener("click", closeGallery);
+    }
+
+    if (main) {
+      main.addEventListener("click", openPhoto);
+
+      main.addEventListener("touchstart", event => {
+        if (event.touches.length !== 1) return;
+
+        gallerySwipeStartX = event.touches[0].clientX;
+        gallerySwipeStartY = event.touches[0].clientY;
+      }, { passive: true });
+
+      main.addEventListener("touchend", event => {
+        const touch = event.changedTouches && event.changedTouches[0];
+        if (!touch) return;
+
+        const dx = touch.clientX - gallerySwipeStartX;
+        const dy = touch.clientY - gallerySwipeStartY;
+
+        if (Math.abs(dx) < 45 || Math.abs(dx) <= Math.abs(dy)) return;
+
+        stepGallery(dx < 0 ? 1 : -1);
+      }, { passive: true });
+    }
+
+    if (prev) {
+      prev.addEventListener("click", event => {
+        event.stopPropagation();
+        stepGallery(-1);
+      });
+    }
+
+    if (next) {
+      next.addEventListener("click", event => {
+        event.stopPropagation();
+        stepGallery(1);
+      });
+    }
+  });
+
+  viewerClose.addEventListener("click", closePhoto);
+
+  viewer.addEventListener("click", event => {
+    if (event.target === viewer) closePhoto();
+  });
+
+  viewer.addEventListener("touchstart", event => {
+    if (event.touches.length !== 1) return;
+
+    viewerSwipeStartX = event.touches[0].clientX;
+    viewerSwipeStartY = event.touches[0].clientY;
+  }, { passive: true });
+
+  viewer.addEventListener("touchend", event => {
+    const touch = event.changedTouches && event.changedTouches[0];
+    if (!touch || !currentImages.length) return;
+
+    const dx = touch.clientX - viewerSwipeStartX;
+    const dy = touch.clientY - viewerSwipeStartY;
+
+    if (Math.abs(dx) < 45 || Math.abs(dx) <= Math.abs(dy)) return;
+
+    showViewerPhoto(currentIndex + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+
+  document.addEventListener("keydown", event => {
+    if (viewer.classList.contains("is-open")) {
+      if (event.key === "Escape") closePhoto();
+      if (event.key === "ArrowRight") showViewerPhoto(currentIndex + 1);
+      if (event.key === "ArrowLeft") showViewerPhoto(currentIndex - 1);
+      return;
+    }
+
+    if (!currentGallery) return;
+
+    if (event.key === "Escape") closeGallery();
+    if (event.key === "ArrowRight") stepGallery(1);
+    if (event.key === "ArrowLeft") stepGallery(-1);
+  });
+})();
+</script>
 
 <script>
 // EAGLE_PULL_REFRESH
@@ -1206,3 +2226,5 @@ tr:last-child td { border-bottom: 0; }
 
 </body>
 </html>
+
+
