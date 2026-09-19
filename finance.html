@@ -1145,6 +1145,52 @@ body.flip-detail-open {
   }
 }
 
+/* EAGLE FINANCE FLIP DETAIL — REPLACED LIST */
+.flip-detail-replaced-content {
+  margin-top: 0;
+}
+
+.flip-detail-replaced-list {
+  margin: 9px 0 0;
+  padding: 0;
+  list-style: none;
+  color: #dce2e7;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.7;
+}
+
+.flip-detail-replaced-list li {
+  position: relative;
+  padding-left: 15px;
+}
+
+.flip-detail-replaced-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #929ca8;
+}
+
+.flip-detail-replaced-empty {
+  margin-top: 8px;
+  color: #dce2e7;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+@media (max-width: 760px) {
+  .flip-detail-replaced-list,
+  .flip-detail-replaced-empty {
+    font-size: 11px;
+  }
+
+  .flip-detail-replaced-list {
+    margin-top: 7px;
+  }
+}
+
+
 /* EAGLE FINANCE FLIP DETAIL — REALIZED RESULT */
 .flip-detail-result {
   display: grid;
@@ -1616,7 +1662,7 @@ body.flip-detail-open {
 
               <div class="flip-detail-replaced">
                 <span>REPLACED</span>
-                <strong>Housing · Battery cell · Display adhesive</strong>
+                <div class="flip-detail-replaced-content"><ul class="flip-detail-replaced-list"><li>Housing</li><li>Battery cell</li><li>Display adhesive</li></ul></div>
               </div>
             </div>
           </div>
