@@ -545,6 +545,171 @@ tr:last-child td {
   border: 1px solid rgba(255,95,104,.20);
 }
 
+
+.market-subnav {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 22px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.market-subnav::-webkit-scrollbar {
+  display: none;
+}
+
+.market-subnav-btn {
+  appearance: none;
+  flex: 0 0 auto;
+  border: 1px solid rgba(255,255,255,.10);
+  background: #0d1218;
+  color: #8f9aa6;
+  min-height: 38px;
+  padding: 0 15px;
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .75px;
+  cursor: pointer;
+  transition:
+    color .18s ease,
+    border-color .18s ease,
+    background .18s ease,
+    box-shadow .18s ease;
+}
+
+.market-subnav-btn:hover {
+  color: #d7dde4;
+  border-color: rgba(127,179,255,.28);
+}
+
+.market-subnav-btn.active {
+  color: #dceaff;
+  border-color: rgba(127,179,255,.50);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(127,179,255,.12),
+      rgba(127,179,255,.035)
+    ),
+    #0d1218;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.035),
+    0 0 16px rgba(127,179,255,.055);
+}
+
+.market-view {
+  display: none;
+}
+
+.market-view.active {
+  display: block;
+}
+
+.supply-demand-intro {
+  margin-bottom: 18px;
+}
+
+.supply-demand-title {
+  color: var(--text);
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -.4px;
+}
+
+.supply-demand-copy {
+  max-width: 720px;
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.supply-model-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.supply-model-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 18px;
+}
+
+.supply-model-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--line);
+}
+
+.supply-model-name {
+  color: var(--text);
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.supply-model-status {
+  color: var(--accent);
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: .85px;
+  white-space: nowrap;
+}
+
+.supply-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 4px;
+}
+
+.supply-metric {
+  padding: 14px 12px 11px 0;
+}
+
+.supply-metric:nth-child(even) {
+  padding-left: 14px;
+  border-left: 1px solid var(--line);
+}
+
+.supply-metric-label {
+  color: #78838f;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: .55px;
+  text-transform: uppercase;
+}
+
+.supply-metric-value {
+  margin-top: 5px;
+  color: #dfe5eb;
+  font-size: 15px;
+  font-weight: 750;
+}
+
+.supply-demand-note {
+  margin-top: 14px;
+  color: #697581;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+@media (max-width: 760px) {
+  .supply-model-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .supply-demand-title {
+    font-size: 21px;
+  }
+}
+
 .trend-card {
   margin-top: 30px;
   background: var(--panel);
@@ -1045,6 +1210,7 @@ canvas {
     font-size: 34px;
   }
 }
+}
 
 /* EAGLE MARKET FLIP DETAIL */
 .flip-detail-view {
@@ -1389,6 +1555,32 @@ body.flip-detail-open {
   border-top: 1px solid rgba(255,255,255,.055);
 }
 
+.flip-detail-replaced-content {
+  margin-top: 0;
+}
+
+.flip-detail-replaced-list {
+  margin: 9px 0 0;
+  padding: 0;
+  list-style: none;
+  color: #dce2e7;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.7;
+}
+
+.flip-detail-replaced-list li {
+  position: relative;
+  padding-left: 15px;
+}
+
+.flip-detail-replaced-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #929ca8;
+}
+
 .flip-detail-replaced strong {
   display: block;
   margin-top: 8px;
@@ -1571,6 +1763,92 @@ body.flip-detail-open {
   }
 }
 
+
+/* EAGLE FINANCE FLIP DETAIL — REALIZED RESULT */
+.flip-detail-result {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 0;
+  border-top: 1px solid rgba(255,255,255,.065);
+  background: rgba(255,255,255,.012);
+  transition:
+    background .18s ease,
+    box-shadow .18s ease;
+}
+
+.flip-detail-result.positive {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(44,224,146,.055),
+      rgba(44,224,146,.018)
+    );
+  box-shadow: inset 0 1px 0 rgba(44,224,146,.035);
+}
+
+.flip-detail-result.negative {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,86,101,.055),
+      rgba(255,86,101,.018)
+    );
+  box-shadow: inset 0 1px 0 rgba(255,86,101,.035);
+}
+
+.flip-detail-result-item {
+  min-width: 0;
+  padding: 19px 20px 20px;
+  text-align: center;
+}
+
+.flip-detail-result-item + .flip-detail-result-item {
+  border-left: 1px solid rgba(255,255,255,.065);
+}
+
+.flip-detail-result-item span {
+  display: block;
+  color: #929ca8;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.25px;
+}
+
+.flip-detail-result-item strong {
+  display: block;
+  margin-top: 9px;
+  color: #f2f5f7;
+  font-size: 25px;
+  font-weight: 780;
+  line-height: 1;
+  letter-spacing: -.4px;
+}
+
+.flip-detail-result-item strong.positive {
+  color: var(--green);
+  text-shadow: 0 0 18px rgba(44,224,146,.10);
+}
+
+.flip-detail-result-item strong.negative {
+  color: var(--red);
+  text-shadow: 0 0 18px rgba(255,86,101,.10);
+}
+
+@media (max-width: 760px) {
+  .flip-detail-result-item {
+    padding: 17px 10px 18px;
+  }
+
+  .flip-detail-result-item span {
+    font-size: 10px;
+    letter-spacing: .9px;
+  }
+
+  .flip-detail-result-item strong {
+    font-size: 21px;
+  }
+}
+
 </style>
 </head>
 
@@ -1584,7 +1862,7 @@ body.flip-detail-open {
         <h1>iPhone Resale Intelligence</h1>
         <div class="status">
           <div class="live" id="eagle-status"><span class="live-dot"></span> <span id="eagle-status-text">LIVE</span></div>
-          <div>Updated 2026-09-20 01:26</div>
+          <div>Updated 2026-09-20 01:39</div>
         </div>
       </div>
     </div>
@@ -1630,6 +1908,22 @@ body.flip-detail-open {
   <a class="nav-link" href="alerts.html?v=v20260918-1">ALERTS</a>
   <a class="nav-link" href="chat.html?v=v20260918-1">CHAT</a>
 </nav> 
+
+ <div class="market-subnav" aria-label="Market views">
+    <button
+      class="market-subnav-btn active"
+      type="button"
+      data-market-view="overview"
+    >OVERZICHT</button>
+
+    <button
+      class="market-subnav-btn"
+      type="button"
+      data-market-view="supply-demand"
+    >VRAAG &amp; AANBOD</button>
+  </div>
+
+  <div class="market-view active" id="market-view-overview">
 
  <div class="section-label">MARKET SNAPSHOT</div>
 
@@ -2129,6 +2423,163 @@ body.flip-detail-open {
     </div>
   </section>
 
+  </div>
+
+  <div class="market-view" id="market-view-supply-demand">
+    <div class="supply-demand-intro">
+      <div class="section-label">VRAAG &amp; AANBOD</div>
+      <div class="supply-demand-title">
+        Hoe snel bewegen deze toestellen?
+      </div>
+      <div class="supply-demand-copy">
+        Hier meten we hoeveel toestellen te koop staan,
+        hoeveel nieuwe advertenties erbij komen en hoe snel
+        advertenties weer verdwijnen.
+      </div>
+    </div>
+
+    <div class="supply-model-grid">
+
+      <article class="supply-model-card" data-demand-model="iPhone 14 Pro">
+        <div class="supply-model-head">
+          <div class="supply-model-name">iPhone 14 Pro</div>
+          <div class="supply-model-status">WORDT VERZAMELD</div>
+        </div>
+        <div class="supply-metrics">
+          <div class="supply-metric">
+            <div class="supply-metric-label">Te koop</div>
+            <div class="supply-metric-value">—</div>
+          </div>
+          <div class="supply-metric">
+            <div class="supply-metric-label">Nieuw per dag</div>
+            <div class="supply-metric-value">—</div>
+          </div>
+          <div class="supply-metric">
+            <div class="supply-metric-label">Weg binnen 1 dag</div>
+            <div class="supply-metric-value">—</div>
+          </div>
+          <div class="supply-metric">
+            <div class="supply-metric-label">Weg binnen 3 dagen</div>
+            <div class="supply-metric-value">—</div>
+          </div>
+          <div class="supply-metric">
+            <div class="supply-metric-label">Gem. vraagprijs</div>
+            <div class="supply-metric-value">—</div>
+          </div>
+          <div class="supply-metric">
+            <div class="supply-metric-label">Gem. dagen online</div>
+            <div class="supply-metric-value">—</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="supply-model-card" data-demand-model="iPhone 14 Pro Max">
+        <div class="supply-model-head">
+          <div class="supply-model-name">iPhone 14 Pro Max</div>
+          <div class="supply-model-status">WORDT VERZAMELD</div>
+        </div>
+        <div class="supply-metrics">
+          <div class="supply-metric">
+            <div class="supply-metric-label">Te koop</div>
+            <div class="supply-metric-value">—</div>
+          </div>
+          <div class="supply-metric">
+            <div class="supply-metric-label">Nieuw per dag</div>
+            <div class="supply-metric-value">—</div>
+          </div>
+          <div class="supply-metric">
+            <div class="supply-metric-label">Weg binnen 1 dag</div>
+            <div class="supply-metric-value">—</div>
+          </div>
+          <div class="supply-metric">
+            <div class="supply-metric-label">Weg binnen 3 dagen</div>
+            <div class="supply-metric-value">—</div>
+          </div>
+          <div class="supply-metric">
+            <div class="supply-metric-label">Gem. vraagprijs</div>
+            <div class="supply-metric-value">—</div>
+          </div>
+          <div class="supply-metric">
+            <div class="supply-metric-label">Gem. dagen online</div>
+            <div class="supply-metric-value">—</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="supply-model-card" data-demand-model="iPhone 15 Pro">
+        <div class="supply-model-head">
+          <div class="supply-model-name">iPhone 15 Pro</div>
+          <div class="supply-model-status">WORDT VERZAMELD</div>
+        </div>
+        <div class="supply-metrics">
+          <div class="supply-metric">
+            <div class="supply-metric-label">Te koop</div>
+            <div class="supply-metric-value">—</div>
+          </div>
+          <div class="supply-metric">
+            <div class="supply-metric-label">Nieuw per dag</div>
+            <div class="supply-metric-value">—</div>
+          </div>
+          <div class="supply-metric">
+            <div class="supply-metric-label">Weg binnen 1 dag</div>
+            <div class="supply-metric-value">—</div>
+          </div>
+          <div class="supply-metric">
+            <div class="supply-metric-label">Weg binnen 3 dagen</div>
+            <div class="supply-metric-value">—</div>
+          </div>
+          <div class="supply-metric">
+            <div class="supply-metric-label">Gem. vraagprijs</div>
+            <div class="supply-metric-value">—</div>
+          </div>
+          <div class="supply-metric">
+            <div class="supply-metric-label">Gem. dagen online</div>
+            <div class="supply-metric-value">—</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="supply-model-card" data-demand-model="iPhone 15 Pro Max">
+        <div class="supply-model-head">
+          <div class="supply-model-name">iPhone 15 Pro Max</div>
+          <div class="supply-model-status">WORDT VERZAMELD</div>
+        </div>
+        <div class="supply-metrics">
+          <div class="supply-metric">
+            <div class="supply-metric-label">Te koop</div>
+            <div class="supply-metric-value">—</div>
+          </div>
+          <div class="supply-metric">
+            <div class="supply-metric-label">Nieuw per dag</div>
+            <div class="supply-metric-value">—</div>
+          </div>
+          <div class="supply-metric">
+            <div class="supply-metric-label">Weg binnen 1 dag</div>
+            <div class="supply-metric-value">—</div>
+          </div>
+          <div class="supply-metric">
+            <div class="supply-metric-label">Weg binnen 3 dagen</div>
+            <div class="supply-metric-value">—</div>
+          </div>
+          <div class="supply-metric">
+            <div class="supply-metric-label">Gem. vraagprijs</div>
+            <div class="supply-metric-value">—</div>
+          </div>
+          <div class="supply-metric">
+            <div class="supply-metric-label">Gem. dagen online</div>
+            <div class="supply-metric-value">—</div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="supply-demand-note">
+      Verdwenen advertenties zijn niet automatisch bevestigde verkopen.
+      De meetlogica wordt hierna aangesloten op de opgeslagen Marktplaats-data.
+    </div>
+  </div>
+
   <div class="footer">
     Eagle PIN · v2.1
   </div>
@@ -2290,6 +2741,161 @@ body.flip-detail-open {
             </div>
           </div>
         </section>
+        <section
+          class="flip-detail-view" style="display:none;position:fixed;inset:0;z-index:100010;overflow-y:auto;"
+          data-flip-gallery="F002-buy"
+          aria-hidden="true"
+          aria-label="F002 listing gallery"
+        >
+          <div class="flip-detail-shell">
+            <div class="flip-detail-head">
+              <div>
+                <div class="flip-detail-kicker">F002</div>
+                <h2>iPhone 14 Pro Max 128GB</h2>
+                <div class="flip-detail-meta">
+                  Ingekocht · 9 listing photos
+                </div>
+              </div>
+
+              <button
+                class="flip-detail-close"
+                type="button"
+                aria-label="Close flip details"
+              >×</button>
+            </div>
+
+            <div class="flip-gallery-stage">
+              <button
+                class="flip-gallery-nav flip-gallery-prev"
+                type="button"
+                aria-label="Previous photo"
+              >‹</button>
+
+              <button
+                class="flip-gallery-main"
+                type="button"
+                aria-label="Open photo fullscreen"
+              >
+                <img
+                  class="flip-gallery-main-image"
+                  src=""
+                  alt=""
+                >
+              </button>
+
+              <button
+                class="flip-gallery-nav flip-gallery-next"
+                type="button"
+                aria-label="Next photo"
+              >›</button>
+
+              <div class="flip-gallery-counter"></div>
+            </div>
+
+            <div class="flip-gallery-sources" hidden>
+              
+              <img
+                class="flip-gallery-source"
+                src="flip-assets/F002/listing/01.jpg"
+                alt="F002 listing photo 1"
+                data-gallery-index="0"
+                loading="lazy"
+              >
+              <img
+                class="flip-gallery-source"
+                src="flip-assets/F002/listing/02.jpg"
+                alt="F002 listing photo 2"
+                data-gallery-index="1"
+                loading="lazy"
+              >
+              <img
+                class="flip-gallery-source"
+                src="flip-assets/F002/listing/03.jpg"
+                alt="F002 listing photo 3"
+                data-gallery-index="2"
+                loading="lazy"
+              >
+              <img
+                class="flip-gallery-source"
+                src="flip-assets/F002/listing/04.jpg"
+                alt="F002 listing photo 4"
+                data-gallery-index="3"
+                loading="lazy"
+              >
+              <img
+                class="flip-gallery-source"
+                src="flip-assets/F002/listing/05.jpg"
+                alt="F002 listing photo 5"
+                data-gallery-index="4"
+                loading="lazy"
+              >
+              <img
+                class="flip-gallery-source"
+                src="flip-assets/F002/listing/06.jpg"
+                alt="F002 listing photo 6"
+                data-gallery-index="5"
+                loading="lazy"
+              >
+              <img
+                class="flip-gallery-source"
+                src="flip-assets/F002/listing/07.jpg"
+                alt="F002 listing photo 7"
+                data-gallery-index="6"
+                loading="lazy"
+              >
+              <img
+                class="flip-gallery-source"
+                src="flip-assets/F002/listing/08.jpg"
+                alt="F002 listing photo 8"
+                data-gallery-index="7"
+                loading="lazy"
+              >
+              <img
+                class="flip-gallery-source"
+                src="flip-assets/F002/listing/09.jpg"
+                alt="F002 listing photo 9"
+                data-gallery-index="8"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="flip-detail-performance">
+              <div class="flip-detail-metrics">
+                <div class="flip-detail-metric">
+                  <span>LISTED FOR</span>
+                  <strong>€415,00</strong>
+                </div>
+
+                <div class="flip-detail-metric">
+                  <span>EAGLE PIN</span>
+                  <strong class="gold">€405,00</strong>
+                </div>
+
+                <div class="flip-detail-metric">
+                  <span>INVESTED</span>
+                  <strong>€301,51</strong>
+                </div>
+              </div>
+
+              <div class="flip-detail-result positive">
+                <div class="flip-detail-result-item">
+                  <span>POTENTIAL P/L</span>
+                  <strong class="positive">+€103,49</strong>
+                </div>
+
+                <div class="flip-detail-result-item">
+                  <span>POT. ROI</span>
+                  <strong class="positive">+34,3%</strong>
+                </div>
+              </div>
+
+              <div class="flip-detail-replaced">
+                <span>REPLACED</span>
+                <div class="flip-detail-replaced-content"><ul class="flip-detail-replaced-list"><li>Housing</li><li>Battery cell</li><li>Display adhesive</li></ul></div>
+              </div>
+            </div>
+          </div>
+        </section>
 
 <div
   class="flip-photo-viewer"
@@ -2351,6 +2957,28 @@ function applyMarketFilter(filter) {
 
 document.querySelectorAll(".market-filter-btn").forEach(btn => {
   btn.addEventListener("click", () => applyMarketFilter(btn.dataset.filter));
+});
+
+
+document.querySelectorAll(".market-subnav-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const target = btn.dataset.marketView;
+
+    document.querySelectorAll(".market-subnav-btn").forEach(item => {
+      item.classList.toggle("active", item === btn);
+    });
+
+    document.querySelectorAll(".market-view").forEach(view => {
+      view.classList.toggle(
+        "active",
+        view.id === `market-view-${target}`
+      );
+    });
+
+    if (target === "overview") {
+      requestAnimationFrame(() => renderTrend());
+    }
+  });
 });
 
 let selectedHours = 24;
@@ -3898,7 +4526,7 @@ function drawFlipTooltip(marker) {
     y: boxY,
     width: boxWidth,
     height: boxHeight,
-    flipId: item.flip_id
+    flipId: isBuy ? `${item.flip_id}-buy` : item.flip_id
   };
 
   ctx.restore();
@@ -4096,7 +4724,7 @@ window.addEventListener("resize", renderTrend);
 // vanuit dezelfde ACTIVE FLIPS-context.
 applyMarketFilter("active");
 
-const eagleUpdatedAt = new Date("2026-09-20T01:26");
+const eagleUpdatedAt = new Date("2026-09-20T01:39");
 
 function updateEagleStatus() {
   const status = document.getElementById("eagle-status");
