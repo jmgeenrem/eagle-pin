@@ -1203,7 +1203,7 @@ canvas {
   }
 
   .chart-wrap {
-    height: 250px;
+    height: 340px;
   }
 
   .big-price {
@@ -1862,7 +1862,7 @@ body.flip-detail-open {
         <h1>iPhone Resale Intelligence</h1>
         <div class="status">
           <div class="live" id="eagle-status"><span class="live-dot"></span> <span id="eagle-status-text">LIVE</span></div>
-          <div>Updated 2026-09-20 16:21</div>
+          <div>Updated 2026-09-20 16:36</div>
         </div>
       </div>
     </div>
@@ -2463,7 +2463,7 @@ body.flip-detail-open {
         <div class="supply-metrics">
           <div class="supply-metric">
             <div class="supply-metric-label">Te koop</div>
-            <div class="supply-metric-value">—</div>
+            <div class="supply-metric-value">303</div>
           </div>
           <div class="supply-metric">
             <div class="supply-metric-label">Nieuw per dag</div>
@@ -2479,7 +2479,7 @@ body.flip-detail-open {
           </div>
           <div class="supply-metric">
             <div class="supply-metric-label">Gem. vraagprijs</div>
-            <div class="supply-metric-value">—</div>
+            <div class="supply-metric-value">360 €</div>
           </div>
           <div class="supply-metric">
             <div class="supply-metric-label">Gem. dagen online</div>
@@ -2487,6 +2487,7 @@ body.flip-detail-open {
           </div>
         </div>
       </article>
+
 
       <article class="supply-model-card" data-demand-model="iPhone 14 Pro Max">
         <div class="supply-model-head">
@@ -2496,7 +2497,7 @@ body.flip-detail-open {
         <div class="supply-metrics">
           <div class="supply-metric">
             <div class="supply-metric-label">Te koop</div>
-            <div class="supply-metric-value">—</div>
+            <div class="supply-metric-value">274</div>
           </div>
           <div class="supply-metric">
             <div class="supply-metric-label">Nieuw per dag</div>
@@ -2512,7 +2513,7 @@ body.flip-detail-open {
           </div>
           <div class="supply-metric">
             <div class="supply-metric-label">Gem. vraagprijs</div>
-            <div class="supply-metric-value">—</div>
+            <div class="supply-metric-value">429 €</div>
           </div>
           <div class="supply-metric">
             <div class="supply-metric-label">Gem. dagen online</div>
@@ -2520,6 +2521,7 @@ body.flip-detail-open {
           </div>
         </div>
       </article>
+
 
       <article class="supply-model-card" data-demand-model="iPhone 15 Pro">
         <div class="supply-model-head">
@@ -2529,7 +2531,7 @@ body.flip-detail-open {
         <div class="supply-metrics">
           <div class="supply-metric">
             <div class="supply-metric-label">Te koop</div>
-            <div class="supply-metric-value">—</div>
+            <div class="supply-metric-value">341</div>
           </div>
           <div class="supply-metric">
             <div class="supply-metric-label">Nieuw per dag</div>
@@ -2545,14 +2547,15 @@ body.flip-detail-open {
           </div>
           <div class="supply-metric">
             <div class="supply-metric-label">Gem. vraagprijs</div>
-            <div class="supply-metric-value">—</div>
+            <div class="supply-metric-value">486 €</div>
           </div>
           <div class="supply-metric">
             <div class="supply-metric-label">Gem. dagen online</div>
-            <div class="supply-metric-value">—</div>
+            <div class="supply-metric-value">0.2</div>
           </div>
         </div>
       </article>
+
 
       <article class="supply-model-card" data-demand-model="iPhone 15 Pro Max">
         <div class="supply-model-head">
@@ -2562,7 +2565,7 @@ body.flip-detail-open {
         <div class="supply-metrics">
           <div class="supply-metric">
             <div class="supply-metric-label">Te koop</div>
-            <div class="supply-metric-value">—</div>
+            <div class="supply-metric-value">315</div>
           </div>
           <div class="supply-metric">
             <div class="supply-metric-label">Nieuw per dag</div>
@@ -2578,7 +2581,7 @@ body.flip-detail-open {
           </div>
           <div class="supply-metric">
             <div class="supply-metric-label">Gem. vraagprijs</div>
-            <div class="supply-metric-value">—</div>
+            <div class="supply-metric-value">574 €</div>
           </div>
           <div class="supply-metric">
             <div class="supply-metric-label">Gem. dagen online</div>
@@ -3994,6 +3997,10 @@ function drawFlipTooltip(marker) {
   const history = chartState.history;
   const diff = chartState.diff;
 
+  // Preserve which marker the user explicitly opened. drawChart()
+  // rebuilds chartState, so this interaction state must survive redraws.
+  const activeFlipMarker = marker;
+
   // Always redraw the clean chart first.
   drawChart(history, diff);
 
@@ -4185,17 +4192,37 @@ function drawFlipTooltip(marker) {
 
   // SOLD is slightly taller because it contains the listing photo,
   // realized result and PIN deviation.
-  const boxWidth = isBuy ? 320 : 360;
+  // On narrow/mobile canvases the card must stay completely inside
+  // the visible chart. Desktop keeps the original 320/360px sizing.
+  const preferredBoxWidth = isBuy ? 320 : 360;
+  const mobileSideGap = 8;
+  const availableBoxWidth =
+    Math.max(0, chartState.width - (mobileSideGap * 2));
+
+  const boxWidth = Math.min(
+    preferredBoxWidth,
+    availableBoxWidth
+  );
+
   const boxHeight = isBuy ? 202 : 294;
 
   let boxX = marker.x + 16;
   let boxY = marker.y - boxHeight - 18;
 
-  if (boxX + boxWidth > chartState.width - 8) {
+  if (boxX + boxWidth > chartState.width - mobileSideGap) {
     boxX = marker.x - boxWidth - 16;
   }
 
-  if (boxX < 8) boxX = 8;
+  if (boxX < mobileSideGap) {
+    boxX = mobileSideGap;
+  }
+
+  if (boxX + boxWidth > chartState.width - mobileSideGap) {
+    boxX = Math.max(
+      mobileSideGap,
+      chartState.width - boxWidth - mobileSideGap
+    );
+  }
 
   if (boxY < 8) {
     boxY = marker.y + 18;
@@ -4541,7 +4568,8 @@ function drawFlipTooltip(marker) {
     y: boxY,
     width: boxWidth,
     height: boxHeight,
-    flipId: isBuy ? `${item.flip_id}-buy` : item.flip_id
+    flipId: isBuy ? `${item.flip_id}-buy` : item.flip_id,
+    marker: activeFlipMarker
   };
 
   ctx.restore();
@@ -4702,15 +4730,130 @@ canvas.addEventListener("pointermove", event => {
   });
 })();
 
-canvas.addEventListener("pointerdown", event => {
-  const card = flipCardFromEvent(event);
+function openFlipCardFromPoint(clientX, clientY) {
+  if (!chartState || !chartState.flipCard) return false;
+  if (typeof window.openMarketFlipGallery !== "function") return false;
 
-  if (!card || !card.flipId) return;
-  if (typeof window.openMarketFlipGallery !== "function") return;
+  const rect = canvas.getBoundingClientRect();
+  const x = clientX - rect.left;
+  const y = clientY - rect.top;
+  const card = chartState.flipCard;
+
+  if (
+    x < card.x ||
+    x > card.x + card.width ||
+    y < card.y ||
+    y > card.y + card.height ||
+    !card.flipId
+  ) {
+    return false;
+  }
+
+  window.openMarketFlipGallery(card.flipId);
+  return true;
+}
+
+canvas.addEventListener("pointerdown", event => {
+  if (event.pointerType === "touch") return;
+
+  if (openFlipCardFromPoint(event.clientX, event.clientY)) {
+    event.preventDefault();
+  }
+});
+
+let flipTouchStart = null;
+
+canvas.addEventListener("touchstart", event => {
+  if (!event.touches || event.touches.length !== 1) {
+    flipTouchStart = null;
+    return;
+  }
+
+  const touch = event.touches[0];
+  const rect = canvas.getBoundingClientRect();
+  const x = touch.clientX - rect.left;
+  const y = touch.clientY - rect.top;
+
+  let cardFlipId = null;
+
+  if (chartState && chartState.flipCard) {
+    const card = chartState.flipCard;
+
+    if (
+      x >= card.x &&
+      x <= card.x + card.width &&
+      y >= card.y &&
+      y <= card.y + card.height &&
+      card.flipId
+    ) {
+      cardFlipId = card.flipId;
+    }
+  }
+
+  flipTouchStart = {
+    x: touch.clientX,
+    y: touch.clientY,
+    cardFlipId
+  };
+}, { passive: true });
+
+canvas.addEventListener("touchend", event => {
+  if (!event.changedTouches || event.changedTouches.length !== 1) return;
+
+  const touch = event.changedTouches[0];
+  const clientX = touch.clientX;
+  const clientY = touch.clientY;
+
+  const touchStart = flipTouchStart;
+  flipTouchStart = null;
+
+  if (touchStart) {
+    const movedX = Math.abs(clientX - touchStart.x);
+    const movedY = Math.abs(clientY - touchStart.y);
+
+    // Normal page scrolling must not accidentally open a flip.
+    if (movedX > 18 || movedY > 18) return;
+
+    // If this tap STARTED on an already visible card, open that exact
+    // flip. Do not depend on canvas state still being identical at touchend.
+    if (
+      touchStart.cardFlipId &&
+      typeof window.openMarketFlipGallery === "function"
+    ) {
+      event.preventDefault();
+      event.stopPropagation();
+      window.openMarketFlipGallery(touchStart.cardFlipId);
+      return;
+    }
+  }
+
+  // First tap: detect a BUY/SOLD marker with an iPhone-friendly hit area.
+  if (!chartState || !chartState.flipMarkers) return;
+
+  const rect = canvas.getBoundingClientRect();
+  const x = clientX - rect.left;
+  const y = clientY - rect.top;
+
+  let bestMarker = null;
+  let bestDistance = Infinity;
+
+  chartState.flipMarkers.forEach(marker => {
+    const dx = marker.x - x;
+    const dy = marker.y - y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+
+    if (distance <= 32 && distance < bestDistance) {
+      bestMarker = marker;
+      bestDistance = distance;
+    }
+  });
+
+  if (!bestMarker) return;
 
   event.preventDefault();
-  window.openMarketFlipGallery(card.flipId);
-});
+  event.stopPropagation();
+  drawFlipTooltip(bestMarker);
+}, { passive: false });
 
 canvas.addEventListener("pointerleave", () => {
   if (chartState) {
@@ -4739,7 +4882,7 @@ window.addEventListener("resize", renderTrend);
 // vanuit dezelfde ACTIVE FLIPS-context.
 applyMarketFilter("active");
 
-const eagleUpdatedAt = new Date("2026-09-20T16:21");
+const eagleUpdatedAt = new Date("2026-09-20T16:36");
 
 function updateEagleStatus() {
   const status = document.getElementById("eagle-status");
