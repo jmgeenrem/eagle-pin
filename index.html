@@ -1862,7 +1862,7 @@ body.flip-detail-open {
         <h1>iPhone Resale Intelligence</h1>
         <div class="status">
           <div class="live" id="eagle-status"><span class="live-dot"></span> <span id="eagle-status-text">LIVE</span></div>
-          <div>Updated 2026-09-20 16:36</div>
+          <div>Updated 2026-09-20 16:39</div>
         </div>
       </div>
     </div>
@@ -4701,6 +4701,7 @@ canvas.addEventListener("pointermove", event => {
     const close = gallery.querySelector(".flip-detail-close");
     const prev = gallery.querySelector(".flip-gallery-prev");
     const next = gallery.querySelector(".flip-gallery-next");
+    const stage = gallery.querySelector(".flip-gallery-stage");
 
     if (close) {
       close.addEventListener("click", closeGallery);
@@ -4718,6 +4719,97 @@ canvas.addEventListener("pointermove", event => {
         event.stopPropagation();
         stepGallery(1);
       });
+    }
+
+    if (stage) {
+      let swipeStartX = 0;
+      let swipeStartY = 0;
+      let swipeTracking = false;
+      let horizontalSwipe = false;
+
+      stage.addEventListener("touchstart", event => {
+        if (event.touches.length !== 1) {
+          swipeTracking = false;
+          return;
+        }
+
+        const touch = event.touches[0];
+        swipeStartX = touch.clientX;
+        swipeStartY = touch.clientY;
+        swipeTracking = true;
+        horizontalSwipe = false;
+      }, { passive: true });
+
+      stage.addEventListener("touchmove", event => {
+        if (!swipeTracking || event.touches.length !== 1) return;
+
+        const touch = event.touches[0];
+        const deltaX = touch.clientX - swipeStartX;
+        const deltaY = touch.clientY - swipeStartY;
+
+        if (!horizontalSwipe) {
+          if (
+            Math.abs(deltaY) > 12 &&
+            Math.abs(deltaY) > Math.abs(deltaX)
+          ) {
+            swipeTracking = false;
+            return;
+          }
+
+          if (Math.abs(deltaX) < 12) return;
+
+          if (Math.abs(deltaX) <= Math.abs(deltaY) * 1.2) {
+            swipeTracking = false;
+            return;
+          }
+
+          horizontalSwipe = true;
+        }
+
+        event.preventDefault();
+      }, { passive: false });
+
+      stage.addEventListener("touchend", event => {
+        if (!swipeTracking) return;
+
+        const touch =
+          event.changedTouches && event.changedTouches[0];
+
+        const deltaX = touch
+          ? touch.clientX - swipeStartX
+          : 0;
+
+        const deltaY = touch
+          ? touch.clientY - swipeStartY
+          : 0;
+
+        swipeTracking = false;
+
+        if (
+          !horizontalSwipe ||
+          Math.abs(deltaX) < 45 ||
+          Math.abs(deltaX) <= Math.abs(deltaY) * 1.2
+        ) {
+          horizontalSwipe = false;
+          return;
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        if (deltaX < 0) {
+          stepGallery(1);
+        } else {
+          stepGallery(-1);
+        }
+
+        horizontalSwipe = false;
+      }, { passive: false });
+
+      stage.addEventListener("touchcancel", () => {
+        swipeTracking = false;
+        horizontalSwipe = false;
+      }, { passive: true });
     }
   });
 
@@ -4882,7 +4974,7 @@ window.addEventListener("resize", renderTrend);
 // vanuit dezelfde ACTIVE FLIPS-context.
 applyMarketFilter("active");
 
-const eagleUpdatedAt = new Date("2026-09-20T16:36");
+const eagleUpdatedAt = new Date("2026-09-20T16:39");
 
 function updateEagleStatus() {
   const status = document.getElementById("eagle-status");
