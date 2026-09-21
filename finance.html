@@ -439,13 +439,65 @@ tr:last-child td { border-bottom: 0; }
     min-height: 0;
   }
 
+  .chart-card {
+    padding: 16px 14px 14px;
+    overflow: hidden;
+  }
+
   .chart-head {
     display: block;
+    margin-bottom: 14px;
+  }
+
+  .chart-title {
+    font-size: 15px;
+  }
+
+  .chart-sub {
+    font-size: 10px;
+    line-height: 1.45;
+    max-width: 260px;
   }
 
   .chart-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
     margin-top: 15px;
     text-align: left;
+  }
+
+  .chart-stat {
+    min-width: 0;
+  }
+
+  .chart-stat small {
+    font-size: 8px;
+    letter-spacing: .7px;
+    margin-bottom: 4px;
+    white-space: nowrap;
+  }
+
+  .chart-stat strong {
+    font-size: 12px;
+  }
+
+  .chart {
+    width: 100%;
+    height: 210px;
+    overflow: visible;
+  }
+
+  .axis-text {
+    font-size: 12px;
+  }
+
+  .capital-line {
+    stroke-width: 4;
+  }
+
+  .point {
+    stroke-width: 4;
   }
 
   .table-card {
@@ -1430,13 +1482,13 @@ body.flip-detail-open {
 
     <div class="card capital-allocation">
       <small>GENERAL EXPENSES</small>
-      <strong>€31,73</strong>
+      <strong>€33,33</strong>
       <span>Equipment, transport and operating spend</span>
     </div>
 
     <div class="card capital-allocation total">
       <small>TOTAL DEPLOYED</small>
-      <strong>€398,79</strong>
+      <strong>€400,39</strong>
       <span>Total capital currently accounted for</span>
     </div>
   </div>
@@ -1568,12 +1620,30 @@ body.flip-detail-open {
       <tbody>
         
         <tr>
-          <td>21-09-2026</td>
+          <td>20 Sep</td>
+          <td>Transport</td>
+          <td>
+            <div class="model">OVpay</div>
+          </td>
+          <td><strong>€8,49</strong></td>
+        </tr>
+
+        <tr>
+          <td>20 Sep</td>
           <td>Voeding</td>
           <td>
             <div class="model">Albert Heijn</div>
           </td>
           <td><strong>€2,85</strong></td>
+        </tr>
+
+        <tr>
+          <td>20 Sep</td>
+          <td>Transport</td>
+          <td>
+            <div class="model">OVpay</div>
+          </td>
+          <td><strong>€1,60</strong></td>
         </tr>
 
         <tr>
@@ -1601,15 +1671,6 @@ body.flip-detail-open {
             <div class="model">Opening tool</div>
           </td>
           <td><strong>€0,99</strong></td>
-        </tr>
-
-        <tr>
-          <td>20-09-2026</td>
-          <td>Transport</td>
-          <td>
-            <div class="model">OVpay</div>
-          </td>
-          <td><strong>€8,49</strong></td>
         </tr>
       </tbody>
     </table>
