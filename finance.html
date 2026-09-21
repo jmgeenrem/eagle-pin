@@ -174,6 +174,58 @@ h1 {
 .negative { color: var(--red); }
 .gold { color: var(--gold); }
 
+.capital-allocation-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.capital-allocation {
+  padding: 17px 18px;
+  min-height: 105px;
+}
+
+.capital-allocation small {
+  display: block;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.capital-allocation strong {
+  display: block;
+  margin-top: 10px;
+  font-size: 21px;
+  letter-spacing: -.35px;
+}
+
+.capital-allocation span {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 7px;
+}
+
+.capital-allocation.total {
+  border-color: rgba(201,170,106,.32);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(201,170,106,.055),
+      var(--panel) 55%
+    );
+}
+
+.capital-allocation.total strong {
+  color: var(--gold);
+}
+
+.expenses-table th:last-child,
+.expenses-table td:last-child {
+  text-align: right;
+}
+
 .chart-card {
   padding: 20px;
 }
@@ -377,6 +429,14 @@ tr:last-child td { border-bottom: 0; }
   .kpi-grid,
   .performance-grid {
     grid-template-columns: repeat(2,1fr);
+  }
+
+  .capital-allocation-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .capital-allocation {
+    min-height: 0;
   }
 
   .chart-head {
@@ -1342,20 +1402,42 @@ body.flip-detail-open {
 
     <div class="card kpi">
       <div class="kpi-label">CAPITAL INVESTED</div>
-      <div class="kpi-value gold">€0,00</div>
+      <div class="kpi-value gold">€367,06</div>
       <div class="kpi-note">Active inventory</div>
     </div>
 
     <div class="card kpi">
       <div class="kpi-label">REALIZED PROFIT</div>
-      <div class="kpi-value positive">€0,00</div>
+      <div class="kpi-value positive">+€117,47</div>
       <div class="kpi-note">Closed flips</div>
     </div>
 
     <div class="card kpi">
       <div class="kpi-label">TOTAL SALES</div>
-      <div class="kpi-value">€0,00</div>
+      <div class="kpi-value">€770,00</div>
       <div class="kpi-note">Closed flip revenue</div>
+    </div>
+  </div>
+
+  <div class="section-label">CAPITAL ALLOCATION</div>
+
+  <div class="capital-allocation-grid">
+    <div class="card capital-allocation">
+      <small>ACTIVE INVENTORY</small>
+      <strong class="gold">€367,06</strong>
+      <span>Capital currently inside flips</span>
+    </div>
+
+    <div class="card capital-allocation">
+      <small>GENERAL EXPENSES</small>
+      <strong>€31,73</strong>
+      <span>Equipment, transport and operating spend</span>
+    </div>
+
+    <div class="card capital-allocation total">
+      <small>TOTAL DEPLOYED</small>
+      <strong>€398,79</strong>
+      <span>Total capital currently accounted for</span>
     </div>
   </div>
 
@@ -1376,11 +1458,11 @@ body.flip-detail-open {
         </div>
         <div class="chart-stat">
           <small>CURRENT</small>
-          <strong class="">€0,00</strong>
+          <strong class="positive">+€117,47</strong>
         </div>
         <div class="chart-stat">
           <small>CLOSED FLIPS</small>
-          <strong>0</strong>
+          <strong>2</strong>
         </div>
       </div>
     </div>
@@ -1403,13 +1485,13 @@ body.flip-detail-open {
       </defs>
 
       <line class="grid-line" x1="55" y1="30.0" x2="870" y2="30.0"/><line class="grid-line" x1="55" y1="83.3" x2="870" y2="83.3"/><line class="grid-line" x1="55" y1="136.7" x2="870" y2="136.7"/><line class="grid-line" x1="55" y1="190.0" x2="870" y2="190.0"/>
-      <text class="axis-text" x="4" y="34.0">€10,00</text><text class="axis-text" x="4" y="87.3">€3,33</text><text class="axis-text" x="4" y="140.7">€-3,33</text><text class="axis-text" x="4" y="194.0">€-10,00</text>
+      <text class="axis-text" x="4" y="34.0">€146,84</text><text class="axis-text" x="4" y="87.3">€88,10</text><text class="axis-text" x="4" y="140.7">€29,37</text><text class="axis-text" x="4" y="194.0">€-29,37</text>
 
-      <path class="capital-area" d="M462.5 110.0 L462.5 190 L462.5 190 Z"/>
-      <path class="capital-line" d="M462.5 110.0"/>
+      <path class="capital-area" d="M55.0 163.3 L462.5 146.1 L870.0 56.7 L870.0 190 L55.0 190 Z"/>
+      <path class="capital-line" d="M55.0 163.3 L462.5 146.1 L870.0 56.7"/>
 
-      <circle class="point" cx="462.5" cy="110.0" r="4"/>
-      <text class="axis-text" x="462.5" y="218" text-anchor="start">START</text>
+      <circle class="point" cx="55.0" cy="163.3" r="4"/><circle class="point" cx="462.5" cy="146.1" r="4"/><circle class="point" cx="870.0" cy="56.7" r="4"/>
+      <text class="axis-text" x="55.0" y="218" text-anchor="start">START</text><text class="axis-text" x="462.5" y="218" text-anchor="middle">F001</text><text class="axis-text" x="870.0" y="218" text-anchor="end">F002</text>
     </svg>
   </div>
 
@@ -1418,22 +1500,22 @@ body.flip-detail-open {
   <div class="performance-grid">
     <div class="card performance">
       <small>CLOSED FLIPS</small>
-      <strong>0</strong>
+      <strong>2</strong>
     </div>
 
     <div class="card performance">
       <small>AVG. PROFIT</small>
-      <strong class="">€0,00</strong>
+      <strong class="positive">+€58,74</strong>
     </div>
 
     <div class="card performance">
       <small>AVG. ROI</small>
-      <strong class="">0,0%</strong>
+      <strong class="positive">+19,0%</strong>
     </div>
 
     <div class="card performance">
       <small>AVG. HOLD</small>
-      <strong>—</strong>
+      <strong>7.5 days</strong>
     </div>
   </div>
 
@@ -1456,9 +1538,78 @@ body.flip-detail-open {
       <tbody>
         
         <tr>
-          <td colspan="8" style="color:var(--muted);text-align:center;">
-            No active flips
+          <td>F003</td>
+          <td>
+            <div class="model">iPhone 15 Pro 256GB</div>
           </td>
+          <td>20 Sep</td>
+          <td>€225,00</td>
+          <td>€142,06</td>
+          <td><strong>€367,06</strong></td>
+          <td>€525,00</td>
+          <td><span class="badge active">ACTIVE</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-label">EXPENSES</div>
+
+  <div class="card table-card">
+    <table class="expenses-table">
+      <thead>
+        <tr>
+          <th>DATE</th>
+          <th>CATEGORY</th>
+          <th>DESCRIPTION</th>
+          <th>AMOUNT</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+          <td>21-09-2026</td>
+          <td>Voeding</td>
+          <td>
+            <div class="model">Albert Heijn</div>
+          </td>
+          <td><strong>€2,85</strong></td>
+        </tr>
+
+        <tr>
+          <td>20-09-2026</td>
+          <td>Equipment</td>
+          <td>
+            <div class="model">Siliconen reparatiemat</div>
+          </td>
+          <td><strong>€16,37</strong></td>
+        </tr>
+
+        <tr>
+          <td>20-09-2026</td>
+          <td>Equipment</td>
+          <td>
+            <div class="model">BGA removal blade</div>
+          </td>
+          <td><strong>€3,03</strong></td>
+        </tr>
+
+        <tr>
+          <td>20-09-2026</td>
+          <td>Equipment</td>
+          <td>
+            <div class="model">Opening tool</div>
+          </td>
+          <td><strong>€0,99</strong></td>
+        </tr>
+
+        <tr>
+          <td>20-09-2026</td>
+          <td>Transport</td>
+          <td>
+            <div class="model">OVpay</div>
+          </td>
+          <td><strong>€8,49</strong></td>
         </tr>
       </tbody>
     </table>
@@ -1484,10 +1635,34 @@ body.flip-detail-open {
       </thead>
       <tbody>
         
-        <tr>
-          <td colspan="10" style="color:var(--muted);text-align:center;">
-            No closed flips yet
+        <tr class="flip-detail-row" data-flip-id="F002" role="button" tabindex="0" aria-label="Open F002 listing photos">
+          <td>F002</td>
+          <td>
+            <div class="model">iPhone 14 Pro Max 128GB</div>
           </td>
+          <td>14 Sep</td>
+          <td>19 Sep</td>
+          <td>€301,51</td>
+          <td>€400,00</td>
+          <td><strong class="positive">+€98,49</strong></td>
+          <td class="positive">+32,7%</td>
+          <td>5d</td>
+          <td><span class="badge sold">SOLD</span></td>
+        </tr>
+
+        <tr>
+          <td>F001</td>
+          <td>
+            <div class="model">iPhone 14 Pro Max 128GB</div>
+          </td>
+          <td>02 Sep</td>
+          <td>12 Sep</td>
+          <td>€351,02</td>
+          <td>€370,00</td>
+          <td><strong class="positive">+€18,98</strong></td>
+          <td class="positive">+5,4%</td>
+          <td>10d</td>
+          <td><span class="badge sold">SOLD</span></td>
         </tr>
       </tbody>
     </table>
@@ -1496,6 +1671,161 @@ body.flip-detail-open {
 </div>
 
 
+        <section
+          class="flip-detail-view"
+          data-flip-gallery="F002"
+          aria-hidden="true"
+          aria-label="F002 listing gallery"
+        >
+          <div class="flip-detail-shell">
+            <div class="flip-detail-head">
+              <div>
+                <div class="flip-detail-kicker">F002</div>
+                <h2>iPhone 14 Pro Max 128GB</h2>
+                <div class="flip-detail-meta">
+                  Verkocht · 9 listing photos
+                </div>
+              </div>
+
+              <button
+                class="flip-detail-close"
+                type="button"
+                aria-label="Close flip details"
+              >×</button>
+            </div>
+
+            <div class="flip-gallery-stage">
+              <button
+                class="flip-gallery-nav flip-gallery-prev"
+                type="button"
+                aria-label="Previous photo"
+              >‹</button>
+
+              <button
+                class="flip-gallery-main"
+                type="button"
+                aria-label="Open photo fullscreen"
+              >
+                <img
+                  class="flip-gallery-main-image"
+                  src=""
+                  alt=""
+                >
+              </button>
+
+              <button
+                class="flip-gallery-nav flip-gallery-next"
+                type="button"
+                aria-label="Next photo"
+              >›</button>
+
+              <div class="flip-gallery-counter"></div>
+            </div>
+
+            <div class="flip-gallery-sources" hidden>
+              
+              <img
+                class="flip-gallery-source"
+                src="flip-assets/F002/listing/01.jpg"
+                alt="F002 listing photo 1"
+                data-gallery-index="0"
+                loading="lazy"
+              >
+              <img
+                class="flip-gallery-source"
+                src="flip-assets/F002/listing/02.jpg"
+                alt="F002 listing photo 2"
+                data-gallery-index="1"
+                loading="lazy"
+              >
+              <img
+                class="flip-gallery-source"
+                src="flip-assets/F002/listing/03.jpg"
+                alt="F002 listing photo 3"
+                data-gallery-index="2"
+                loading="lazy"
+              >
+              <img
+                class="flip-gallery-source"
+                src="flip-assets/F002/listing/04.jpg"
+                alt="F002 listing photo 4"
+                data-gallery-index="3"
+                loading="lazy"
+              >
+              <img
+                class="flip-gallery-source"
+                src="flip-assets/F002/listing/05.jpg"
+                alt="F002 listing photo 5"
+                data-gallery-index="4"
+                loading="lazy"
+              >
+              <img
+                class="flip-gallery-source"
+                src="flip-assets/F002/listing/06.jpg"
+                alt="F002 listing photo 6"
+                data-gallery-index="5"
+                loading="lazy"
+              >
+              <img
+                class="flip-gallery-source"
+                src="flip-assets/F002/listing/07.jpg"
+                alt="F002 listing photo 7"
+                data-gallery-index="6"
+                loading="lazy"
+              >
+              <img
+                class="flip-gallery-source"
+                src="flip-assets/F002/listing/08.jpg"
+                alt="F002 listing photo 8"
+                data-gallery-index="7"
+                loading="lazy"
+              >
+              <img
+                class="flip-gallery-source"
+                src="flip-assets/F002/listing/09.jpg"
+                alt="F002 listing photo 9"
+                data-gallery-index="8"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="flip-detail-performance">
+              <div class="flip-detail-metrics">
+                <div class="flip-detail-metric">
+                  <span>LISTED FOR</span>
+                  <strong>€415,00</strong>
+                </div>
+
+                <div class="flip-detail-metric">
+                  <span>EAGLE PIN</span>
+                  <strong class="gold">€405,00</strong>
+                </div>
+
+                <div class="flip-detail-metric">
+                  <span>SOLD FOR</span>
+                  <strong>€400,00</strong>
+                </div>
+              </div>
+
+              <div class="flip-detail-result positive">
+                <div class="flip-detail-result-item">
+                  <span>REALIZED P/L</span>
+                  <strong class="positive">+€98,49</strong>
+                </div>
+
+                <div class="flip-detail-result-item">
+                  <span>ROI</span>
+                  <strong class="positive">+32,7%</strong>
+                </div>
+              </div>
+
+              <div class="flip-detail-replaced">
+                <span>REPLACED</span>
+                <div class="flip-detail-replaced-content"><ul class="flip-detail-replaced-list"><li>Housing</li><li>Battery cell</li><li>Display adhesive</li></ul></div>
+              </div>
+            </div>
+          </div>
+        </section>
 
 <div
   class="flip-photo-viewer"
