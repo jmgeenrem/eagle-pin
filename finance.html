@@ -300,6 +300,12 @@ h1 {
   font-size: 10px;
 }
 
+.chart-value-label {
+  fill: var(--text);
+  font-size: 10px;
+  font-weight: 700;
+}
+
 .performance-grid {
   display: grid;
   grid-template-columns: repeat(4,1fr);
@@ -1537,12 +1543,13 @@ body.flip-detail-open {
       </defs>
 
       <line class="grid-line" x1="55" y1="30.0" x2="870" y2="30.0"/><line class="grid-line" x1="55" y1="83.3" x2="870" y2="83.3"/><line class="grid-line" x1="55" y1="136.7" x2="870" y2="136.7"/><line class="grid-line" x1="55" y1="190.0" x2="870" y2="190.0"/>
-      <text class="axis-text" x="4" y="34.0">€146,84</text><text class="axis-text" x="4" y="87.3">€88,10</text><text class="axis-text" x="4" y="140.7">€29,37</text><text class="axis-text" x="4" y="194.0">€-29,37</text>
+      <text class="axis-text" x="4" y="34.0">€150,00</text><text class="axis-text" x="4" y="87.3">€100,00</text><text class="axis-text" x="4" y="140.7">€50,00</text><text class="axis-text" x="4" y="194.0">€0,00</text>
 
-      <path class="capital-area" d="M55.0 163.3 L462.5 146.1 L870.0 56.7 L870.0 190 L55.0 190 Z"/>
-      <path class="capital-line" d="M55.0 163.3 L462.5 146.1 L870.0 56.7"/>
+      <path class="capital-area" d="M55.0 190.0 L462.5 169.8 L870.0 64.7 L870.0 190.0 L55.0 190.0 Z"/>
+      <path class="capital-line" d="M55.0 190.0 L462.5 169.8 L870.0 64.7"/>
 
-      <circle class="point" cx="55.0" cy="163.3" r="4"/><circle class="point" cx="462.5" cy="146.1" r="4"/><circle class="point" cx="870.0" cy="56.7" r="4"/>
+      <circle class="point" cx="55.0" cy="190.0" r="4"/><circle class="point" cx="462.5" cy="169.8" r="4"/><circle class="point" cx="870.0" cy="64.7" r="4"/>
+      <text class="chart-value-label" x="55.0" y="180.0" text-anchor="start">€0,00</text><text class="chart-value-label" x="462.5" y="159.8" text-anchor="middle">€18,98</text><text class="chart-value-label" x="870.0" y="54.7" text-anchor="end">€117,47</text>
       <text class="axis-text" x="55.0" y="218" text-anchor="start">START</text><text class="axis-text" x="462.5" y="218" text-anchor="middle">F001</text><text class="axis-text" x="870.0" y="218" text-anchor="end">F002</text>
     </svg>
   </div>
