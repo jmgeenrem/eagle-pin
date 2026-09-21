@@ -490,7 +490,9 @@ tr:last-child td { border-bottom: 0; }
 
   .chart {
     width: 100%;
-    height: 210px;
+    height: auto;
+    aspect-ratio: 900 / 230;
+    display: block;
     overflow: visible;
   }
 
@@ -1528,7 +1530,7 @@ body.flip-detail-open {
     
     <svg class="chart"
          viewBox="0 0 900 230"
-         preserveAspectRatio="none">
+         preserveAspectRatio="xMidYMid meet">
 
       <defs>
         <linearGradient id="capitalGradient"
