@@ -133,6 +133,56 @@ h1 {
   margin: 26px 0 10px;
 }
 
+.finance-overview-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.finance-overview-head .section-label {
+  margin-bottom: 10px;
+}
+
+.finance-period-filter {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px;
+  margin-bottom: 10px;
+  background: rgba(255,255,255,.025);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.finance-period-filter button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  min-height: 30px;
+  padding: 0 11px;
+  border-radius: 7px;
+  font-family: inherit;
+  font-size: 9px;
+  font-weight: 750;
+  letter-spacing: .9px;
+  cursor: pointer;
+  transition:
+    color .16s ease,
+    background .16s ease,
+    box-shadow .16s ease;
+}
+
+.finance-period-filter button:hover {
+  color: var(--text);
+}
+
+.finance-period-filter button.active {
+  color: var(--gold);
+  background: rgba(201,170,106,.09);
+  box-shadow: inset 0 0 0 1px rgba(201,170,106,.20);
+}
+
 .kpi-grid {
   display: grid;
   grid-template-columns: repeat(4,1fr);
@@ -430,6 +480,21 @@ tr:last-child td { border-bottom: 0; }
   textarea,
   button {
     font-size: 16px;
+  }
+
+  .finance-overview-head {
+    display: block;
+  }
+
+  .finance-period-filter {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 0 0 12px;
+  }
+
+  .finance-period-filter button {
+    padding: 0 6px;
   }
 
   .kpi-grid,
@@ -1456,7 +1521,20 @@ body.flip-detail-open {
     <a class="nav-link" href="chat.html?v=v20260918-1">CHAT</a>
   </nav>
 
-  <div class="section-label">FINANCIAL OVERVIEW</div>
+  <div class="finance-overview-head">
+    <div class="section-label">FINANCIAL OVERVIEW</div>
+
+    <div class="finance-period-filter"
+         role="group"
+         aria-label="Finance period">
+      <button type="button" data-finance-period="week">WEEK</button>
+      <button type="button" data-finance-period="month">MONTH</button>
+      <button type="button" data-finance-period="year">YEAR</button>
+      <button type="button"
+              class="active"
+              data-finance-period="all">ALL</button>
+    </div>
+  </div>
 
   <div class="kpi-grid">
     <div class="card kpi">
@@ -1473,13 +1551,13 @@ body.flip-detail-open {
 
     <div class="card kpi">
       <div class="kpi-label">REALIZED PROFIT</div>
-      <div class="kpi-value positive">+€117,47</div>
+      <div class="kpi-value positive" id="finance-realized-profit">+€117,47</div>
       <div class="kpi-note">Closed flips</div>
     </div>
 
     <div class="card kpi">
       <div class="kpi-label">TOTAL SALES</div>
-      <div class="kpi-value">€770,00</div>
+      <div class="kpi-value" id="finance-total-sales">€770,00</div>
       <div class="kpi-note">Closed flip revenue</div>
     </div>
   </div>
@@ -1515,7 +1593,7 @@ body.flip-detail-open {
         <div class="chart-sub">Realized profit from closed flips over time</div>
       </div>
 
-      <div class="chart-stats">
+      <div class="chart-stats" id="finance-chart-stats">
         
         <div class="chart-stat">
           <small>START</small>
@@ -1532,7 +1610,7 @@ body.flip-detail-open {
       </div>
     </div>
 
-    
+    <div id="finance-capital-chart">
     <svg class="chart"
          viewBox="0 0 900 230"
          preserveAspectRatio="xMidYMid meet">
@@ -1558,7 +1636,7 @@ body.flip-detail-open {
       <circle class="point" cx="55.0" cy="190.0" r="4"/><circle class="point" cx="462.5" cy="169.8" r="4"/><circle class="point" cx="870.0" cy="64.7" r="4"/>
       <text class="chart-value-label" x="55.0" y="180.0" text-anchor="start">€0,00</text><text class="chart-value-label" x="462.5" y="159.8" text-anchor="middle">€18,98</text><text class="chart-value-label" x="870.0" y="54.7" text-anchor="end">€117,47</text>
       <text class="axis-text" x="55.0" y="218" text-anchor="start">START</text><text class="axis-text" x="462.5" y="218" text-anchor="middle">F001</text><text class="axis-text" x="870.0" y="218" text-anchor="end">F002</text>
-    </svg>
+    </svg></div>
   </div>
 
   <div class="section-label">PERFORMANCE</div>
@@ -1566,22 +1644,22 @@ body.flip-detail-open {
   <div class="performance-grid">
     <div class="card performance">
       <small>CLOSED FLIPS</small>
-      <strong>2</strong>
+      <strong id="finance-closed-flips">2</strong>
     </div>
 
     <div class="card performance">
       <small>AVG. PROFIT</small>
-      <strong class="positive">+€58,74</strong>
+      <strong class="positive" id="finance-avg-profit">+€58,74</strong>
     </div>
 
     <div class="card performance">
       <small>AVG. ROI</small>
-      <strong class="positive">+19,0%</strong>
+      <strong class="positive" id="finance-avg-roi">+19,0%</strong>
     </div>
 
     <div class="card performance">
       <small>AVG. HOLD</small>
-      <strong>7.5 days</strong>
+      <strong id="finance-avg-hold">7.5 days</strong>
     </div>
   </div>
 
@@ -1622,7 +1700,7 @@ body.flip-detail-open {
   <div class="section-label">EXPENSES</div>
 
   <div class="card table-card">
-    <table class="expenses-table">
+    <table class="expenses-table" id="finance-expenses-table">
       <thead>
         <tr>
           <th>DATE</th>
@@ -1631,7 +1709,7 @@ body.flip-detail-open {
           <th>AMOUNT</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="finance-expenses-body">
         
         <tr>
           <td>20 Sep</td>
@@ -1708,7 +1786,7 @@ body.flip-detail-open {
           <th>STATUS</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="finance-history-body">
         
         <tr class="flip-detail-row" data-flip-id="F002" role="button" tabindex="0" aria-label="Open F002 listing photos">
           <td>F002</td>
@@ -1918,6 +1996,80 @@ body.flip-detail-open {
 </div>
 
 <script>
+// EAGLE_FINANCE_PERIOD_FILTER
+(() => {
+  const periods = {"week": {"realizedProfit": "€0,00", "realizedProfitClass": "", "totalSales": "€0,00", "closedFlips": "0", "avgProfit": "€0,00", "avgProfitClass": "", "avgRoi": "0,0%", "avgRoiClass": "", "avgHold": "—", "expensesRows": "\n        <tr>\n          <td colspan=\"4\" style=\"color:var(--muted);text-align:center;\">\n            No expenses\n          <\/td>\n        <\/tr>", "historyRows": "\n        <tr>\n          <td colspan=\"10\" style=\"color:var(--muted);text-align:center;\">\n            No closed flips yet\n          <\/td>\n        <\/tr>", "chartStats": "\n        <div class=\"chart-stat\">\n          <small>START<\/small>\n          <strong>€0,00<\/strong>\n        <\/div>\n        <div class=\"chart-stat\">\n          <small>CURRENT<\/small>\n          <strong class=\"\">€0,00<\/strong>\n        <\/div>\n        <div class=\"chart-stat\">\n          <small>CLOSED FLIPS<\/small>\n          <strong>0<\/strong>\n        <\/div>", "capitalChart": "\n    <svg class=\"chart\"\n         viewBox=\"0 0 900 230\"\n         preserveAspectRatio=\"xMidYMid meet\">\n\n      <defs>\n        <linearGradient id=\"capitalGradient\"\n                        x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\">\n          <stop offset=\"0%\"\n                stop-color=\"#c9aa6a\"\n                stop-opacity=\".20\"/>\n          <stop offset=\"100%\"\n                stop-color=\"#c9aa6a\"\n                stop-opacity=\"0\"/>\n        <\/linearGradient>\n      <\/defs>\n\n      <line class=\"grid-line\" x1=\"55\" y1=\"30.0\" x2=\"870\" y2=\"30.0\"/><line class=\"grid-line\" x1=\"55\" y1=\"83.3\" x2=\"870\" y2=\"83.3\"/><line class=\"grid-line\" x1=\"55\" y1=\"136.7\" x2=\"870\" y2=\"136.7\"/><line class=\"grid-line\" x1=\"55\" y1=\"190.0\" x2=\"870\" y2=\"190.0\"/>\n      <text class=\"axis-text\" x=\"4\" y=\"34.0\">€60,00<\/text><text class=\"axis-text\" x=\"4\" y=\"87.3\">€40,00<\/text><text class=\"axis-text\" x=\"4\" y=\"140.7\">€20,00<\/text><text class=\"axis-text\" x=\"4\" y=\"194.0\">€0,00<\/text>\n\n      <path class=\"capital-area\" d=\"M462.5 190.0 L462.5 190.0 L462.5 190.0 Z\"/>\n      <path class=\"capital-line\" d=\"M462.5 190.0\"/>\n\n      <circle class=\"point\" cx=\"462.5\" cy=\"190.0\" r=\"4\"/>\n      <text class=\"chart-value-label\" x=\"462.5\" y=\"180.0\" text-anchor=\"start\">€0,00<\/text>\n      <text class=\"axis-text\" x=\"462.5\" y=\"218\" text-anchor=\"start\">START<\/text>\n    <\/svg>"}, "month": {"realizedProfit": "+€117,47", "realizedProfitClass": "positive", "totalSales": "€770,00", "closedFlips": "2", "avgProfit": "+€58,74", "avgProfitClass": "positive", "avgRoi": "+19,0%", "avgRoiClass": "positive", "avgHold": "7.5 days", "expensesRows": "\n        <tr>\n          <td>20 Sep<\/td>\n          <td>Transport<\/td>\n          <td>\n            <div class=\"model\">OVpay<\/div>\n          <\/td>\n          <td><strong>€8,49<\/strong><\/td>\n        <\/tr>\n\n        <tr>\n          <td>20 Sep<\/td>\n          <td>Voeding<\/td>\n          <td>\n            <div class=\"model\">Albert Heijn<\/div>\n          <\/td>\n          <td><strong>€2,85<\/strong><\/td>\n        <\/tr>\n\n        <tr>\n          <td>20 Sep<\/td>\n          <td>Transport<\/td>\n          <td>\n            <div class=\"model\">OVpay<\/div>\n          <\/td>\n          <td><strong>€1,60<\/strong><\/td>\n        <\/tr>\n\n        <tr>\n          <td>20-09-2026<\/td>\n          <td>Equipment<\/td>\n          <td>\n            <div class=\"model\">Siliconen reparatiemat<\/div>\n          <\/td>\n          <td><strong>€16,37<\/strong><\/td>\n        <\/tr>\n\n        <tr>\n          <td>20-09-2026<\/td>\n          <td>Equipment<\/td>\n          <td>\n            <div class=\"model\">BGA removal blade<\/div>\n          <\/td>\n          <td><strong>€3,03<\/strong><\/td>\n        <\/tr>\n\n        <tr>\n          <td>20-09-2026<\/td>\n          <td>Equipment<\/td>\n          <td>\n            <div class=\"model\">Opening tool<\/div>\n          <\/td>\n          <td><strong>€0,99<\/strong><\/td>\n        <\/tr>", "historyRows": "\n        <tr class=\"flip-detail-row\" data-flip-id=\"F002\" role=\"button\" tabindex=\"0\" aria-label=\"Open F002 listing photos\">\n          <td>F002<\/td>\n          <td>\n            <div class=\"model\">iPhone 14 Pro Max 128GB<\/div>\n          <\/td>\n          <td>14 Sep<\/td>\n          <td>19 Sep<\/td>\n          <td>€301,51<\/td>\n          <td>€400,00<\/td>\n          <td><strong class=\"positive\">+€98,49<\/strong><\/td>\n          <td class=\"positive\">+32,7%<\/td>\n          <td>5d<\/td>\n          <td><span class=\"badge sold\">SOLD<\/span><\/td>\n        <\/tr>\n\n        <tr>\n          <td>F001<\/td>\n          <td>\n            <div class=\"model\">iPhone 14 Pro Max 128GB<\/div>\n          <\/td>\n          <td>02 Sep<\/td>\n          <td>12 Sep<\/td>\n          <td>€351,02<\/td>\n          <td>€370,00<\/td>\n          <td><strong class=\"positive\">+€18,98<\/strong><\/td>\n          <td class=\"positive\">+5,4%<\/td>\n          <td>10d<\/td>\n          <td><span class=\"badge sold\">SOLD<\/span><\/td>\n        <\/tr>", "chartStats": "\n        <div class=\"chart-stat\">\n          <small>START<\/small>\n          <strong>€0,00<\/strong>\n        <\/div>\n        <div class=\"chart-stat\">\n          <small>CURRENT<\/small>\n          <strong class=\"positive\">+€117,47<\/strong>\n        <\/div>\n        <div class=\"chart-stat\">\n          <small>CLOSED FLIPS<\/small>\n          <strong>2<\/strong>\n        <\/div>", "capitalChart": "\n    <svg class=\"chart\"\n         viewBox=\"0 0 900 230\"\n         preserveAspectRatio=\"xMidYMid meet\">\n\n      <defs>\n        <linearGradient id=\"capitalGradient\"\n                        x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\">\n          <stop offset=\"0%\"\n                stop-color=\"#c9aa6a\"\n                stop-opacity=\".20\"/>\n          <stop offset=\"100%\"\n                stop-color=\"#c9aa6a\"\n                stop-opacity=\"0\"/>\n        <\/linearGradient>\n      <\/defs>\n\n      <line class=\"grid-line\" x1=\"55\" y1=\"30.0\" x2=\"870\" y2=\"30.0\"/><line class=\"grid-line\" x1=\"55\" y1=\"83.3\" x2=\"870\" y2=\"83.3\"/><line class=\"grid-line\" x1=\"55\" y1=\"136.7\" x2=\"870\" y2=\"136.7\"/><line class=\"grid-line\" x1=\"55\" y1=\"190.0\" x2=\"870\" y2=\"190.0\"/>\n      <text class=\"axis-text\" x=\"4\" y=\"34.0\">€150,00<\/text><text class=\"axis-text\" x=\"4\" y=\"87.3\">€100,00<\/text><text class=\"axis-text\" x=\"4\" y=\"140.7\">€50,00<\/text><text class=\"axis-text\" x=\"4\" y=\"194.0\">€0,00<\/text>\n\n      <path class=\"capital-area\" d=\"M55.0 190.0 L462.5 169.8 L870.0 64.7 L870.0 190.0 L55.0 190.0 Z\"/>\n      <path class=\"capital-line\" d=\"M55.0 190.0 L462.5 169.8 L870.0 64.7\"/>\n\n      <circle class=\"point\" cx=\"55.0\" cy=\"190.0\" r=\"4\"/><circle class=\"point\" cx=\"462.5\" cy=\"169.8\" r=\"4\"/><circle class=\"point\" cx=\"870.0\" cy=\"64.7\" r=\"4\"/>\n      <text class=\"chart-value-label\" x=\"55.0\" y=\"180.0\" text-anchor=\"start\">€0,00<\/text><text class=\"chart-value-label\" x=\"462.5\" y=\"159.8\" text-anchor=\"middle\">€18,98<\/text><text class=\"chart-value-label\" x=\"870.0\" y=\"54.7\" text-anchor=\"end\">€117,47<\/text>\n      <text class=\"axis-text\" x=\"55.0\" y=\"218\" text-anchor=\"start\">START<\/text><text class=\"axis-text\" x=\"462.5\" y=\"218\" text-anchor=\"middle\">F001<\/text><text class=\"axis-text\" x=\"870.0\" y=\"218\" text-anchor=\"end\">F002<\/text>\n    <\/svg>"}, "year": {"realizedProfit": "+€117,47", "realizedProfitClass": "positive", "totalSales": "€770,00", "closedFlips": "2", "avgProfit": "+€58,74", "avgProfitClass": "positive", "avgRoi": "+19,0%", "avgRoiClass": "positive", "avgHold": "7.5 days", "expensesRows": "\n        <tr>\n          <td>20 Sep<\/td>\n          <td>Transport<\/td>\n          <td>\n            <div class=\"model\">OVpay<\/div>\n          <\/td>\n          <td><strong>€8,49<\/strong><\/td>\n        <\/tr>\n\n        <tr>\n          <td>20 Sep<\/td>\n          <td>Voeding<\/td>\n          <td>\n            <div class=\"model\">Albert Heijn<\/div>\n          <\/td>\n          <td><strong>€2,85<\/strong><\/td>\n        <\/tr>\n\n        <tr>\n          <td>20 Sep<\/td>\n          <td>Transport<\/td>\n          <td>\n            <div class=\"model\">OVpay<\/div>\n          <\/td>\n          <td><strong>€1,60<\/strong><\/td>\n        <\/tr>\n\n        <tr>\n          <td>20-09-2026<\/td>\n          <td>Equipment<\/td>\n          <td>\n            <div class=\"model\">Siliconen reparatiemat<\/div>\n          <\/td>\n          <td><strong>€16,37<\/strong><\/td>\n        <\/tr>\n\n        <tr>\n          <td>20-09-2026<\/td>\n          <td>Equipment<\/td>\n          <td>\n            <div class=\"model\">BGA removal blade<\/div>\n          <\/td>\n          <td><strong>€3,03<\/strong><\/td>\n        <\/tr>\n\n        <tr>\n          <td>20-09-2026<\/td>\n          <td>Equipment<\/td>\n          <td>\n            <div class=\"model\">Opening tool<\/div>\n          <\/td>\n          <td><strong>€0,99<\/strong><\/td>\n        <\/tr>", "historyRows": "\n        <tr class=\"flip-detail-row\" data-flip-id=\"F002\" role=\"button\" tabindex=\"0\" aria-label=\"Open F002 listing photos\">\n          <td>F002<\/td>\n          <td>\n            <div class=\"model\">iPhone 14 Pro Max 128GB<\/div>\n          <\/td>\n          <td>14 Sep<\/td>\n          <td>19 Sep<\/td>\n          <td>€301,51<\/td>\n          <td>€400,00<\/td>\n          <td><strong class=\"positive\">+€98,49<\/strong><\/td>\n          <td class=\"positive\">+32,7%<\/td>\n          <td>5d<\/td>\n          <td><span class=\"badge sold\">SOLD<\/span><\/td>\n        <\/tr>\n\n        <tr>\n          <td>F001<\/td>\n          <td>\n            <div class=\"model\">iPhone 14 Pro Max 128GB<\/div>\n          <\/td>\n          <td>02 Sep<\/td>\n          <td>12 Sep<\/td>\n          <td>€351,02<\/td>\n          <td>€370,00<\/td>\n          <td><strong class=\"positive\">+€18,98<\/strong><\/td>\n          <td class=\"positive\">+5,4%<\/td>\n          <td>10d<\/td>\n          <td><span class=\"badge sold\">SOLD<\/span><\/td>\n        <\/tr>", "chartStats": "\n        <div class=\"chart-stat\">\n          <small>START<\/small>\n          <strong>€0,00<\/strong>\n        <\/div>\n        <div class=\"chart-stat\">\n          <small>CURRENT<\/small>\n          <strong class=\"positive\">+€117,47<\/strong>\n        <\/div>\n        <div class=\"chart-stat\">\n          <small>CLOSED FLIPS<\/small>\n          <strong>2<\/strong>\n        <\/div>", "capitalChart": "\n    <svg class=\"chart\"\n         viewBox=\"0 0 900 230\"\n         preserveAspectRatio=\"xMidYMid meet\">\n\n      <defs>\n        <linearGradient id=\"capitalGradient\"\n                        x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\">\n          <stop offset=\"0%\"\n                stop-color=\"#c9aa6a\"\n                stop-opacity=\".20\"/>\n          <stop offset=\"100%\"\n                stop-color=\"#c9aa6a\"\n                stop-opacity=\"0\"/>\n        <\/linearGradient>\n      <\/defs>\n\n      <line class=\"grid-line\" x1=\"55\" y1=\"30.0\" x2=\"870\" y2=\"30.0\"/><line class=\"grid-line\" x1=\"55\" y1=\"83.3\" x2=\"870\" y2=\"83.3\"/><line class=\"grid-line\" x1=\"55\" y1=\"136.7\" x2=\"870\" y2=\"136.7\"/><line class=\"grid-line\" x1=\"55\" y1=\"190.0\" x2=\"870\" y2=\"190.0\"/>\n      <text class=\"axis-text\" x=\"4\" y=\"34.0\">€150,00<\/text><text class=\"axis-text\" x=\"4\" y=\"87.3\">€100,00<\/text><text class=\"axis-text\" x=\"4\" y=\"140.7\">€50,00<\/text><text class=\"axis-text\" x=\"4\" y=\"194.0\">€0,00<\/text>\n\n      <path class=\"capital-area\" d=\"M55.0 190.0 L462.5 169.8 L870.0 64.7 L870.0 190.0 L55.0 190.0 Z\"/>\n      <path class=\"capital-line\" d=\"M55.0 190.0 L462.5 169.8 L870.0 64.7\"/>\n\n      <circle class=\"point\" cx=\"55.0\" cy=\"190.0\" r=\"4\"/><circle class=\"point\" cx=\"462.5\" cy=\"169.8\" r=\"4\"/><circle class=\"point\" cx=\"870.0\" cy=\"64.7\" r=\"4\"/>\n      <text class=\"chart-value-label\" x=\"55.0\" y=\"180.0\" text-anchor=\"start\">€0,00<\/text><text class=\"chart-value-label\" x=\"462.5\" y=\"159.8\" text-anchor=\"middle\">€18,98<\/text><text class=\"chart-value-label\" x=\"870.0\" y=\"54.7\" text-anchor=\"end\">€117,47<\/text>\n      <text class=\"axis-text\" x=\"55.0\" y=\"218\" text-anchor=\"start\">START<\/text><text class=\"axis-text\" x=\"462.5\" y=\"218\" text-anchor=\"middle\">F001<\/text><text class=\"axis-text\" x=\"870.0\" y=\"218\" text-anchor=\"end\">F002<\/text>\n    <\/svg>"}, "all": {"realizedProfit": "+€117,47", "realizedProfitClass": "positive", "totalSales": "€770,00", "closedFlips": "2", "avgProfit": "+€58,74", "avgProfitClass": "positive", "avgRoi": "+19,0%", "avgRoiClass": "positive", "avgHold": "7.5 days", "expensesRows": "\n        <tr>\n          <td>20 Sep<\/td>\n          <td>Transport<\/td>\n          <td>\n            <div class=\"model\">OVpay<\/div>\n          <\/td>\n          <td><strong>€8,49<\/strong><\/td>\n        <\/tr>\n\n        <tr>\n          <td>20 Sep<\/td>\n          <td>Voeding<\/td>\n          <td>\n            <div class=\"model\">Albert Heijn<\/div>\n          <\/td>\n          <td><strong>€2,85<\/strong><\/td>\n        <\/tr>\n\n        <tr>\n          <td>20 Sep<\/td>\n          <td>Transport<\/td>\n          <td>\n            <div class=\"model\">OVpay<\/div>\n          <\/td>\n          <td><strong>€1,60<\/strong><\/td>\n        <\/tr>\n\n        <tr>\n          <td>20-09-2026<\/td>\n          <td>Equipment<\/td>\n          <td>\n            <div class=\"model\">Siliconen reparatiemat<\/div>\n          <\/td>\n          <td><strong>€16,37<\/strong><\/td>\n        <\/tr>\n\n        <tr>\n          <td>20-09-2026<\/td>\n          <td>Equipment<\/td>\n          <td>\n            <div class=\"model\">BGA removal blade<\/div>\n          <\/td>\n          <td><strong>€3,03<\/strong><\/td>\n        <\/tr>\n\n        <tr>\n          <td>20-09-2026<\/td>\n          <td>Equipment<\/td>\n          <td>\n            <div class=\"model\">Opening tool<\/div>\n          <\/td>\n          <td><strong>€0,99<\/strong><\/td>\n        <\/tr>", "historyRows": "\n        <tr class=\"flip-detail-row\" data-flip-id=\"F002\" role=\"button\" tabindex=\"0\" aria-label=\"Open F002 listing photos\">\n          <td>F002<\/td>\n          <td>\n            <div class=\"model\">iPhone 14 Pro Max 128GB<\/div>\n          <\/td>\n          <td>14 Sep<\/td>\n          <td>19 Sep<\/td>\n          <td>€301,51<\/td>\n          <td>€400,00<\/td>\n          <td><strong class=\"positive\">+€98,49<\/strong><\/td>\n          <td class=\"positive\">+32,7%<\/td>\n          <td>5d<\/td>\n          <td><span class=\"badge sold\">SOLD<\/span><\/td>\n        <\/tr>\n\n        <tr>\n          <td>F001<\/td>\n          <td>\n            <div class=\"model\">iPhone 14 Pro Max 128GB<\/div>\n          <\/td>\n          <td>02 Sep<\/td>\n          <td>12 Sep<\/td>\n          <td>€351,02<\/td>\n          <td>€370,00<\/td>\n          <td><strong class=\"positive\">+€18,98<\/strong><\/td>\n          <td class=\"positive\">+5,4%<\/td>\n          <td>10d<\/td>\n          <td><span class=\"badge sold\">SOLD<\/span><\/td>\n        <\/tr>", "chartStats": "\n        <div class=\"chart-stat\">\n          <small>START<\/small>\n          <strong>€0,00<\/strong>\n        <\/div>\n        <div class=\"chart-stat\">\n          <small>CURRENT<\/small>\n          <strong class=\"positive\">+€117,47<\/strong>\n        <\/div>\n        <div class=\"chart-stat\">\n          <small>CLOSED FLIPS<\/small>\n          <strong>2<\/strong>\n        <\/div>", "capitalChart": "\n    <svg class=\"chart\"\n         viewBox=\"0 0 900 230\"\n         preserveAspectRatio=\"xMidYMid meet\">\n\n      <defs>\n        <linearGradient id=\"capitalGradient\"\n                        x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\">\n          <stop offset=\"0%\"\n                stop-color=\"#c9aa6a\"\n                stop-opacity=\".20\"/>\n          <stop offset=\"100%\"\n                stop-color=\"#c9aa6a\"\n                stop-opacity=\"0\"/>\n        <\/linearGradient>\n      <\/defs>\n\n      <line class=\"grid-line\" x1=\"55\" y1=\"30.0\" x2=\"870\" y2=\"30.0\"/><line class=\"grid-line\" x1=\"55\" y1=\"83.3\" x2=\"870\" y2=\"83.3\"/><line class=\"grid-line\" x1=\"55\" y1=\"136.7\" x2=\"870\" y2=\"136.7\"/><line class=\"grid-line\" x1=\"55\" y1=\"190.0\" x2=\"870\" y2=\"190.0\"/>\n      <text class=\"axis-text\" x=\"4\" y=\"34.0\">€150,00<\/text><text class=\"axis-text\" x=\"4\" y=\"87.3\">€100,00<\/text><text class=\"axis-text\" x=\"4\" y=\"140.7\">€50,00<\/text><text class=\"axis-text\" x=\"4\" y=\"194.0\">€0,00<\/text>\n\n      <path class=\"capital-area\" d=\"M55.0 190.0 L462.5 169.8 L870.0 64.7 L870.0 190.0 L55.0 190.0 Z\"/>\n      <path class=\"capital-line\" d=\"M55.0 190.0 L462.5 169.8 L870.0 64.7\"/>\n\n      <circle class=\"point\" cx=\"55.0\" cy=\"190.0\" r=\"4\"/><circle class=\"point\" cx=\"462.5\" cy=\"169.8\" r=\"4\"/><circle class=\"point\" cx=\"870.0\" cy=\"64.7\" r=\"4\"/>\n      <text class=\"chart-value-label\" x=\"55.0\" y=\"180.0\" text-anchor=\"start\">€0,00<\/text><text class=\"chart-value-label\" x=\"462.5\" y=\"159.8\" text-anchor=\"middle\">€18,98<\/text><text class=\"chart-value-label\" x=\"870.0\" y=\"54.7\" text-anchor=\"end\">€117,47<\/text>\n      <text class=\"axis-text\" x=\"55.0\" y=\"218\" text-anchor=\"start\">START<\/text><text class=\"axis-text\" x=\"462.5\" y=\"218\" text-anchor=\"middle\">F001<\/text><text class=\"axis-text\" x=\"870.0\" y=\"218\" text-anchor=\"end\">F002<\/text>\n    <\/svg>"}};
+  const buttons = document.querySelectorAll("[data-finance-period]");
+
+  if (!periods || !buttons.length) return;
+
+  const realizedProfit = document.getElementById("finance-realized-profit");
+  const totalSales = document.getElementById("finance-total-sales");
+  const chartStats = document.getElementById("finance-chart-stats");
+  const capitalChart = document.getElementById("finance-capital-chart");
+  const closedFlips = document.getElementById("finance-closed-flips");
+  const avgProfit = document.getElementById("finance-avg-profit");
+  const avgRoi = document.getElementById("finance-avg-roi");
+  const avgHold = document.getElementById("finance-avg-hold");
+  const expensesBody = document.getElementById("finance-expenses-body");
+  const historyBody = document.getElementById("finance-history-body");
+
+  function setValueClass(element, className) {
+    if (!element) return;
+
+    element.classList.remove("positive", "negative");
+    if (className) element.classList.add(className);
+  }
+
+  function applyPeriod(period) {
+    const data = periods[period];
+    if (!data) return;
+
+    if (realizedProfit) {
+      realizedProfit.textContent = data.realizedProfit;
+      setValueClass(realizedProfit, data.realizedProfitClass);
+    }
+
+    if (totalSales) totalSales.textContent = data.totalSales;
+
+    if (chartStats) chartStats.innerHTML = data.chartStats;
+    if (capitalChart) capitalChart.innerHTML = data.capitalChart;
+
+    if (closedFlips) closedFlips.textContent = data.closedFlips;
+
+    if (avgProfit) {
+      avgProfit.textContent = data.avgProfit;
+      setValueClass(avgProfit, data.avgProfitClass);
+    }
+
+    if (avgRoi) {
+      avgRoi.textContent = data.avgRoi;
+      setValueClass(avgRoi, data.avgRoiClass);
+    }
+
+    if (avgHold) avgHold.textContent = data.avgHold;
+    if (expensesBody) expensesBody.innerHTML = data.expensesRows;
+    if (historyBody) historyBody.innerHTML = data.historyRows;
+
+    buttons.forEach(button => {
+      const active = button.dataset.financePeriod === period;
+      button.classList.toggle("active", active);
+      button.setAttribute("aria-pressed", active ? "true" : "false");
+    });
+  }
+
+  buttons.forEach(button => {
+    button.addEventListener("click", () => {
+      applyPeriod(button.dataset.financePeriod);
+    });
+  });
+
+  applyPeriod("all");
+})();
+</script>
+
+
+<script>
 // EAGLE_FINANCE_FLIP_DETAIL
 (() => {
   const rows = document.querySelectorAll(".flip-detail-row");
@@ -2035,16 +2187,23 @@ body.flip-detail-open {
     viewerImage.removeAttribute("src");
   }
 
-  rows.forEach(row => {
-    const activate = () => openGallery(row.dataset.flipId);
+  // Event delegation keeps Flip Detail working when Finance
+  // period filters replace Flip History rows dynamically.
+  document.addEventListener("click", event => {
+    const row = event.target.closest(".flip-detail-row");
+    if (!row) return;
 
-    row.addEventListener("click", activate);
-    row.addEventListener("keydown", event => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        activate();
-      }
-    });
+    openGallery(row.dataset.flipId);
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+
+    const row = event.target.closest(".flip-detail-row");
+    if (!row) return;
+
+    event.preventDefault();
+    openGallery(row.dataset.flipId);
   });
 
   const requestedFlip =
